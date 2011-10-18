@@ -3,60 +3,61 @@
 ControlInterface::ControlInterface() {
 	serialInterface = new RaptorSerialInterface();
 	serialInterface->InitConnection(ARDUINO_SERIAL_DEVICE_NAME, ARDUINO_SERIAL_BAUDRATE, 2000);
+	printf("Initialized serial connection to Arduino\n");
 }
 
 ControlInterface::~ControlInterface() {
 
 }
 
-void ControlInterface::Move(char direction, float distance, float speed) {
-
-
-}
-
-
-void ControlInterface::Move(char direction, float distance) {
-
+int ControlInterface::Move(char direction, float distance, float speed) {
+	return 1;
 
 }
 
 
-void ControlInterface::Move(char direction) {
-
-
-}
-
-void ControlInterface::PivotTurn(char direction, float degrees) {
-
+int ControlInterface::Move(char direction, float distance) {
+	return 1;
 
 }
 
 
-void ControlInterface::PivotTurn(char direction) {
+int ControlInterface::Move(char direction) {
+	return 1;
 
+}
+
+int ControlInterface::PivotTurn(char direction, float degrees) {
+	return 1;
+
+}
+
+
+int ControlInterface::PivotTurn(char direction) {
+	return 1;
 
 
 }
 
-void ControlInterface::ArcTurn(char direction, float degrees, float radius) {
+int ControlInterface::ArcTurn(char direction, float degrees, float radius) {
+	return 1;
+
+}
+
+
+int ControlInterface::ArcTurn(char direction, float degrees) {
+	return 1;
 
 
 }
 
-
-void ControlInterface::ArcTurn(char direction, float degrees) {
-
-
-
-}
-
-void ControlInterface::ArcTurn(char direction) {
-
+int ControlInterface::ArcTurn(char direction) {
+	return 1;
 
 
 }
 
-void ControlInterface::Set(char type, float value) {
+int ControlInterface::Set(char type, float value) {
 	switch (type) {
 		case PIN_NUM:
 			
@@ -70,6 +71,22 @@ void ControlInterface::Set(char type, float value) {
 
 
 float ControlInterface::Get(char type) {
+
+	return 1;
+}
+
+int ControlInterface::SetPin(int pinNum, int pwmVal) {
+	if (!serialInterface) {
+		return 0;
+	}
+
+	SerialPacket* packet = setPinPacket(pinNum, pwmVal);
+
+	if (!packet) {
+		return 0;
+	}
+
+	serialInterface->SendBuff(packet, SERIAL_PACKET_BYTES);
 
 	return 1;
 }

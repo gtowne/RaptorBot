@@ -22,9 +22,9 @@ class RaptorSerialInterface {
 
 		int InitConnection(char* _deviceName, int _baudrate, int _delayMS);
 
-		int SendBuff(char* buff, int len);
+		int SendBuff(void* buff, int bytes);
 
-		int Receive(char* buff, int max_len);
+		int Receive(void* buff, int max_bytes);
 
 		int CloseConnection();
 
@@ -35,7 +35,7 @@ class RaptorSerialInterface {
 		char receiveBuffer[RECEIVE_BUFFER_SIZE];
 
 		int serialport_write(int fd, const char* str, int len);
-		int serialport_read_until(int fd, char* buf, int max_len);
+		int serialport_read_bytes(int fd, char* buf, int max_len);
 		int serialport_init(const char* serialport, int baud);
 };
 

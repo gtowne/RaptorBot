@@ -37,7 +37,7 @@ class ControlInterface
 	 *This function moves the robot either forwards or backwards, over the distance and at a speed 
 	 *specified as arguments.
 	 */
-    void Move(char direction, float distance, float speed);
+    int Move(char direction, float distance, float speed);
     
     /*
      *direction - either FORWARDS or BACKWARDS 
@@ -45,14 +45,14 @@ class ControlInterface
 	 *This function moves the robot either forwards or backwards, over the distance specified 
 	 *as an argument at the speed previously specified with the Set() function.
      */
-    void Move(char direction, float distance);
+    int Move(char direction, float distance);
     
     /*
      *direction - either FORWARDS or BACKWARDS
 	 * This function moves the robot either forwards or backwards, over the distance and at the speed
 	 * previously specified with the Set() function.
      */
-    void Move(char direction);
+    int Move(char direction);
     
     /*
      * direction - either LEFT or RIGHT 
@@ -61,43 +61,40 @@ class ControlInterface
 	 * This function makes the robot perform a pivot-turn in the direction and for the angle 
 	 * specified as arguments.
      */
-    void PivotTurn(char direction, float degrees);
+    int PivotTurn(char direction, float degrees);
     
     /*
      * direction - either LEFT or RIGHT (which are macros you must define)
 	 * This function makes the robot perform a pivot-turn in the direction specified as an 
 	 * argument, for the number of degrees previously specified with Set().
      */
-    void PivotTurn(char direction);
+    int PivotTurn(char direction);
     
     /*
      * direction - either FORWARD LEFT,	FORWARD RIGHT, BACKWARDS LEFT or BACKWARDS RIGHT
 	 * degrees - the number of degrees that the arc turn should travel  
 	 * radius - the radius that the arc turn should be taken at
      */
-    void ArcTurn(char direction, float degrees, float radius);
+    int ArcTurn(char direction, float degrees, float radius);
     
     /*
      * direction - either	FORWARD_LEFT,	FORWARD_RIGHT, BACKWARDS_LEFT or BACKWARDS_RIGHT 
 	 * degrees - the number of degrees that the arc turn should travel 
      */
-    void ArcTurn(char direction, float degrees);
+    int ArcTurn(char direction, float degrees);
     
     /* 
      * direction - either FORWARD LEFT,	FORWARD RIGHT, BACKWARDS LEFT or BACKWARDS RIGHT
      */
-    void ArcTurn(char direction);
+    int ArcTurn(char direction);
     
     /*
      *type - either DEGREE, RADIUS, DISTANCE, SPEED or PIN_NUM 
 	 *value - the value to set.
 	 * This function is used to set either the degree, radius, distance or 
-	 * speed properties for later movement. The pin-number refers to a digital pin number 
-	 * from 0 to 13. For digital pins, you can set a value to be HIGH (5V), LOW (GND) or 
-	 * oscillating according to a PWM signal controlled by analogWrite. In the latter case, 
-	 * the value being set will be the duty cycle for the PWM signal.
+	 * speed properties for later movement. 
      */
-    void Set(char type, float value);
+    int Set(char type, float value);
     
     /*
      * type - either DEGREE, RADIUS, DISTANCE, SPEED or pin-number 
@@ -107,6 +104,9 @@ class ControlInterface
 	 * return value is the value reported by analogRead.
      */
     float Get(char type);
+
+    int SetPin(int pinNum, int pwmVal);
+
   private:
   	int curDegrees;
   	int curRadius;

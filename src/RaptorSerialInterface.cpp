@@ -3,16 +3,16 @@
 /*   Public methods  */
 RaptorSerialInterface::RaptorSerialInterface() {
 	deviceFD = -1;
-	bzero(&deviceName, 256);
+	bzero(deviceName, 256);
 	bzero(&receiveBuffer, RECEIVE_BUFFER_SIZE);
 }
 
 int RaptorSerialInterface::InitConnection(char* _deviceName, int _baudrate, int _delayMS) {
 	int _fd = serialport_init(_deviceName, _baudrate);
-	
+
 	if (_fd > -1) {
 		deviceFD = _fd;
-		strcpy(_deviceName, deviceName);
+		strcpy(deviceName, _deviceName);
 
 		// sleep while connection is established
 		usleep(_delayMS * 1000);
@@ -23,12 +23,26 @@ int RaptorSerialInterface::InitConnection(char* _deviceName, int _baudrate, int 
 }
 
 
-int RaptorSerialInterface::SendBuff(char* buff, int len) {
-	serialport_write(deviceFD, buff, len);
-	return 1;
+int RaptorSerialInterface::SendBuff(void* buff, int bytes) {
+	serialport_write(deviceFD, (char*)buff, bytes);
+
+	char rbuff[1];
+	int ret_val = serialport_read_bytes(deviceFD, rbuff, 1);
+
+	if (ret_val < 0) {
+		printf("READ ERROR\n");
+	}
+
+	printf("Byte received back %u\n", rbuff[0]);
+
+	if (rbuff[0] == ACK_CHAR) {
+		printf("Right ack\n");
+		return 1;
+	}
+	return 0;
 }
 	
-int RaptorSerialInterface::Receive(char* buff, int max_len) {
+int RaptorSerialInterface::Receive(void* buff, int max_bytes) {
 	return 1;
 }
 
@@ -47,10 +61,28 @@ int RaptorSerialInterface::serialport_write(int fd, const char* str, int len) {
     	return 0;
 }
 	
-int RaptorSerialInterface::serialport_read_until(int fd, char* buff, int max_len) {
-	char b[1];
-    	int i=0;
+int RaptorSerialInterface::serialport_read_bytes(int fd, char* buff, int max_len) {
+	printf("In serialport_read_bytes\n");
+	int numRead = 0;
+	int n;
+	while (numRead < max_len) {
+		n = read(fd, (void*)buff[numRead], 1);
+		
+		printf("   %u  ", buff[numRead]);
 
+		if (n < 0) {
+			printf("Error code: %d\n", n);
+			return -1;
+		}
+		numRead += n;
+	}
+
+	printf("\n");
+
+
+	return numRead;
+
+/*
 	for (int i = 0; i < max_len; i++) {
 		int n = read(fd, b, 1);
 		if (n == -1)  {
@@ -62,7 +94,7 @@ int RaptorSerialInterface::serialport_read_until(int fd, char* buff, int max_len
 		buff[i] = b[0];
 	}
 
-    	return max_len;
+    	return max_len;*/
 }
 
 // takes the string name of the serial port (e.g. "/dev/tty.usbserial","COM1")
