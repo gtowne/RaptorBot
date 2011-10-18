@@ -1,13 +1,14 @@
+#include <RaptorWireProtocol.h>
+#include <stdio.h>
 #include <NewSoftSerial.h>
 
 
 int val;
 NewSoftSerial serial(0,1);
+SerialPacket curPacket;
 
 void setup()
 {
-  //pinMode(0, INPUT);
-  //pinMode(1, OUTPUT);
   pinMode(11, OUTPUT);
   serial.begin(9600);
   val=0;
@@ -15,20 +16,58 @@ void setup()
 }
 
 void loop()
-{
-  
-    char input = serial.read();
-    //char input = 'a';
+{   
     
-    int pin = 11;
+    if (readPacket(&curPacket)) {
+  
+       switch(curPacket.type) { 
+           case SET_PIN:
+           
+             analogWrite(curPacket.data1, curPacket.data2);
+              
+             break;
+             
+       }
+      
+    }
+  
+  
+  
+    /*int pin = 11;
     
     if (input == 'a') {
       for (int i = 0; i < 1000; i++)
           analogWrite(pin,255);
     } else if (input == 'b') {
           analogWrite(pin, 0); 
-    }
+    }*/
   
 }
+
+int readPacket(SerialPacket* packet) {
+    while (!serial.available());
+    packet->type = serial.read();
+   
+    while (!serial.available());
+    packet->data1 = serial.read();
+    
+    while (!serial.available());
+    packet->data2 = serial.read();
+    
+    while (!serial.available());
+    packet->data3 = serial.read();
+    
+    char buff[100];
+    
+    sprintf(buff, "Got packet type=%u data1=%u data2=%u data3=%u\n", packet->type, packet->data1, packet->data2, packet->data3);
+    
+    serial.print(ACK_CHAR);
+    //serial.flush();
+ 
+  
+  
+  return 1;
+}
+
 
 
