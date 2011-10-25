@@ -22,8 +22,6 @@ SerialPacket* setPinPacket(int pin, int val) {
 	packet->data2 = (uint8)val;
 	packet->data3 = (uint8)'r';
 
-	printPacket(packet);
-
 	return packet;
 }
 

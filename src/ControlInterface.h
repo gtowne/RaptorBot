@@ -65,7 +65,7 @@ class ControlInterface
     
     /*
      * direction - either LEFT or RIGHT (which are macros you must define)
-	 * This function makes the robot perform a pivot-turn in the direction specified as an 
+	 * This function makes the robot perform a pi	printf("Initialized serial connection to Arduino\n");vot-turn in the direction specified as an 
 	 * argument, for the number of degrees previously specified with Set().
      */
     int PivotTurn(char direction);

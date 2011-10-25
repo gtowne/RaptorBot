@@ -26,21 +26,17 @@ int RaptorSerialInterface::InitConnection(char* _deviceName, int _baudrate, int 
 int RaptorSerialInterface::SendBuff(void* buff, int bytes) {
 	serialport_write(deviceFD, (char*)buff, bytes);
 
-	char* rbuff = (char*)malloc(256);
+	char rbuff[1];
 	int ret_val = serialport_read_bytes(deviceFD, rbuff, 1);
 
 	if (ret_val < 0) {
-		printf("READ ERROR\n");
+		perror("READ ERROR");
 	}
 
-	printf("Byte received back %u\n", rbuff[0]);
-
 	if (rbuff[0] == ACK_CHAR) {
-		printf("Right ack\n");
 		return 1;
 	}
 
-	free(rbuff);
 	return 0;
 }
 	
@@ -64,7 +60,6 @@ int RaptorSerialInterface::serialport_write(int fd, const char* str, int len) {
 }
 	
 int RaptorSerialInterface::serialport_read_bytes(int fd, char* buff, int max_len) {
-	printf("In serialport_read_bytes\n");
 	int numRead = 0;
 	int n;
 	while (numRead < max_len) {
@@ -74,12 +69,9 @@ int RaptorSerialInterface::serialport_read_bytes(int fd, char* buff, int max_len
 			perror("Read error in serialport_read_bytes ");
 			return -1;
 		}
-		printf("   %u  ", buff[numRead]);
 
 		numRead += n;
 	}
-
-	printf("\n");
 
 
 	return numRead;

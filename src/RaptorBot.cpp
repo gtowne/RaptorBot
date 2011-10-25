@@ -8,7 +8,7 @@ int main() {
 	
 
 	for (int i = 0; i < 100; i++) {
-		printf("Loop beginning\n");
+
 		control->SetPin(11, 255);
 		control->SetPin(10, 0);
 
