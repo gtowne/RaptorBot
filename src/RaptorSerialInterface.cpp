@@ -26,7 +26,7 @@ int RaptorSerialInterface::InitConnection(char* _deviceName, int _baudrate, int 
 int RaptorSerialInterface::SendBuff(void* buff, int bytes) {
 	serialport_write(deviceFD, (char*)buff, bytes);
 
-	char rbuff[1];
+	char* rbuff = (char*)malloc(256);
 	int ret_val = serialport_read_bytes(deviceFD, rbuff, 1);
 
 	if (ret_val < 0) {
@@ -39,6 +39,8 @@ int RaptorSerialInterface::SendBuff(void* buff, int bytes) {
 		printf("Right ack\n");
 		return 1;
 	}
+
+	free(rbuff);
 	return 0;
 }
 	
@@ -66,14 +68,14 @@ int RaptorSerialInterface::serialport_read_bytes(int fd, char* buff, int max_len
 	int numRead = 0;
 	int n;
 	while (numRead < max_len) {
-		n = read(fd, (void*)buff[numRead], 1);
-		
-		printf("   %u  ", buff[numRead]);
+		n = read(fd, (void*)&buff[numRead], 1);
 
 		if (n < 0) {
-			printf("Error code: %d\n", n);
+			perror("Read error in serialport_read_bytes ");
 			return -1;
 		}
+		printf("   %u  ", buff[numRead]);
+
 		numRead += n;
 	}
 
@@ -97,7 +99,7 @@ int RaptorSerialInterface::serialport_read_bytes(int fd, char* buff, int max_len
     	return max_len;*/
 }
 
-// takes the string name of the serial port (e.g. "/dev/tty.usbserial","COM1")
+// takes the string name of the serial p    Non-blocking I/O has been selected using O_NONBLOCK and no data was immediately available for reading. ort (e.g. "/dev/tty.usbserial","COM1")
 // and a baud rate (bps) and connects to that port at that speed and 8N1.
 // opens the port in fully raw mode so you can send binary data.
 // returns valid fd, or -1 on error
@@ -109,7 +111,7 @@ int RaptorSerialInterface::serialport_init(const char* serialport, int baud)
     //fprintf(stderr,"init_serialport: opening port %s @ %d bps\n",
     //        serialport,baud);
 
-    fd = open(serialport, O_RDWR | O_NOCTTY | O_NDELAY);
+    fd = open(serialport, O_RDWR | O_NOCTTY); // | O_NDELAY);
     if (fd == -1)  {
         perror("init_serialport: Unable to open port ");
         return -1;
