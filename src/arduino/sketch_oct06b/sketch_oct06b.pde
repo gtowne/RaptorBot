@@ -2,6 +2,7 @@
 #include <stdio.h>
 #include <NewSoftSerial.h>
 
+#define SWING_ITERATIONS 40
 
 int val;
 NewSoftSerial serial(0,1);
@@ -25,6 +26,16 @@ void loop()
            
              analogWrite(curPacket.data1, curPacket.data2);
               
+             break;
+             
+           case TURN:
+             
+             if (curPacket.data2 == LEFT) {
+                turnLeft(curPacket.data1, curPacket.data3);
+             } else if (curPacket.data2 == RIGHT) {
+                turnRight(curPacket.data1, curPacket.data3);
+             }
+             
              break;
              
        }
@@ -69,5 +80,30 @@ int readPacket(SerialPacket* packet) {
   return 1;
 }
 
+int turnLeft (int pin, int d) {
+    int pulse = 1500 - (10 * d);
+    
+    for (int i=0; i<SWING_ITERATIONS; i++){
+      digitalWrite(pin, HIGH);
+      delayMicroseconds(pulse);
+      digitalWrite(pin, LOW); 
+      delay(20);
+    }
+
+    return 1;
+}
+
+int turnRight(int pin, int d) {
+    int pulse = 1500 + (10 * d);
+
+    for (int i=0; i<SWING_ITERATIONS; i++){
+      digitalWrite(pin, HIGH);
+      delayMicroseconds(pulse);
+      digitalWrite(pin, LOW); 
+      delay(20);
+    }
+    
+    return 1;
+}
 
 

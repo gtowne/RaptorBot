@@ -7,8 +7,6 @@
 // Define constants for directions
 #define FORWARDS 'f'
 #define BACKWARD 'b'
-#define LEFT 'l'
-#define RIGHT 'r'
 #define FORWARD_LEFT 'a'
 #define FORWARD_RIGHT 'b'
 #define BACKWARDS_LEFT 'c'
@@ -24,6 +22,9 @@
 // Name for Arduino USB device in /dev. This is sytem dependent.
 #define ARDUINO_SERIAL_DEVICE_NAME "/dev/ttyACM0"
 #define ARDUINO_SERIAL_BAUDRATE 9600
+
+// Pin numbers for various devices
+#define PIN_NUM_STEER_SERVO_LEFT 2
 
 class ControlInterface
 {
@@ -112,6 +113,8 @@ class ControlInterface
   	int curRadius;
   	char curDirection;
 	RaptorSerialInterface* serialInterface;
+
+	int SetWheelDegrees(char direction, int degrees);
 };
 
 

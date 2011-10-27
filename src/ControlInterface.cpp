@@ -28,6 +28,7 @@ int ControlInterface::Move(char direction) {
 }
 
 int ControlInterface::PivotTurn(char direction, float degrees) {
+	SetWheelDegrees(direction, (int)degrees);
 	return 1;
 
 }
@@ -41,7 +42,6 @@ int ControlInterface::PivotTurn(char direction) {
 
 int ControlInterface::ArcTurn(char direction, float degrees, float radius) {
 	return 1;
-
 }
 
 
@@ -89,4 +89,30 @@ int ControlInterface::SetPin(int pinNum, int pwmVal) {
 	serialInterface->SendBuff(packet, SERIAL_PACKET_BYTES);
 
 	return 1;
+}
+
+
+// PRIVATE FUNCTIONS
+int ControlInterface::SetWheelDegrees(char direction, int degrees) {
+	printf("Setting wheels to %d degrees %c\n", degrees, direction);
+
+	if (!serialInterface) {
+		return 0;
+	}
+
+	SerialPacket* packet = turnPacket(PIN_NUM_STEER_SERVO_LEFT, direction, degrees);
+
+	if (!packet) {
+		return 0;
+	}
+
+	serialInterface->SendBuff(packet, SERIAL_PACKET_BYTES);
+
+	/*
+	/
+	/ 	TODO - do the same thing for the right wheel
+	*/
+
+	return 1;
+
 }

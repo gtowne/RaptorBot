@@ -9,6 +9,10 @@
 
 /* Packet types */
 #define SET_PIN 'a'
+#define TURN 't'
+
+#define LEFT 'l'
+#define RIGHT 'r'
 
 typedef unsigned char uint8;
 
@@ -21,6 +25,7 @@ typedef struct SerialPacket_t {
 
 
 SerialPacket* setPinPacket(int pin, int val);
+SerialPacket* turnPacket(int pin, char direction, int degrees);
 void printPacket(SerialPacket* packet);
 
 

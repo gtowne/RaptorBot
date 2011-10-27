@@ -20,7 +20,19 @@ SerialPacket* setPinPacket(int pin, int val) {
 	packet->type = SET_PIN;
 	packet->data1 = (uint8)pin;
 	packet->data2 = (uint8)val;
-	packet->data3 = (uint8)'r';
+
+	return packet;
+}
+
+SerialPacket* turnPacket(int pin, char direction, int degrees) {
+	SerialPacket* packet = newPacket();
+
+	packet->type = TURN;
+	packet->data1 = (uint8)pin;
+	packet->data2 = (uint8)direction;
+	packet->data3 = (uint8)degrees;
+
+	printPacket(packet);
 
 	return packet;
 }
