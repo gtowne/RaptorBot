@@ -16,23 +16,31 @@ int main() {
 
 	//for(int ii=0; ii<1000; ii++){
 	control->PivotTurn(LEFT, 10);
+	spinAWhile();
 	control->PivotTurn(RIGHT, 10);
+	spinAWhile();
 
 	control->PivotTurn(LEFT, 30);
+	spinAWhile();
 	control->PivotTurn(RIGHT, 30);
+	spinAWhile();
 
 	control->PivotTurn(LEFT, 50);
+	spinAWhile();
 	control->PivotTurn(RIGHT, 50);
+	spinAWhile();
 
 	control->PivotTurn(LEFT, 90);
+	spinAWhile();
 	control->PivotTurn(RIGHT, 90);
+	spinAWhile();
 
 	//}
 }
 
 void spinAWhile() {
 	double x = 1.29094375;	
-	for (int i = 0 ; i < 100000; i++) {
+	for (int i = 0 ; i < 100000000; i++) {
 		x = x * x;
 		x = x / x;
 	}
