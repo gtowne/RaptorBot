@@ -24,13 +24,12 @@ SerialPacket* setPinPacket(int pin, int val) {
 	return packet;
 }
 
-SerialPacket* turnPacket(int pin, char direction, int degrees) {
+SerialPacket* turnPacket(char direction, int degrees) {
 	SerialPacket* packet = newPacket();
 
 	packet->type = TURN;
-	packet->data1 = (uint8)pin;
-	packet->data2 = (uint8)direction;
-	packet->data3 = (uint8)degrees;
+	packet->data1 = (uint8)direction;
+	packet->data2 = (uint8)degrees;
 
 	printPacket(packet);
 

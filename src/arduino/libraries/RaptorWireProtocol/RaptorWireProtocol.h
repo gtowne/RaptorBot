@@ -25,7 +25,7 @@ typedef struct SerialPacket_t {
 
 
 SerialPacket* setPinPacket(int pin, int val);
-SerialPacket* turnPacket(int pin, char direction, int degrees);
+SerialPacket* turnPacket(char direction, int degrees);
 void printPacket(SerialPacket* packet);
 
 

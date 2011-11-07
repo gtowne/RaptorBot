@@ -33,7 +33,6 @@ int ControlInterface::PivotTurn(char direction, float degrees) {
 
 }
 
-
 int ControlInterface::PivotTurn(char direction) {
 	return 1;
 
@@ -100,18 +99,13 @@ int ControlInterface::SetWheelDegrees(char direction, int degrees) {
 		return 0;
 	}
 
-	SerialPacket* packet = turnPacket(PIN_NUM_STEER_SERVO_LEFT, direction, degrees);
+	SerialPacket* packet = turnPacket(direction, degrees);
 
 	if (!packet) {
 		return 0;
 	}
 
 	serialInterface->SendBuff(packet, SERIAL_PACKET_BYTES);
-
-	/*
-	/
-	/ 	TODO - do the same thing for the right wheel
-	*/
 
 	return 1;
 

@@ -23,8 +23,6 @@
 #define ARDUINO_SERIAL_DEVICE_NAME "/dev/ttyACM0"
 #define ARDUINO_SERIAL_BAUDRATE 9600
 
-// Pin numbers for various devices
-#define PIN_NUM_STEER_SERVO_LEFT 2
 
 class ControlInterface
 {
