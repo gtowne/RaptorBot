@@ -46,6 +46,7 @@ int RaptorSerialInterface::Receive(void* buff, int max_bytes) {
 
 int RaptorSerialInterface::CloseConnection() {
 	close(deviceFD);
+	return 1;
 }
 
 
