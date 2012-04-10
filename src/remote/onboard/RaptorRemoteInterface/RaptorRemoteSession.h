@@ -21,6 +21,7 @@
 
 #include "RaptorRemoteSessionProtocol.h"
 #include "RaptorVideoStream.h"
+#include "MyTCPSocketUtils.h"
 
 
 #define SEND_BUFFER_SIZE 256
@@ -38,18 +39,14 @@
  */
 #define SOCKET_READ_ERROR '.'
 #define UNKNOWN_MESSAGE_TYPE ','
-
-
-typedef struct RaptorSessionMessage_t {
-	char messageType;
-} RaptorSessionMessage;
-
+#define SOCKET_CLOSED '/'
 
 
 
 class RaptorRemoteSession {
 private:
 	int socketFD;
+    sockaddr_in* remoteAddr;
 	char sendBuffer[SEND_BUFFER_SIZE];
 	char receiveBuffer[RECEIVE_BUFFER_SIZE];
     
@@ -71,15 +68,10 @@ private:
     int sendInitResponseMessage(bool success);
     int sendQuitMessage();
     int sendQuitResponseMessage();
-    int sendVideoStartRsp(bool success);
-    int sendVideoEndRsp(bool success);
-    
-    int handleVideoStart();
-    int handleVideoEnd();
     
 	
 public:
-	RaptorRemoteSession(int socketFD);
+	RaptorRemoteSession(int _socketFD, sockaddr_in* _remoteAddr);
 	~RaptorRemoteSession();
 	
     /*
@@ -87,7 +79,7 @@ public:
      *   populate the fields of a RaptorSessionMessage struct based on the data
      *   we receive, and return that struct
      */
-	RaptorSessionMessage* getIncomingMessage();
+	AbstractPacket* getIncomingMessage();
     
     /*
      * sendPingResponseMessage() - send a packet of type PING_RSP to the client,

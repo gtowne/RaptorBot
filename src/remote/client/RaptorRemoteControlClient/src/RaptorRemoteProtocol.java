@@ -1,3 +1,5 @@
+import java.io.ByteArrayOutputStream;
+import java.io.DataOutputStream;
 import java.io.IOException;
 
 
@@ -21,8 +23,8 @@ public class RaptorRemoteProtocol {
 	public static final char CMD_MSG = 'c';
 	
 	
-	public static final char VID_START = 's';
-	public static final char VID_START_RSP = 'S';
+	public static final char VID_START = 'v';
+	public static final char VID_START_RSP = 'V';
 	public static final char VID_END = 'e';
 	public static final char VID_END_RSP = 'E';
 	public static final char VID_DATA = 'd';
@@ -30,83 +32,72 @@ public class RaptorRemoteProtocol {
 	private static final int MAX_PACKET_BYTES = 256;
 	private static final int INIT_PACKET_BYTES = 2;
 	private static final int QUIT_PACKET_BYTES = 2;
-	public static final int VID_START_PACKET_BYTES = 2;
+	public static final int VID_START_PACKET_BYTES = 4;
 	public static final int VID_END_PACKET_BYTES = 2;
 	
-	public static char[] newPingPacket() {
-		char[] packet = {RAPTOR_REMOTE_SESSION_PROTOCOL_VERSION_ID, PING_MSG};
-						
-		return packet;
+	public static byte[] newPingPacket() {
+		ByteArrayOutputStream out = new ByteArrayOutputStream();
+		
+		 
+		out.write(PING_MSG);
+		
+		return out.toByteArray();
 	}
 	
-	public static char[] newInitPacket() {
-		char[] packet = new char[INIT_PACKET_BYTES];
+	public static byte[] newInitPacket() {
+
+		ByteArrayOutputStream out = new ByteArrayOutputStream();
 		
-		packet[0] = RAPTOR_REMOTE_SESSION_PROTOCOL_VERSION_ID;
-		packet[1] = INIT_MSG;
-						
-		return packet;
+		 
+		out.write(INIT_MSG);
+		
+		return out.toByteArray();
 	}
 	
-	public static char[] newQuitPacket() {
-		char[] packet = new char[QUIT_PACKET_BYTES];
+	public static byte[] newQuitPacket() {
+		ByteArrayOutputStream out = new ByteArrayOutputStream();
 		
-		packet[0] = RAPTOR_REMOTE_SESSION_PROTOCOL_VERSION_ID;
-		packet[1] = QUIT_MSG;
+		 
+		out.write(QUIT_MSG);
 		
-		return packet;
+		return out.toByteArray();
 	}
 	
-	public static char[] newVideoStartPacket() {
-		char[] packet = new char[VID_START_PACKET_BYTES];
+	public static byte[] newVideoStartPacket(int myServerPort, int myDataPort) {
 		
-		packet[0] = RAPTOR_REMOTE_SESSION_PROTOCOL_VERSION_ID;
-		packet[1] = VID_START;
+		ByteArrayOutputStream _out = new ByteArrayOutputStream();
+		DataOutputStream out = new DataOutputStream(_out);
+		try {
+			out.writeByte(RAPTOR_REMOTE_SESSION_PROTOCOL_VERSION_ID);
+			out.writeByte(VID_START);
+			out.writeInt(myServerPort);
+			out.writeInt(myDataPort);
+		} catch (IOException e) {}
 		
-		return packet;
+		return _out.toByteArray();
 	}
 	
-	public static char[] newVideoEndPacket() {
-		char[] packet = new char[VID_END_PACKET_BYTES];
+	public static byte[] newVideoEndPacket() {
+		ByteArrayOutputStream out = new ByteArrayOutputStream();
 		
-		packet[0] = RAPTOR_REMOTE_SESSION_PROTOCOL_VERSION_ID;
-		packet[1] = VID_END;
+		out.write(VID_END);
 		
-		return packet;
+		return out.toByteArray();
 	}
 	
 	public static RaptorSessionMessage readFromSocket(SimpleSocket socket) {
-		RaptorSessionMessage message = new RaptorSessionMessage(MAX_PACKET_BYTES);
-				
-		int bytesRead;
-		try {
-			bytesRead = socket.read(message.rawPacket, 0, 1);
-		} catch (IOException e1) {
-			message.type = RaptorSessionMessage.MessageType.SOCKET_ERROR;
-			return message;
-		}
-		
-		if (bytesRead != 1) {
-			message.type = RaptorSessionMessage.MessageType.SOCKET_ERROR;
-			return message;
-		} else if (message.rawPacket[0] != RaptorRemoteProtocol.RAPTOR_REMOTE_SESSION_PROTOCOL_VERSION_ID) {
-			message.type = RaptorSessionMessage.MessageType.UNKNOWN_PROTOCOL;
-			return message;
-		}
+		RaptorSessionMessage message = new RaptorSessionMessage();
+			
+		byte messageType = 0x00;
 		
 		try {
-			bytesRead = socket.read(message.rawPacket, 1, 1);
+			messageType = socket.readByte();
 		} catch (IOException e) {
 			message.type = RaptorSessionMessage.MessageType.SOCKET_ERROR;
 			return message;
 		}
 		
-		if (bytesRead != 1) {
-			message.type = RaptorSessionMessage.MessageType.SOCKET_ERROR;
-			return message;
-		} 
-		
-		char messageType = (char)(message.rawPacket[1]);
+		byte success = -1;
 		
 		switch (messageType) {
 		case RaptorRemoteProtocol.PING_RSP_MSG:
@@ -120,19 +111,12 @@ public class RaptorRemoteProtocol {
 			message.type = RaptorSessionMessage.MessageType.INIT_RSP;
 			
 			try {
-				bytesRead = socket.read(message.rawPacket, 2, 1);
+				success = socket.readByte();
 			} catch (IOException e) {
 				message.type = RaptorSessionMessage.MessageType.SOCKET_ERROR;
 				return message;
 			}
-			
-			if (bytesRead != 1) {
-				message.type = RaptorSessionMessage.MessageType.SOCKET_ERROR;
-				return message;
-			} 
-			
-			char success = (char)(message.rawPacket[2]);
-			
+						
 			if (success == 1) {
 				message.success = true;
 			} else {
@@ -156,18 +140,11 @@ public class RaptorRemoteProtocol {
 			message.type = RaptorSessionMessage.MessageType.VID_START;
 			
 			try {
-				bytesRead = socket.read(message.rawPacket, 2, 1);
+				success = socket.readByte();
 			} catch (IOException e) {
 				message.type = RaptorSessionMessage.MessageType.SOCKET_ERROR;
 				return message;
 			}
-			
-			if (bytesRead != 1) {
-				message.type = RaptorSessionMessage.MessageType.SOCKET_ERROR;
-				return message;
-			} 
-			
-			success = (char) message.rawPacket[2];
 			
 			if (success == 1) {
 				message.success = true;
@@ -182,19 +159,12 @@ public class RaptorRemoteProtocol {
 			message.type = RaptorSessionMessage.MessageType.VID_END;
 			
 			try {
-				bytesRead = socket.read(message.rawPacket, 2, 1);
+				success = socket.readByte();
 			} catch (IOException e) {
 				message.type = RaptorSessionMessage.MessageType.SOCKET_ERROR;
 				return message;
 			}
-			
-			if (bytesRead != 1) {
-				message.type = RaptorSessionMessage.MessageType.SOCKET_ERROR;
-				return message;
-			} 
-			
-			success = (char) message.rawPacket[2];
-			
+						
 			if (success == 1) {
 				message.success = true;
 			} else {
@@ -202,6 +172,7 @@ public class RaptorRemoteProtocol {
 			}
 			
 			break;
+			
 		default:
 			message.type = RaptorSessionMessage.MessageType.INVALID_MESSAGE_TYPE;
 			

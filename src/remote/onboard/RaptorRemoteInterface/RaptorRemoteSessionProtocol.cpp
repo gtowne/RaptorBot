@@ -9,44 +9,48 @@
 
 #include "RaptorRemoteSessionProtocol.h"
 
-int writeNetworkHeader(char* buff, char messageType) {
-    NetworkHeader* header = (NetworkHeader*)buff;
-    
-    header->protocolID = RAPTOR_REMOTE_SESSION_PROTOCOL_VERSION_ID;
-    header->messageType = messageType;
-    
-    return sizeof(NetworkHeader);
+
+int newPingMsg(char* buff) {
+    PingPacket* packet = (PingPacket*)buff;
+    packet->messageType = PING_MSG;
+    return sizeof(PingPacket);
 }
 
 int newPingRspMsg(char* buff) {
-    return writeNetworkHeader(buff, PING_RSP_MSG);
+    PingRspPacket* packet = (PingRspPacket*) buff;
+    packet->messageType = PING_RSP_MSG;
+    return sizeof(PingRspPacket);
 }
 
 int newInitRspMsg(char* buff, bool success) {
-    int headerSize = writeNetworkHeader(buff, INIT_RSP_MSG);
-    
-    InitRspPacket* payload = (InitRspPacket*)(&buff[headerSize]);
+    InitRspPacket* packet = (InitRspPacket*) buff;
+    packet->messageType = INIT_RSP_MSG;
     
     if (success) {
-        payload->success = 1;
+        packet->success = 1;
     } else {
-        payload->success = 0;
+        packet-> success = 0;
     }
     
-    return sizeof(NetworkHeader) + sizeof(InitRspPacket);
+    return sizeof(InitRspPacket);
+}
+
+int newQuitMsg(char* buff) {
+    QuitPacket* packet = (QuitPacket*) buff;
+    packet->messageType = QUIT_MSG;
+    return sizeof(QuitPacket);
 }
 
 int newQuitRspMsg(char* buff, bool success) {
-    int headerSize = writeNetworkHeader(buff, QUIT_RSP_MSG);
-    
-    QuitRspPacket* payload = (QuitRspPacket*)(&buff[headerSize]);
+    QuitRspPacket* packet = (QuitRspPacket*) buff;
+    packet->messageType = QUIT_RSP_MSG;
     
     if (success) {
-        payload->success = 1;
+        packet->success = 1;
     } else {
-        payload->success = 0;
+        packet-> success = 0;
     }
     
-    return sizeof(NetworkHeader) + sizeof(QuitRspPacket);
+    return sizeof(QuitRspPacket);
 }
 

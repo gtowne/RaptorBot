@@ -1,0 +1,262 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 45;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		8DD76F650486A84900D96B5E /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 08FB7796FE84155DC02AAC07 /* main.cpp */; settings = {ATTRIBUTES = (); }; };
+		8DD76F6A0486A84900D96B5E /* RaptorRemoteInterface.1 in CopyFiles */ = {isa = PBXBuildFile; fileRef = C6859E8B029090EE04C91782 /* RaptorRemoteInterface.1 */; };
+		EB0E8CCA14ED4E8A009E8B8F /* RaptorVideoStreamProtocol.cpp in Sources */ = {isa = PBXBuildFile; fileRef = EB0E8CC814ED4E8A009E8B8F /* RaptorVideoStreamProtocol.cpp */; };
+		EB31C6CF14E8A13D00B4A640 /* RaptorVideoStream.cpp in Sources */ = {isa = PBXBuildFile; fileRef = EB31C6CD14E8A13D00B4A640 /* RaptorVideoStream.cpp */; };
+		EBB83E6D14C65D2C00E43B4A /* RaptorRemoteServer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = EBB83E6C14C65D2C00E43B4A /* RaptorRemoteServer.cpp */; };
+		EBB83E8E14C7290900E43B4A /* RaptorRemoteSessionProtocol.cpp in Sources */ = {isa = PBXBuildFile; fileRef = EBB83E8D14C7290900E43B4A /* RaptorRemoteSessionProtocol.cpp */; };
+		EBB83EA214C72F1300E43B4A /* MyTCPSocketUtils.cpp in Sources */ = {isa = PBXBuildFile; fileRef = EBB83EA114C72F1300E43B4A /* MyTCPSocketUtils.cpp */; };
+		EBB83EAE14C730F300E43B4A /* RaptorRemoteSession.cpp in Sources */ = {isa = PBXBuildFile; fileRef = EBB83EAD14C730F300E43B4A /* RaptorRemoteSession.cpp */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		8DD76F690486A84900D96B5E /* CopyFiles */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 8;
+			dstPath = /usr/share/man/man1/;
+			dstSubfolderSpec = 0;
+			files = (
+				8DD76F6A0486A84900D96B5E /* RaptorRemoteInterface.1 in CopyFiles */,
+			);
+			runOnlyForDeploymentPostprocessing = 1;
+		};
+/* End PBXCopyFilesBuildPhase section */
+
+/* Begin PBXFileReference section */
+		08FB7796FE84155DC02AAC07 /* main.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = main.cpp; sourceTree = "<group>"; };
+		8DD76F6C0486A84900D96B5E /* RaptorRemoteInterface */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = RaptorRemoteInterface; sourceTree = BUILT_PRODUCTS_DIR; };
+		C6859E8B029090EE04C91782 /* RaptorRemoteInterface.1 */ = {isa = PBXFileReference; lastKnownFileType = text.man; path = RaptorRemoteInterface.1; sourceTree = "<group>"; };
+		EB0E8CC714E99B0E009E8B8F /* RaptorVideoStream.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RaptorVideoStream.h; sourceTree = "<group>"; };
+		EB0E8CC814ED4E8A009E8B8F /* RaptorVideoStreamProtocol.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = RaptorVideoStreamProtocol.cpp; sourceTree = "<group>"; };
+		EB0E8CC914ED4E8A009E8B8F /* RaptorVideoStreamProtocol.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RaptorVideoStreamProtocol.h; sourceTree = "<group>"; };
+		EB31C6CD14E8A13D00B4A640 /* RaptorVideoStream.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = RaptorVideoStream.cpp; sourceTree = "<group>"; };
+		EBB83E6B14C65D2C00E43B4A /* RaptorRemoteServer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RaptorRemoteServer.h; sourceTree = "<group>"; };
+		EBB83E6C14C65D2C00E43B4A /* RaptorRemoteServer.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = RaptorRemoteServer.cpp; sourceTree = "<group>"; };
+		EBB83E8C14C7290900E43B4A /* RaptorRemoteSessionProtocol.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RaptorRemoteSessionProtocol.h; sourceTree = "<group>"; };
+		EBB83E8D14C7290900E43B4A /* RaptorRemoteSessionProtocol.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = RaptorRemoteSessionProtocol.cpp; sourceTree = "<group>"; };
+		EBB83EA014C72F1300E43B4A /* MyTCPSocketUtils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MyTCPSocketUtils.h; sourceTree = "<group>"; };
+		EBB83EA114C72F1300E43B4A /* MyTCPSocketUtils.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = MyTCPSocketUtils.cpp; sourceTree = "<group>"; };
+		EBB83EAC14C730F300E43B4A /* RaptorRemoteSession.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RaptorRemoteSession.h; sourceTree = "<group>"; };
+		EBB83EAD14C730F300E43B4A /* RaptorRemoteSession.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = RaptorRemoteSession.cpp; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		8DD76F660486A84900D96B5E /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		08FB7794FE84155DC02AAC07 /* RaptorRemoteInterface */ = {
+			isa = PBXGroup;
+			children = (
+				08FB7795FE84155DC02AAC07 /* Source */,
+				C6859E8C029090F304C91782 /* Documentation */,
+				1AB674ADFE9D54B511CA2CBB /* Products */,
+			);
+			name = RaptorRemoteInterface;
+			sourceTree = "<group>";
+		};
+		08FB7795FE84155DC02AAC07 /* Source */ = {
+			isa = PBXGroup;
+			children = (
+				EBB83E6B14C65D2C00E43B4A /* RaptorRemoteServer.h */,
+				EBB83E6C14C65D2C00E43B4A /* RaptorRemoteServer.cpp */,
+				08FB7796FE84155DC02AAC07 /* main.cpp */,
+				EBB83EAC14C730F300E43B4A /* RaptorRemoteSession.h */,
+				EBB83EAD14C730F300E43B4A /* RaptorRemoteSession.cpp */,
+				EBB83E8C14C7290900E43B4A /* RaptorRemoteSessionProtocol.h */,
+				EBB83E8D14C7290900E43B4A /* RaptorRemoteSessionProtocol.cpp */,
+				EB0E8CCB14ED5182009E8B8F /* VideoStream */,
+				EB0E8CCC14ED51A2009E8B8F /* Etc */,
+			);
+			name = Source;
+			sourceTree = "<group>";
+		};
+		1AB674ADFE9D54B511CA2CBB /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				8DD76F6C0486A84900D96B5E /* RaptorRemoteInterface */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		C6859E8C029090F304C91782 /* Documentation */ = {
+			isa = PBXGroup;
+			children = (
+				C6859E8B029090EE04C91782 /* RaptorRemoteInterface.1 */,
+			);
+			name = Documentation;
+			sourceTree = "<group>";
+		};
+		EB0E8CCB14ED5182009E8B8F /* VideoStream */ = {
+			isa = PBXGroup;
+			children = (
+				EB0E8CC714E99B0E009E8B8F /* RaptorVideoStream.h */,
+				EB31C6CD14E8A13D00B4A640 /* RaptorVideoStream.cpp */,
+				EB0E8CC814ED4E8A009E8B8F /* RaptorVideoStreamProtocol.cpp */,
+				EB0E8CC914ED4E8A009E8B8F /* RaptorVideoStreamProtocol.h */,
+			);
+			name = VideoStream;
+			sourceTree = "<group>";
+		};
+		EB0E8CCC14ED51A2009E8B8F /* Etc */ = {
+			isa = PBXGroup;
+			children = (
+				EBB83EA014C72F1300E43B4A /* MyTCPSocketUtils.h */,
+				EBB83EA114C72F1300E43B4A /* MyTCPSocketUtils.cpp */,
+			);
+			name = Etc;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		8DD76F620486A84900D96B5E /* RaptorRemoteInterface */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 1DEB923108733DC60010E9CD /* Build configuration list for PBXNativeTarget "RaptorRemoteInterface" */;
+			buildPhases = (
+				8DD76F640486A84900D96B5E /* Sources */,
+				8DD76F660486A84900D96B5E /* Frameworks */,
+				8DD76F690486A84900D96B5E /* CopyFiles */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = RaptorRemoteInterface;
+			productInstallPath = "$(HOME)/bin";
+			productName = RaptorRemoteInterface;
+			productReference = 8DD76F6C0486A84900D96B5E /* RaptorRemoteInterface */;
+			productType = "com.apple.product-type.tool";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		08FB7793FE84155DC02AAC07 /* Project object */ = {
+			isa = PBXProject;
+			buildConfigurationList = 1DEB923508733DC60010E9CD /* Build configuration list for PBXProject "RaptorRemoteInterface" */;
+			compatibilityVersion = "Xcode 3.1";
+			developmentRegion = English;
+			hasScannedForEncodings = 1;
+			knownRegions = (
+				English,
+				Japanese,
+				French,
+				German,
+			);
+			mainGroup = 08FB7794FE84155DC02AAC07 /* RaptorRemoteInterface */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				8DD76F620486A84900D96B5E /* RaptorRemoteInterface */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXSourcesBuildPhase section */
+		8DD76F640486A84900D96B5E /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				8DD76F650486A84900D96B5E /* main.cpp in Sources */,
+				EBB83E6D14C65D2C00E43B4A /* RaptorRemoteServer.cpp in Sources */,
+				EBB83E8E14C7290900E43B4A /* RaptorRemoteSessionProtocol.cpp in Sources */,
+				EBB83EA214C72F1300E43B4A /* MyTCPSocketUtils.cpp in Sources */,
+				EBB83EAE14C730F300E43B4A /* RaptorRemoteSession.cpp in Sources */,
+				EB31C6CF14E8A13D00B4A640 /* RaptorVideoStream.cpp in Sources */,
+				EB0E8CCA14ED4E8A009E8B8F /* RaptorVideoStreamProtocol.cpp in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin XCBuildConfiguration section */
+		1DEB923208733DC60010E9CD /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				COPY_PHASE_STRIP = NO;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_ENABLE_FIX_AND_CONTINUE = YES;
+				GCC_MODEL_TUNING = G5;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				INSTALL_PATH = /usr/local/bin;
+				PRODUCT_NAME = RaptorRemoteInterface;
+			};
+			name = Debug;
+		};
+		1DEB923308733DC60010E9CD /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				GCC_MODEL_TUNING = G5;
+				INSTALL_PATH = /usr/local/bin;
+				PRODUCT_NAME = RaptorRemoteInterface;
+			};
+			name = Release;
+		};
+		1DEB923608733DC60010E9CD /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ARCHS = "$(ARCHS_STANDARD_32_64_BIT)";
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				PREBINDING = NO;
+				SDKROOT = macosx10.6;
+			};
+			name = Debug;
+		};
+		1DEB923708733DC60010E9CD /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ARCHS = "$(ARCHS_STANDARD_32_64_BIT)";
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				PREBINDING = NO;
+				SDKROOT = macosx10.6;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		1DEB923108733DC60010E9CD /* Build configuration list for PBXNativeTarget "RaptorRemoteInterface" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				1DEB923208733DC60010E9CD /* Debug */,
+				1DEB923308733DC60010E9CD /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		1DEB923508733DC60010E9CD /* Build configuration list for PBXProject "RaptorRemoteInterface" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				1DEB923608733DC60010E9CD /* Debug */,
+				1DEB923708733DC60010E9CD /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 08FB7793FE84155DC02AAC07 /* Project object */;
+}

@@ -8,6 +8,7 @@ public class Main {
 	
     public static void main(String args[]) throws Exception {
     	System.out.println("here");
+
         RaptorRemoteClient client = new RaptorRemoteClient();
 		boolean success = client.ping(InetAddress.getLocalHost());
 		
@@ -25,7 +26,11 @@ public class Main {
 			System.out.println("Failed connecting to host");
 		}
 		
+		Thread.sleep(3000);
 		
+		client.initVideoStream(new DummyVideoPlayer());
+		
+		/*
 		success = client.initVideoStream();
 		
 		if (success) {
@@ -44,15 +49,15 @@ public class Main {
 		} else {
 			System.out.println("Error stopping video stream");
 		}
+		*/
 		
+		//success = client.disconnect();
 		
-		success = client.disconnect();
-		
-		if (success) {
-			System.out.println("Successfully disconnected from host");
-		} else {
-			System.out.println("Failed disconnecting from host");
-		}
+		//if (success) {
+		//	System.out.println("Successfully disconnected from host");
+		//} else {
+		//	System.out.println("Failed disconnecting from host");
+		//}
 
     }
 

@@ -9,8 +9,15 @@
 
 #include "RaptorRemoteSession.h"
 
-RaptorRemoteSession::RaptorRemoteSession(int _socketFD) {
+RaptorRemoteSession::RaptorRemoteSession(int _socketFD, sockaddr_in* _remoteAddr) {
 	this->socketFD = _socketFD;
+    
+    struct timeval timeout;
+    timeout.tv_sec = 10; // set timeout to 10 seconds
+    setsockopt(this->socketFD, SOL_SOCKET, SO_RCVTIMEO, &timeout, sizeof(timeout));
+    
+    remoteAddr = (sockaddr_in*) malloc(sizeof(sockaddr_in));
+    memcpy(this->remoteAddr, _remoteAddr, sizeof(sockaddr_in));
     
     this->connected = false;
     this->everybodyDie = false;
@@ -31,6 +38,7 @@ bool RaptorRemoteSession::teardownSession() {
     close(this->socketFD);
     pthread_mutex_unlock(&this->sendMutex);
     
+    free(this->remoteAddr);
     
     this->connected = false;
     this->everybodyDie = true;
@@ -62,18 +70,31 @@ int RaptorRemoteSession::listeningThreadRoutine() {
     
     this->connected = true;
     
-    RaptorSessionMessage* newMessage;
+    AbstractPacket* newMessage;
     while(true) {
         
         if (everybodyDie) {
             return 0;
         }
         
+        printf("Waiting for incoming message\n");
         newMessage = this->getIncomingMessage();
+        printf("Got new incoming message\n");
+        
         
         bool allIsWell;
+        int remoteDataPort;
+        int remoteServerPort;
+        VideoInitPacket* videoInitMessage;
         
         switch (newMessage->messageType) {
+            case PING_MSG:
+                printf("processing ping message\n");
+                
+                this->sendPingResponseMessage();
+                
+                break;
+                
             case QUIT_MSG:
                 
                 printf("processing quit message\n");
@@ -84,32 +105,37 @@ int RaptorRemoteSession::listeningThreadRoutine() {
                 
                 break;
                 
-/*            case VID_START:
+            case VID_START:
                 printf("processing vid start message\n");
                 
                 // @TODO - get the return value from handleVideo
                 // for success of video and and populate field
                 // in response packet appropriately
-                this->handleVideoStart();
                 
-                this->sendVideoStartRsp(true);
+                
+                videoInitMessage = (VideoInitPacket*)newMessage;
+                
+                
+                printf("Data port %d, Server port %d\n", remoteDataPort, remoteServerPort);
+                
+                //this->sendVideoStartRsp(true);
                 
                 break;
                 
-                
-            case VID_END:
-                
-                printf("processing vid end message\n");
-                
-                
-                // @TODO - get the return value from handleVideo
-                // for success of video and and populate field
-                // in response packet appropriately
-                this->handleVideoEnd();
-                
-                this->sendVideoEndRsp(true);
-                
-                break;*/
+                /*               
+                 case VID_END:
+                 
+                 printf("processing vid end message\n");
+                 
+                 
+                 // @TODO - get the return value from handleVideo
+                 // for success of video and and populate field
+                 // in response packet appropriately
+                 this->handleVideoEnd();
+                 
+                 this->sendVideoEndRsp(true);
+                 
+                 break;*/
                 
             case SOCKET_READ_ERROR:
                 allIsWell = checkSessionIntegrity();
@@ -118,6 +144,11 @@ int RaptorRemoteSession::listeningThreadRoutine() {
                     this->sendQuitMessage();
                     this->teardownSession();
                 }
+                
+                break;
+                
+            case SOCKET_CLOSED:
+                this->teardownSession();
                 
                 break;
                 
@@ -162,38 +193,85 @@ int RaptorRemoteSession::startNewSession() {
  *   populate the fields of a RaptorSessionMessage struct based on the data
  *   we receive, and return that struct
  */
-RaptorSessionMessage* RaptorRemoteSession::getIncomingMessage() {
+AbstractPacket* RaptorRemoteSession::getIncomingMessage() {
 	
 	bool messageReceived = false;
     
-    size_t bytesRead;
+    int bytesRead;
     
-    RaptorSessionMessage* returnMessage = (RaptorSessionMessage*)malloc(sizeof(RaptorSessionMessage));
+    AbstractPacket* returnMessage = (AbstractPacket*)malloc(MAX_PACKET_BYTES);
+    VideoInitPacket* _videoInitMessage;
     
-	while (!messageReceived) {
+    
+    pthread_mutex_lock(&receiveMutex);
+    
+    bzero(this->receiveBuffer, RECEIVE_BUFFER_SIZE);
+    
+    
+    // read the message type
+    bytesRead = readFully(this->socketFD, this->receiveBuffer, 0, sizeof(AbstractPacket));
+    
+    if (bytesRead < 0) {
         
-        pthread_mutex_lock(&receiveMutex);
+        printf("Error reading message type from new message\n");
         
-        // read the protocol id
-		bzero(this->receiveBuffer, RECEIVE_BUFFER_SIZE);
-		bytesRead = recv(this->socketFD, (this->receiveBuffer), MEMBER_SIZE(NetworkHeader, protocolID), 0);
-		
-        if (bytesRead < 1) {
+        pthread_mutex_unlock(&receiveMutex);
+        
+        returnMessage->messageType = SOCKET_READ_ERROR;
+        
+        return returnMessage;
+        
+    } else if (bytesRead == 0) {
+        printf("Connection closed by remote client");
+        
+        pthread_mutex_unlock(&receiveMutex);
+        
+        returnMessage->messageType = SOCKET_CLOSED;
+        
+        return returnMessage;
+    }
+    
+    // switch on the message type received
+    switch (this->receiveBuffer[0]) {
+        case PING_MSG:
+            printf("ping message received\n");
+                        
+            bytesRead = readFully(this->socketFD, this->receiveBuffer, bytesRead, sizeof(PingPacket));
             
-            pthread_mutex_unlock(&receiveMutex);
+            returnMessage->messageType = PING_MSG;
             
-            returnMessage->messageType = SOCKET_READ_ERROR;
-            return returnMessage;
-        }
-		
-        // continue if sender's protocol version matches ours
-		if (this->receiveBuffer[0] == RAPTOR_REMOTE_SESSION_PROTOCOL_VERSION_ID) {
-			
+            messageReceived = true;
             
-            // read the message type
-			bytesRead = recv(this->socketFD, (this->receiveBuffer), MEMBER_SIZE(NetworkHeader, messageType), 0);
+            break;
             
-            if (bytesRead < 1) {
+        case INIT_MSG:
+            printf("init message received\n");
+                        
+            bytesRead = recv(this->socketFD, (this->receiveBuffer), bytesRead, sizeof(InitPacket));
+            
+            returnMessage->messageType = INIT_MSG;
+            
+            messageReceived = true;
+            
+            break;
+            
+        case QUIT_MSG:
+            printf("quit message received\n");
+            
+            bytesRead = readFully(this->socketFD, this->receiveBuffer, bytesRead, sizeof(QuitPacket));
+            
+            returnMessage->messageType = QUIT_MSG;
+            
+            break;
+            
+        case VID_START:
+            printf("vid start message received\n");
+            
+            returnMessage->messageType = VID_START;
+            
+            bytesRead = readFully(this->socketFD, this->receiveBuffer, bytesRead, sizeof(VideoInitPacket));
+            
+            if (bytesRead < sizeof(VideoInitPacket)) {
                 
                 pthread_mutex_unlock(&receiveMutex);
                 
@@ -201,70 +279,39 @@ RaptorSessionMessage* RaptorRemoteSession::getIncomingMessage() {
                 return returnMessage;
             }
             
-			// switch on the message type received
-			switch (this->receiveBuffer[0]) {
-				case PING_MSG:
-					printf("ping message received\n");
-					
-                    returnMessage->messageType = PING_MSG;
-                    
-					messageReceived = true;
-                    
-					break;
-					
-					
-                case INIT_MSG:
-                    printf("init message received\n");
-                    
-                    returnMessage->messageType = INIT_MSG;
-                    
-                    messageReceived = true;
-                    
-                    break;
-                    
-                case QUIT_MSG:
-                    printf("quit message received\n");
-                    
-                    returnMessage->messageType = QUIT_MSG;
-                    
-                    break;
-                    
- /*               case VID_START:
-                    printf("vid start message received\n");
-                    
-                    returnMessage->messageType = VID_START;
-                    
-                    messageReceived = true;
-                    
-                    break;
-                    
-                    
-                case VID_END:
-                    printf("vid end message received\n");
-                    
-                    returnMessage->messageType = VID_END;
-                    
-                    messageReceived = true;
-                    
-                    break;*/
-                    
-				default:
-					printf("unknown message type received\n");
-                    
-                    returnMessage->messageType = UNKNOWN_MESSAGE_TYPE;
-                    
-                    messageReceived = true;
-                    
-					break;
-			}
+            memcpy(returnMessage, this->receiveBuffer, sizeof(VideoInitPacket));
             
-            pthread_mutex_unlock(&receiveMutex);
+            _videoInitMessage = (VideoInitPacket*) returnMessage;
+            _videoInitMessage->remoteDataPort = ntohl(_videoInitMessage->remoteDataPort);
+            _videoInitMessage->remoteServerPort = ntohl(_videoInitMessage->remoteServerPort);
             
-            return returnMessage;
-		}
-	}
-	
-	return NULL;
+            break;
+            
+            /*
+             
+             case VID_END:
+             printf("vid end message received\n");
+             
+             returnMessage->messageType = VID_END;
+             
+             messageReceived = true;
+             
+             break;*/
+            
+        default:
+            printf("unknown message type received\n");
+            
+            returnMessage->messageType = UNKNOWN_MESSAGE_TYPE;
+            
+            messageReceived = true;
+            
+            break;
+    }
+    
+    pthread_mutex_unlock(&receiveMutex);
+    
+    return returnMessage;
+    
 }
 
 /*
@@ -277,9 +324,7 @@ int RaptorRemoteSession::sendPingResponseMessage() {
     
     bzero(this->sendBuffer, SEND_BUFFER_SIZE);
     
-    sendBuffer[0] = RAPTOR_REMOTE_SESSION_PROTOCOL_VERSION_ID;
-    sendBuffer[1] = PING_RSP_MSG;
-    int packetBytes = 2;
+    int packetBytes = newPingRspMsg(this->sendBuffer);
     
     int bytesWritten = write(this->socketFD, this->sendBuffer, packetBytes);
     
@@ -298,9 +343,7 @@ int RaptorRemoteSession::sendPingMessage() {
     
     bzero(this->sendBuffer, SEND_BUFFER_SIZE);
     
-    sendBuffer[0] = RAPTOR_REMOTE_SESSION_PROTOCOL_VERSION_ID;
-    sendBuffer[1] = PING_RSP_MSG;
-    int packetBytes = 2;
+    int packetBytes = newPingMsg(this->sendBuffer);
     
     int bytesWritten = write(this->socketFD, this->sendBuffer, packetBytes);
     
@@ -318,7 +361,6 @@ int RaptorRemoteSession::sendInitResponseMessage(bool success) {
     pthread_mutex_lock(&this->sendMutex);
     
     bzero(this->sendBuffer, SEND_BUFFER_SIZE);
-    
     
     int bytesInBuffer = newInitRspMsg(this->sendBuffer, success);
     
@@ -361,10 +403,7 @@ int RaptorRemoteSession::sendQuitMessage() {
     
     bzero(this->sendBuffer, SEND_BUFFER_SIZE);
     
-    sendBuffer[0] = RAPTOR_REMOTE_SESSION_PROTOCOL_VERSION_ID;
-    sendBuffer[1] = QUIT_MSG;
-    
-    int packetBytes = 2;
+    int packetBytes = newQuitMsg(this->sendBuffer);
     
     int bytesWritten = write(this->socketFD, this->sendBuffer, packetBytes);
     
@@ -378,55 +417,3 @@ int RaptorRemoteSession::sendQuitMessage() {
     return 0;
 }
 
-/*
-int RaptorRemoteSession::sendVideoEndRsp(bool success) {
-    pthread_mutex_lock(&this->sendMutex);
-    
-    bzero(this->sendBuffer, SEND_BUFFER_SIZE);
-    
-    int bytesInBuffer = newVidEndRspPacket(this->sendBuffer, success);
-    
-    int bytesSent = write(this->socketFD, this->sendBuffer, bytesInBuffer);
-    
-    if (bytesSent != bytesInBuffer) {
-        pthread_mutex_unlock(&this->sendMutex);
-        return -1;
-    }
-    
-    pthread_mutex_unlock(&this->sendMutex);
-    
-    return 0;
-}
-
-int RaptorRemoteSession::sendVideoStartRsp(bool success) {
-    pthread_mutex_lock(&this->sendMutex);
-    
-    bzero(this->sendBuffer, SEND_BUFFER_SIZE);
-    
-    int bytesInBuffer = newVidStartRspPacket(this->sendBuffer, success);
-    
-    int bytesSent = write(this->socketFD, this->sendBuffer, bytesInBuffer);
-    
-    if (bytesSent != bytesInBuffer) {
-        pthread_mutex_unlock(&this->sendMutex);
-        return -1;
-    }
-    
-    pthread_mutex_unlock(&this->sendMutex);
-    
-    return 0;
-}
-
-int RaptorRemoteSession::handleVideoStart() {
-    
-    this->videoStream = new RaptorVideoStream;
-    
-    return 0;
-}
-
-int RaptorRemoteSession::handleVideoEnd() {
-    
-    
-    return 0;
-}
-*/

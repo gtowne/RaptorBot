@@ -1,0 +1,7 @@
+import java.awt.image.BufferedImage;
+
+public interface VideoPlayer {
+	
+	public void updateFrame(BufferedImage frame);
+
+}

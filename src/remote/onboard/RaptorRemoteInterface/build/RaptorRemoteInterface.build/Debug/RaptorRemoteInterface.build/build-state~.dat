@@ -1,0 +1,263 @@
+TRaptorRemoteInterface
+v7
+r0
+t348602029.252024
+cCheck dependencies
+cCompileC build/RaptorRemoteInterface.build/Debug/RaptorRemoteInterface.build/Objects-normal/x86_64/main.o /Users/gordontowne/Desktop/RaptorRemoteInterface/main.cpp normal x86_64 c++ com.apple.compilers.gcc.4_2
+cCompileC build/RaptorRemoteInterface.build/Debug/RaptorRemoteInterface.build/Objects-normal/x86_64/RaptorRemoteServer.o /Users/gordontowne/Desktop/RaptorRemoteInterface/RaptorRemoteServer.cpp normal x86_64 c++ com.apple.compilers.gcc.4_2
+cCompileC build/RaptorRemoteInterface.build/Debug/RaptorRemoteInterface.build/Objects-normal/x86_64/RaptorRemoteSessionProtocol.o /Users/gordontowne/Desktop/RaptorRemoteInterface/RaptorRemoteSessionProtocol.cpp normal x86_64 c++ com.apple.compilers.gcc.4_2
+cCompileC build/RaptorRemoteInterface.build/Debug/RaptorRemoteInterface.build/Objects-normal/x86_64/MyTCPSocketUtils.o /Users/gordontowne/Desktop/RaptorRemoteInterface/MyTCPSocketUtils.c normal x86_64 c com.apple.compilers.gcc.4_2
+cCompileC build/RaptorRemoteInterface.build/Debug/RaptorRemoteInterface.build/Objects-normal/x86_64/RaptorRemoteSession.o /Users/gordontowne/Desktop/RaptorRemoteInterface/RaptorRemoteSession.cpp normal x86_64 c++ com.apple.compilers.gcc.4_2
+cLd /Users/gordontowne/Desktop/RaptorRemoteInterface/build/Debug/RaptorRemoteInterface normal x86_64
+
+N/Developer-old/SDKs/MacOSX10.6.sdk
+c000000004A769DAB00000000000000EE
+t1249287595
+s238
+
+N/Developer-old/SDKs/MacOSX10.6.sdk/usr/include/netinet/in.h
+c000000004CC3DE650000000000005414
+t1287904869
+s21524
+
+N/Developer-old/SDKs/MacOSX10.6.sdk/usr/include/stdio.h
+c000000004A5C14A70000000000004174
+t1247548583
+s16756
+
+N/Developer-old/SDKs/MacOSX10.6.sdk/usr/include/stdlib.h
+c000000004A5C14A70000000000002DF5
+t1247548583
+s11765
+
+N/Developer-old/SDKs/MacOSX10.6.sdk/usr/include/string.h
+c000000004A5C14A70000000000001731
+t1247548583
+s5937
+
+N/Developer-old/SDKs/MacOSX10.6.sdk/usr/include/sys/socket.h
+c000000004A73D65400000000000059BC
+t1249105492
+s22972
+
+N/Developer-old/SDKs/MacOSX10.6.sdk/usr/include/sys/types.h
+c000000004A73D6550000000000002905
+t1249105493
+s10501
+
+N/Developer-old/SDKs/MacOSX10.6.sdk/usr/include/unistd.h
+c000000004A5C14A7000000000000563E
+t1247548583
+s22078
+
+N/Users/gordontowne/Desktop/RaptorRemoteInterface/MyTCPSocketUtils.c
+c000000004F16F8300000000000000575
+t1326905392
+s1397
+i"MyTCPSocketUtils.h"
+
+N/Users/gordontowne/Desktop/RaptorRemoteInterface/MyTCPSocketUtils.h
+c000000004F1701840000000000000362
+t1326907780
+s866
+i<stdio.h>
+i<stdlib.h>
+i<string.h>
+i<unistd.h>
+i<sys/types.h>
+i<sys/socket.h>
+i<netinet/in.h>
+
+N/Users/gordontowne/Desktop/RaptorRemoteInterface/RaptorRemoteProtocol.cpp
+c000000004F16F18900000000000000CB
+t1326903689
+s203
+i"RaptorRemoteProtocol.h"
+
+N/Users/gordontowne/Desktop/RaptorRemoteInterface/RaptorRemoteProtocol.h
+c000000004F16F3840000000000000288
+t1326904196
+s648
+
+N/Users/gordontowne/Desktop/RaptorRemoteInterface/RaptorRemoteServer.cpp
+c000000004F1706C00000000000000570
+t1326909120
+s1392
+i"RaptorRemoteServer.h"
+
+N/Users/gordontowne/Desktop/RaptorRemoteInterface/RaptorRemoteServer.h
+c000000004F1705E70000000000000333
+t1326908903
+s819
+i<stdio.h>
+i<stdlib.h>
+i<string.h>
+i<unistd.h>
+i<sys/types.h>
+i<sys/socket.h>
+i<netinet/in.h>
+i"RaptorRemoteSessionProtocol.h"
+i"MyTCPSocketUtils.h"
+i"RaptorRemoteSession.h"
+
+N/Users/gordontowne/Desktop/RaptorRemoteInterface/RaptorRemoteSession.cpp
+c000000004F170560000000000000023E
+t1326908768
+s574
+i"RaptorRemoteSession.h"
+
+N/Users/gordontowne/Desktop/RaptorRemoteInterface/RaptorRemoteSession.h
+c000000004F17057C000000000000037F
+t1326908796
+s895
+i<stdio.h>
+i<stdlib.h>
+i<string.h>
+i<unistd.h>
+i<sys/types.h>
+i<sys/socket.h>
+i<netinet/in.h>
+i"RaptorRemoteSessionProtocol.h"
+
+N/Users/gordontowne/Desktop/RaptorRemoteInterface/RaptorRemoteSessionProtocol.cpp
+c000000004F1701A300000000000000D2
+t1326907811
+s210
+i"RaptorRemoteSessionProtocol.h"
+
+N/Users/gordontowne/Desktop/RaptorRemoteInterface/RaptorRemoteSessionProtocol.h
+c000000004F16F41100000000000002A0
+t1326904337
+s672
+
+N/Users/gordontowne/Desktop/RaptorRemoteInterface/build/Debug/RaptorRemoteInterface
+t2
+s0
+
+N/Users/gordontowne/Desktop/RaptorRemoteInterface/build/RaptorRemoteInterface.build/Debug/RaptorRemoteInterface.build/Objects-normal/x86_64/MyTCPSocketUtils.o
+t1326909229
+s5000
+
+N/Users/gordontowne/Desktop/RaptorRemoteInterface/build/RaptorRemoteInterface.build/Debug/RaptorRemoteInterface.build/Objects-normal/x86_64/RaptorRemoteInterface.LinkFileList
+c000000004F17072C000000000000031A
+t1326909228
+s794
+
+N/Users/gordontowne/Desktop/RaptorRemoteInterface/build/RaptorRemoteInterface.build/Debug/RaptorRemoteInterface.build/Objects-normal/x86_64/RaptorRemoteProtocol.o
+t2
+s0
+
+N/Users/gordontowne/Desktop/RaptorRemoteInterface/build/RaptorRemoteInterface.build/Debug/RaptorRemoteInterface.build/Objects-normal/x86_64/RaptorRemoteServer.o
+t1326909228
+s7612
+
+N/Users/gordontowne/Desktop/RaptorRemoteInterface/build/RaptorRemoteInterface.build/Debug/RaptorRemoteInterface.build/Objects-normal/x86_64/RaptorRemoteSession.o
+t1326909229
+s5624
+
+N/Users/gordontowne/Desktop/RaptorRemoteInterface/build/RaptorRemoteInterface.build/Debug/RaptorRemoteInterface.build/Objects-normal/x86_64/RaptorRemoteSessionProtocol.o
+t1326909228
+s1680
+
+N/Users/gordontowne/Desktop/RaptorRemoteInterface/build/RaptorRemoteInterface.build/Debug/RaptorRemoteInterface.build/Objects-normal/x86_64/main.o
+t1326909229
+s48316
+
+N/Users/gordontowne/Desktop/RaptorRemoteInterface/main.cpp
+c000000004F16F0F700000000000000A4
+t1326903543
+s164
+i<iostream>
+i"RaptorRemoteServer.h"
+
+CCheck dependencies
+r0
+lSLF07#2@18"Check dependencies348602028#348602028#0(0"0(0#1#0"8627052448#0"0#
+
+CCompileC build/RaptorRemoteInterface.build/Debug/RaptorRemoteInterface.build/Objects-normal/x86_64/MyTCPSocketUtils.o /Users/gordontowne/Desktop/RaptorRemoteInterface/MyTCPSocketUtils.c normal x86_64 c com.apple.compilers.gcc.4_2
+s348602028.884131
+e348602029.178787
+r1
+xCompileC
+xbuild/RaptorRemoteInterface.build/Debug/RaptorRemoteInterface.build/Objects-normal/x86_64/MyTCPSocketUtils.o
+x/Users/gordontowne/Desktop/RaptorRemoteInterface/MyTCPSocketUtils.c
+xnormal
+xx86_64
+xc
+xcom.apple.compilers.gcc.4_2
+lSLF07#2@75"Compile /Users/gordontowne/Desktop/RaptorRemoteInterface/MyTCPSocketUtils.c348602028#348602029#0(0"0(0#0#67"/Users/gordontowne/Desktop/RaptorRemoteInterface/MyTCPSocketUtils.c8624357184#1664"    cd /Users/gordontowne/Desktop/RaptorRemoteInterface    setenv LANG en_US.US-ASCII    /Developer-old/usr/bin/gcc-4.2 -x c -arch x86_64 -fmessage-length=0 -pipe -std=gnu99 -Wno-trigraphs -fpascal-strings -fasm-blocks -O0 -Wreturn-type -Wunused-variable -isysroot /Developer-old/SDKs/MacOSX10.6.sdk -mfix-and-continue -mmacosx-version-min=10.6 -gdwarf-2 -iquote /Users/gordontowne/Desktop/RaptorRemoteInterface/build/RaptorRemoteInterface.build/Debug/RaptorRemoteInterface.build/RaptorRemoteInterface-generated-files.hmap -I/Users/gordontowne/Desktop/RaptorRemoteInterface/build/RaptorRemoteInterface.build/Debug/RaptorRemoteInterface.build/RaptorRemoteInterface-own-target-headers.hmap -I/Users/gordontowne/Desktop/RaptorRemoteInterface/build/RaptorRemoteInterface.build/Debug/RaptorRemoteInterface.build/RaptorRemoteInterface-all-target-headers.hmap -iquote /Users/gordontowne/Desktop/RaptorRemoteInterface/build/RaptorRemoteInterface.build/Debug/RaptorRemoteInterface.build/RaptorRemoteInterface-project-headers.hmap -F/Users/gordontowne/Desktop/RaptorRemoteInterface/build/Debug -I/Users/gordontowne/Desktop/RaptorRemoteInterface/build/Debug/include -I/Users/gordontowne/Desktop/RaptorRemoteInterface/build/RaptorRemoteInterface.build/Debug/RaptorRemoteInterface.build/DerivedSources/x86_64 -I/Users/gordontowne/Desktop/RaptorRemoteInterface/build/RaptorRemoteInterface.build/Debug/RaptorRemoteInterface.build/DerivedSources -c /Users/gordontowne/Desktop/RaptorRemoteInterface/MyTCPSocketUtils.c -o /Users/gordontowne/Desktop/RaptorRemoteInterface/build/RaptorRemoteInterface.build/Debug/RaptorRemoteInterface.build/Objects-normal/x86_64/MyTCPSocketUtils.o0#
+
+CCompileC build/RaptorRemoteInterface.build/Debug/RaptorRemoteInterface.build/Objects-normal/x86_64/RaptorRemoteProtocol.o /Users/gordontowne/Desktop/RaptorRemoteInterface/RaptorRemoteProtocol.cpp normal x86_64 c++ com.apple.compilers.gcc.4_2
+r0
+
+CCompileC build/RaptorRemoteInterface.build/Debug/RaptorRemoteInterface.build/Objects-normal/x86_64/RaptorRemoteServer.o /Users/gordontowne/Desktop/RaptorRemoteInterface/RaptorRemoteServer.cpp normal x86_64 c++ com.apple.compilers.gcc.4_2
+s348602028.791665
+e348602028.856573
+r1
+xCompileC
+xbuild/RaptorRemoteInterface.build/Debug/RaptorRemoteInterface.build/Objects-normal/x86_64/RaptorRemoteServer.o
+x/Users/gordontowne/Desktop/RaptorRemoteInterface/RaptorRemoteServer.cpp
+xnormal
+xx86_64
+xc++
+xcom.apple.compilers.gcc.4_2
+lSLF07#2@79"Compile /Users/gordontowne/Desktop/RaptorRemoteInterface/RaptorRemoteServer.cpp348602028#348602028#0(0"0(0#0#71"/Users/gordontowne/Desktop/RaptorRemoteInterface/RaptorRemoteServer.cpp8625905440#1689"    cd /Users/gordontowne/Desktop/RaptorRemoteInterface    setenv LANG en_US.US-ASCII    /Developer-old/usr/bin/gcc-4.2 -x c++ -arch x86_64 -fmessage-length=0 -pipe -Wno-trigraphs -fpascal-strings -fasm-blocks -O0 -Wreturn-type -Wunused-variable -isysroot /Developer-old/SDKs/MacOSX10.6.sdk -mfix-and-continue -fvisibility-inlines-hidden -mmacosx-version-min=10.6 -gdwarf-2 -iquote /Users/gordontowne/Desktop/RaptorRemoteInterface/build/RaptorRemoteInterface.build/Debug/RaptorRemoteInterface.build/RaptorRemoteInterface-generated-files.hmap -I/Users/gordontowne/Desktop/RaptorRemoteInterface/build/RaptorRemoteInterface.build/Debug/RaptorRemoteInterface.build/RaptorRemoteInterface-own-target-headers.hmap -I/Users/gordontowne/Desktop/RaptorRemoteInterface/build/RaptorRemoteInterface.build/Debug/RaptorRemoteInterface.build/RaptorRemoteInterface-all-target-headers.hmap -iquote /Users/gordontowne/Desktop/RaptorRemoteInterface/build/RaptorRemoteInterface.build/Debug/RaptorRemoteInterface.build/RaptorRemoteInterface-project-headers.hmap -F/Users/gordontowne/Desktop/RaptorRemoteInterface/build/Debug -I/Users/gordontowne/Desktop/RaptorRemoteInterface/build/Debug/include -I/Users/gordontowne/Desktop/RaptorRemoteInterface/build/RaptorRemoteInterface.build/Debug/RaptorRemoteInterface.build/DerivedSources/x86_64 -I/Users/gordontowne/Desktop/RaptorRemoteInterface/build/RaptorRemoteInterface.build/Debug/RaptorRemoteInterface.build/DerivedSources -c /Users/gordontowne/Desktop/RaptorRemoteInterface/RaptorRemoteServer.cpp -o /Users/gordontowne/Desktop/RaptorRemoteInterface/build/RaptorRemoteInterface.build/Debug/RaptorRemoteInterface.build/Objects-normal/x86_64/RaptorRemoteServer.o0#
+
+CCompileC build/RaptorRemoteInterface.build/Debug/RaptorRemoteInterface.build/Objects-normal/x86_64/RaptorRemoteSession.o /Users/gordontowne/Desktop/RaptorRemoteInterface/RaptorRemoteSession.cpp normal x86_64 c++ com.apple.compilers.gcc.4_2
+s348602029.172624
+e348602029.231737
+r1
+xCompileC
+xbuild/RaptorRemoteInterface.build/Debug/RaptorRemoteInterface.build/Objects-normal/x86_64/RaptorRemoteSession.o
+x/Users/gordontowne/Desktop/RaptorRemoteInterface/RaptorRemoteSession.cpp
+xnormal
+xx86_64
+xc++
+xcom.apple.compilers.gcc.4_2
+o/Users/gordontowne/Desktop/RaptorRemoteInterface/RaptorRemoteSession.cpp: In member function 'RaptorSessionMessage* RaptorRemoteSession::getIncomingMessage()':
+o/Users/gordontowne/Desktop/RaptorRemoteInterface/RaptorRemoteSession.cpp:25: warning: control reaches end of non-void function
+lSLF07#2@80"Compile /Users/gordontowne/Desktop/RaptorRemoteInterface/RaptorRemoteSession.cpp348602029#348602029#0(287"/Users/gordontowne/Desktop/RaptorRemoteInterface/RaptorRemoteSession.cpp: In member function 'RaptorSessionMessage* RaptorRemoteSession::getIncomingMessage()':/Users/gordontowne/Desktop/RaptorRemoteInterface/RaptorRemoteSession.cpp:25: warning: control reaches end of non-void function1(22@40"Control reaches end of non-void function348602029#160#127#0(6@72"/Users/gordontowne/Desktop/RaptorRemoteInterface/RaptorRemoteSession.cpp348601568#25#0#25#0#40"control reaches end of non-void function0(0#0#72"/Users/gordontowne/Desktop/RaptorRemoteInterface/RaptorRemoteSession.cpp8626401088#1691"    cd /Users/gordontowne/Desktop/RaptorRemoteInterface    setenv LANG en_US.US-ASCII    /Developer-old/usr/bin/gcc-4.2 -x c++ -arch x86_64 -fmessage-length=0 -pipe -Wno-trigraphs -fpascal-strings -fasm-blocks -O0 -Wreturn-type -Wunused-variable -isysroot /Developer-old/SDKs/MacOSX10.6.sdk -mfix-and-continue -fvisibility-inlines-hidden -mmacosx-version-min=10.6 -gdwarf-2 -iquote /Users/gordontowne/Desktop/RaptorRemoteInterface/build/RaptorRemoteInterface.build/Debug/RaptorRemoteInterface.build/RaptorRemoteInterface-generated-files.hmap -I/Users/gordontowne/Desktop/RaptorRemoteInterface/build/RaptorRemoteInterface.build/Debug/RaptorRemoteInterface.build/RaptorRemoteInterface-own-target-headers.hmap -I/Users/gordontowne/Desktop/RaptorRemoteInterface/build/RaptorRemoteInterface.build/Debug/RaptorRemoteInterface.build/RaptorRemoteInterface-all-target-headers.hmap -iquote /Users/gordontowne/Desktop/RaptorRemoteInterface/build/RaptorRemoteInterface.build/Debug/RaptorRemoteInterface.build/RaptorRemoteInterface-project-headers.hmap -F/Users/gordontowne/Desktop/RaptorRemoteInterface/build/Debug -I/Users/gordontowne/Desktop/RaptorRemoteInterface/build/Debug/include -I/Users/gordontowne/Desktop/RaptorRemoteInterface/build/RaptorRemoteInterface.build/Debug/RaptorRemoteInterface.build/DerivedSources/x86_64 -I/Users/gordontowne/Desktop/RaptorRemoteInterface/build/RaptorRemoteInterface.build/Debug/RaptorRemoteInterface.build/DerivedSources -c /Users/gordontowne/Desktop/RaptorRemoteInterface/RaptorRemoteSession.cpp -o /Users/gordontowne/Desktop/RaptorRemoteInterface/build/RaptorRemoteInterface.build/Debug/RaptorRemoteInterface.build/Objects-normal/x86_64/RaptorRemoteSession.o0#
+
+CCompileC build/RaptorRemoteInterface.build/Debug/RaptorRemoteInterface.build/Objects-normal/x86_64/RaptorRemoteSessionProtocol.o /Users/gordontowne/Desktop/RaptorRemoteInterface/RaptorRemoteSessionProtocol.cpp normal x86_64 c++ com.apple.compilers.gcc.4_2
+s348602028.856671
+e348602028.884038
+r1
+xCompileC
+xbuild/RaptorRemoteInterface.build/Debug/RaptorRemoteInterface.build/Objects-normal/x86_64/RaptorRemoteSessionProtocol.o
+x/Users/gordontowne/Desktop/RaptorRemoteInterface/RaptorRemoteSessionProtocol.cpp
+xnormal
+xx86_64
+xc++
+xcom.apple.compilers.gcc.4_2
+lSLF07#2@88"Compile /Users/gordontowne/Desktop/RaptorRemoteInterface/RaptorRemoteSessionProtocol.cpp348602028#348602028#0(0"0(0#0#80"/Users/gordontowne/Desktop/RaptorRemoteInterface/RaptorRemoteSessionProtocol.cpp8625721376#1707"    cd /Users/gordontowne/Desktop/RaptorRemoteInterface    setenv LANG en_US.US-ASCII    /Developer-old/usr/bin/gcc-4.2 -x c++ -arch x86_64 -fmessage-length=0 -pipe -Wno-trigraphs -fpascal-strings -fasm-blocks -O0 -Wreturn-type -Wunused-variable -isysroot /Developer-old/SDKs/MacOSX10.6.sdk -mfix-and-continue -fvisibility-inlines-hidden -mmacosx-version-min=10.6 -gdwarf-2 -iquote /Users/gordontowne/Desktop/RaptorRemoteInterface/build/RaptorRemoteInterface.build/Debug/RaptorRemoteInterface.build/RaptorRemoteInterface-generated-files.hmap -I/Users/gordontowne/Desktop/RaptorRemoteInterface/build/RaptorRemoteInterface.build/Debug/RaptorRemoteInterface.build/RaptorRemoteInterface-own-target-headers.hmap -I/Users/gordontowne/Desktop/RaptorRemoteInterface/build/RaptorRemoteInterface.build/Debug/RaptorRemoteInterface.build/RaptorRemoteInterface-all-target-headers.hmap -iquote /Users/gordontowne/Desktop/RaptorRemoteInterface/build/RaptorRemoteInterface.build/Debug/RaptorRemoteInterface.build/RaptorRemoteInterface-project-headers.hmap -F/Users/gordontowne/Desktop/RaptorRemoteInterface/build/Debug -I/Users/gordontowne/Desktop/RaptorRemoteInterface/build/Debug/include -I/Users/gordontowne/Desktop/RaptorRemoteInterface/build/RaptorRemoteInterface.build/Debug/RaptorRemoteInterface.build/DerivedSources/x86_64 -I/Users/gordontowne/Desktop/RaptorRemoteInterface/build/RaptorRemoteInterface.build/Debug/RaptorRemoteInterface.build/DerivedSources -c /Users/gordontowne/Desktop/RaptorRemoteInterface/RaptorRemoteSessionProtocol.cpp -o /Users/gordontowne/Desktop/RaptorRemoteInterface/build/RaptorRemoteInterface.build/Debug/RaptorRemoteInterface.build/Objects-normal/x86_64/RaptorRemoteSessionProtocol.o0#
+
+CCompileC build/RaptorRemoteInterface.build/Debug/RaptorRemoteInterface.build/Objects-normal/x86_64/main.o /Users/gordontowne/Desktop/RaptorRemoteInterface/main.cpp normal x86_64 c++ com.apple.compilers.gcc.4_2
+s348602028.790798
+e348602029.172527
+r1
+xCompileC
+xbuild/RaptorRemoteInterface.build/Debug/RaptorRemoteInterface.build/Objects-normal/x86_64/main.o
+x/Users/gordontowne/Desktop/RaptorRemoteInterface/main.cpp
+xnormal
+xx86_64
+xc++
+xcom.apple.compilers.gcc.4_2
+lSLF07#2@65"Compile /Users/gordontowne/Desktop/RaptorRemoteInterface/main.cpp348602028#348602029#0(0"0(0#0#57"/Users/gordontowne/Desktop/RaptorRemoteInterface/main.cpp8626027392#1661"    cd /Users/gordontowne/Desktop/RaptorRemoteInterface    setenv LANG en_US.US-ASCII    /Developer-old/usr/bin/gcc-4.2 -x c++ -arch x86_64 -fmessage-length=0 -pipe -Wno-trigraphs -fpascal-strings -fasm-blocks -O0 -Wreturn-type -Wunused-variable -isysroot /Developer-old/SDKs/MacOSX10.6.sdk -mfix-and-continue -fvisibility-inlines-hidden -mmacosx-version-min=10.6 -gdwarf-2 -iquote /Users/gordontowne/Desktop/RaptorRemoteInterface/build/RaptorRemoteInterface.build/Debug/RaptorRemoteInterface.build/RaptorRemoteInterface-generated-files.hmap -I/Users/gordontowne/Desktop/RaptorRemoteInterface/build/RaptorRemoteInterface.build/Debug/RaptorRemoteInterface.build/RaptorRemoteInterface-own-target-headers.hmap -I/Users/gordontowne/Desktop/RaptorRemoteInterface/build/RaptorRemoteInterface.build/Debug/RaptorRemoteInterface.build/RaptorRemoteInterface-all-target-headers.hmap -iquote /Users/gordontowne/Desktop/RaptorRemoteInterface/build/RaptorRemoteInterface.build/Debug/RaptorRemoteInterface.build/RaptorRemoteInterface-project-headers.hmap -F/Users/gordontowne/Desktop/RaptorRemoteInterface/build/Debug -I/Users/gordontowne/Desktop/RaptorRemoteInterface/build/Debug/include -I/Users/gordontowne/Desktop/RaptorRemoteInterface/build/RaptorRemoteInterface.build/Debug/RaptorRemoteInterface.build/DerivedSources/x86_64 -I/Users/gordontowne/Desktop/RaptorRemoteInterface/build/RaptorRemoteInterface.build/Debug/RaptorRemoteInterface.build/DerivedSources -c /Users/gordontowne/Desktop/RaptorRemoteInterface/main.cpp -o /Users/gordontowne/Desktop/RaptorRemoteInterface/build/RaptorRemoteInterface.build/Debug/RaptorRemoteInterface.build/Objects-normal/x86_64/main.o0#
+
+CLd /Users/gordontowne/Desktop/RaptorRemoteInterface/build/Debug/RaptorRemoteInterface normal x86_64
+s348602029.231828
+e348602029.251983
+r0
+xLd
+x/Users/gordontowne/Desktop/RaptorRemoteInterface/build/Debug/RaptorRemoteInterface
+xnormal
+xx86_64
+oUndefined symbols:
+o  "openListeningSocket(int)", referenced from:
+o      RaptorRemoteServer::startServer()       in RaptorRemoteServer.o
+o  "acceptConnection(int)", referenced from:
+o      RaptorRemoteServer::acceptNewSession()       in RaptorRemoteServer.o
+old: symbol(s) not found
+ocollect2: ld returned 1 exit status
+lSLF07#2@87"Link /Users/gordontowne/Desktop/RaptorRemoteInterface/build/Debug/RaptorRemoteInterface348602029#348602029#0(315"Undefined symbols:  "openListeningSocket(int)", referenced from:      RaptorRemoteServer::startServer()       in RaptorRemoteServer.o  "acceptConnection(int)", referenced from:      RaptorRemoteServer::acceptNewSession()       in RaptorRemoteServer.old: symbol(s) not foundcollect2: ld returned 1 exit status6(4@44""openListeningSocket(int)", referenced from:348602029#19#47#0(6@0"348602029#0#0#0#0#0"0(13@63"RaptorRemoteServer::startServer()       in RaptorRemoteServer.o348602029#66#70#0(6@0"348602029#0#0#0#0#0"0(4@41""acceptConnection(int)", referenced from:348602029#136#44#0(6@0"348602029#0#0#0#0#0"0(13@68"RaptorRemoteServer::acceptNewSession()       in RaptorRemoteServer.o348602029#180#75#0(6@0"348602029#0#0#0#0#0"0(13@19"Symbol(s) not found348602029#255#24#0(6@0"348602029#0#0#0#0#0"0(13@35"Collect2: ld returned 1 exit status348602029#279#36#0(6@0"348602029#0#0#0#0#0"0(0#0#0"8626083968#612"    cd /Users/gordontowne/Desktop/RaptorRemoteInterface    setenv MACOSX_DEPLOYMENT_TARGET 10.6    /Developer-old/usr/bin/g++-4.2 -arch x86_64 -isysroot /Developer-old/SDKs/MacOSX10.6.sdk -L/Users/gordontowne/Desktop/RaptorRemoteInterface/build/Debug -F/Users/gordontowne/Desktop/RaptorRemoteInterface/build/Debug -filelist /Users/gordontowne/Desktop/RaptorRemoteInterface/build/RaptorRemoteInterface.build/Debug/RaptorRemoteInterface.build/Objects-normal/x86_64/RaptorRemoteInterface.LinkFileList -mmacosx-version-min=10.6 -o /Users/gordontowne/Desktop/RaptorRemoteInterface/build/Debug/RaptorRemoteInterface1#
+

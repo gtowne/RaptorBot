@@ -1,5 +1,7 @@
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
+import java.io.DataInputStream;
+import java.io.DataOutputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
@@ -11,39 +13,39 @@ import java.util.Arrays;
 
 public class SimpleSocket {
 	private Socket socket;
-	private BufferedReader in;
-	private BufferedWriter out;
+	private DataInputStream in;
+	private DataOutputStream out;
 	
 	public SimpleSocket(InetAddress addr, int port) throws IOException {
 		socket = new Socket(addr, port);
-		in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
-		out = new BufferedWriter(new OutputStreamWriter(socket.getOutputStream()));
+		in = new DataInputStream(socket.getInputStream());
+		
+		out = new DataOutputStream(socket.getOutputStream());
 		
 	}
 	
 	public SimpleSocket(String hostname, int port) throws IOException {
 		socket = new Socket(hostname, port);
-		in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
-		out = new BufferedWriter(new OutputStreamWriter(socket.getOutputStream()));
+		in = new DataInputStream(socket.getInputStream());
+		out = new DataOutputStream(socket.getOutputStream());
 	}
 	
-	public int read(char[] buff, int offset, int numBytes) throws IOException {
-		int numRead = 0;		
-		while(numRead < numBytes) {
-			int read = in.read(buff, offset + numRead, numBytes);
-			
-			if (read == -1) {
-				return -1;
-			}
-				
-			numRead += read;
-		}
-		
-		return numRead;
+	public SimpleSocket(Socket openSocket) throws IOException {
+		socket = openSocket;
+		in = new DataInputStream(socket.getInputStream());
+		out = new DataOutputStream(socket.getOutputStream());
 	}
 	
-	public void write(char[] buff) throws IOException {
-		out.write(buff);
+	public byte readByte() throws IOException {
+		return in.readByte();
+	}
+	
+	public int readInt() throws IOException {
+		return in.readInt();
+	}
+	
+	public void writeBytes(byte[] bytes) throws IOException {
+		out.write(bytes);
 	}
 	
 	public void flush() throws IOException {

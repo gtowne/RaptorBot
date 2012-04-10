@@ -1,0 +1,412 @@
+// !$*UTF8*$!
+{
+	08FB7793FE84155DC02AAC07 /* Project object */ = {
+		activeBuildConfigurationName = Debug;
+		activeExecutable = EBB83E5114C65C1B00E43B4A /* RaptorRemoteInterface */;
+		activeTarget = 8DD76F620486A84900D96B5E /* RaptorRemoteInterface */;
+		addToTargets = (
+			8DD76F620486A84900D96B5E /* RaptorRemoteInterface */,
+		);
+		breakpoints = (
+			EBB83E7214C7272A00E43B4A /* RaptorRemoteServer.cpp:72 */,
+			EB3456F714C74405002E3B87 /* RaptorRemoteServer.cpp:45 */,
+			EB34573E14C76ABA002E3B87 /* RaptorRemoteSession.cpp:27 */,
+			EB3457B314C8A191002E3B87 /* RaptorRemoteSession.cpp:39 */,
+			EB3457DA14C8AD2D002E3B87 /* RaptorRemoteSession.cpp:33 */,
+			EB3457E714C8AE6D002E3B87 /* RaptorRemoteSession.cpp:41 */,
+		);
+		codeSenseManager = EBB83E6814C65C2900E43B4A /* Code sense */;
+		executables = (
+			EBB83E5114C65C1B00E43B4A /* RaptorRemoteInterface */,
+		);
+		perUserDictionary = {
+			"PBXConfiguration.PBXBreakpointsDataSource.v1:1CA1AED706398EBD00589147" = {
+				PBXFileTableDataSourceColumnSortingDirectionKey = "-1";
+				PBXFileTableDataSourceColumnSortingKey = PBXBreakpointsDataSource_BreakpointID;
+				PBXFileTableDataSourceColumnWidthsKey = (
+					20,
+					20,
+					198,
+					20,
+					99,
+					99,
+					29,
+					20,
+				);
+				PBXFileTableDataSourceColumnsKey = (
+					PBXBreakpointsDataSource_ActionID,
+					PBXBreakpointsDataSource_TypeID,
+					PBXBreakpointsDataSource_BreakpointID,
+					PBXBreakpointsDataSource_UseID,
+					PBXBreakpointsDataSource_LocationID,
+					PBXBreakpointsDataSource_ConditionID,
+					PBXBreakpointsDataSource_IgnoreCountID,
+					PBXBreakpointsDataSource_ContinueID,
+				);
+			};
+			PBXConfiguration.PBXFileTableDataSource3.PBXFileTableDataSource = {
+				PBXFileTableDataSourceColumnSortingDirectionKey = "-1";
+				PBXFileTableDataSourceColumnSortingKey = PBXFileDataSource_Filename_ColumnID;
+				PBXFileTableDataSourceColumnWidthsKey = (
+					20,
+					672,
+					20,
+					48,
+					43,
+					43,
+					20,
+				);
+				PBXFileTableDataSourceColumnsKey = (
+					PBXFileDataSource_FiletypeID,
+					PBXFileDataSource_Filename_ColumnID,
+					PBXFileDataSource_Built_ColumnID,
+					PBXFileDataSource_ObjectSize_ColumnID,
+					PBXFileDataSource_Errors_ColumnID,
+					PBXFileDataSource_Warnings_ColumnID,
+					PBXFileDataSource_Target_ColumnID,
+				);
+			};
+			PBXPerProjectTemplateStateSaveDate = 349746894;
+			PBXWorkspaceStateSaveDate = 349746894;
+		};
+		perUserProjectItems = {
+			EB34573014C76A03002E3B87 /* PBXTextBookmark */ = EB34573014C76A03002E3B87 /* PBXTextBookmark */;
+			EB34573414C76A03002E3B87 /* PBXTextBookmark */ = EB34573414C76A03002E3B87 /* PBXTextBookmark */;
+			EB34573514C76A03002E3B87 /* PBXTextBookmark */ = EB34573514C76A03002E3B87 /* PBXTextBookmark */;
+			EB34575614C76DBC002E3B87 /* PBXTextBookmark */ = EB34575614C76DBC002E3B87 /* PBXTextBookmark */;
+			EB3457AD14C86EB9002E3B87 /* PBXTextBookmark */ = EB3457AD14C86EB9002E3B87 /* PBXTextBookmark */;
+			EB3457D114C8ACB3002E3B87 /* PBXTextBookmark */ = EB3457D114C8ACB3002E3B87 /* PBXTextBookmark */;
+			EB53EBF714C8B245005C6CFD /* PBXTextBookmark */ = EB53EBF714C8B245005C6CFD /* PBXTextBookmark */;
+			EB53EBF814C8B245005C6CFD /* PBXTextBookmark */ = EB53EBF814C8B245005C6CFD /* PBXTextBookmark */;
+			EB53EC0114C8B2DB005C6CFD /* PBXTextBookmark */ = EB53EC0114C8B2DB005C6CFD /* PBXTextBookmark */;
+			EBA5BA3E14D8B6DA00839B9F /* PBXTextBookmark */ = EBA5BA3E14D8B6DA00839B9F /* PBXTextBookmark */;
+		};
+		sourceControlManager = EBB83E6714C65C2900E43B4A /* Source Control */;
+		userBuildSettings = {
+		};
+	};
+	08FB7796FE84155DC02AAC07 /* main.cpp */ = {
+		uiCtxt = {
+			sepNavIntBoundsRect = "{{0, 0}, {849, 461}}";
+			sepNavSelRange = "{134, 0}";
+			sepNavVisRange = "{0, 164}";
+		};
+	};
+	8DD76F620486A84900D96B5E /* RaptorRemoteInterface */ = {
+		activeExec = 0;
+		executables = (
+			EBB83E5114C65C1B00E43B4A /* RaptorRemoteInterface */,
+		);
+	};
+	EB3456F714C74405002E3B87 /* RaptorRemoteServer.cpp:45 */ = {
+		isa = PBXFileBreakpoint;
+		actions = (
+		);
+		breakpointStyle = 0;
+		continueAfterActions = 0;
+		countType = 0;
+		delayBeforeContinue = 0;
+		fileReference = EBB83E6C14C65D2C00E43B4A /* RaptorRemoteServer.cpp */;
+		functionName = "RaptorRemoteServer::startServer()";
+		hitCount = 0;
+		ignoreCount = 0;
+		lineNumber = 45;
+		location = RaptorRemoteInterface;
+		modificationTime = 348697191.912716;
+		originalNumberOfMultipleMatches = 1;
+		state = 1;
+	};
+	EB34573014C76A03002E3B87 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = EBB83E6B14C65D2C00E43B4A /* RaptorRemoteServer.h */;
+		name = "RaptorRemoteServer.h: 35";
+		rLen = 0;
+		rLoc = 671;
+		rType = 0;
+		vrLen = 741;
+		vrLoc = 0;
+	};
+	EB34573414C76A03002E3B87 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = EBB83E8C14C7290900E43B4A /* RaptorRemoteSessionProtocol.h */;
+		name = "RaptorRemoteSessionProtocol.h: 29";
+		rLen = 0;
+		rLoc = 537;
+		rType = 0;
+		vrLen = 668;
+		vrLoc = 3;
+	};
+	EB34573514C76A03002E3B87 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = EBB83E8D14C7290900E43B4A /* RaptorRemoteSessionProtocol.cpp */;
+		name = "RaptorRemoteSessionProtocol.cpp: 10";
+		rLen = 0;
+		rLoc = 197;
+		rType = 0;
+		vrLen = 210;
+		vrLoc = 0;
+	};
+	EB34573E14C76ABA002E3B87 /* RaptorRemoteSession.cpp:27 */ = {
+		isa = PBXFileBreakpoint;
+		actions = (
+		);
+		breakpointStyle = 0;
+		continueAfterActions = 0;
+		countType = 0;
+		delayBeforeContinue = 0;
+		fileReference = EBB83EAD14C730F300E43B4A /* RaptorRemoteSession.cpp */;
+		functionName = "RaptorRemoteSession::getIncomingMessage()";
+		hitCount = 0;
+		ignoreCount = 0;
+		lineNumber = 27;
+		location = RaptorRemoteInterface;
+		modificationTime = 348697191.760918;
+		originalNumberOfMultipleMatches = 1;
+		state = 2;
+	};
+	EB34575614C76DBC002E3B87 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = EBB83EA014C72F1300E43B4A /* MyTCPSocketUtils.h */;
+		name = "MyTCPSocketUtils.h: 19";
+		rLen = 0;
+		rLoc = 373;
+		rType = 0;
+		vrLen = 866;
+		vrLoc = 0;
+	};
+	EB3457AD14C86EB9002E3B87 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 08FB7796FE84155DC02AAC07 /* main.cpp */;
+		name = "main.cpp: 7";
+		rLen = 0;
+		rLoc = 134;
+		rType = 0;
+		vrLen = 164;
+		vrLoc = 0;
+	};
+	EB3457B314C8A191002E3B87 /* RaptorRemoteSession.cpp:39 */ = {
+		isa = PBXFileBreakpoint;
+		actions = (
+		);
+		breakpointStyle = 0;
+		continueAfterActions = 0;
+		countType = 0;
+		delayBeforeContinue = 0;
+		fileReference = EBB83EAD14C730F300E43B4A /* RaptorRemoteSession.cpp */;
+		functionName = "RaptorRemoteSession::getIncomingMessage()";
+		hitCount = 0;
+		ignoreCount = 0;
+		lineNumber = 39;
+		location = RaptorRemoteInterface;
+		modificationTime = 348697191.7610451;
+		originalNumberOfMultipleMatches = 1;
+		state = 2;
+	};
+	EB3457D114C8ACB3002E3B87 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = EBB83EAC14C730F300E43B4A /* RaptorRemoteSession.h */;
+		name = "RaptorRemoteSession.h: 19";
+		rLen = 0;
+		rLoc = 380;
+		rType = 0;
+		vrLen = 723;
+		vrLoc = 165;
+	};
+	EB3457DA14C8AD2D002E3B87 /* RaptorRemoteSession.cpp:33 */ = {
+		isa = PBXFileBreakpoint;
+		actions = (
+		);
+		breakpointStyle = 0;
+		continueAfterActions = 0;
+		countType = 0;
+		delayBeforeContinue = 0;
+		fileReference = EBB83EAD14C730F300E43B4A /* RaptorRemoteSession.cpp */;
+		functionName = "RaptorRemoteSession::getIncomingMessage()";
+		hitCount = 5;
+		ignoreCount = 0;
+		lineNumber = 33;
+		location = RaptorRemoteInterface;
+		modificationTime = 348697223.364238;
+		originalNumberOfMultipleMatches = 1;
+		state = 1;
+	};
+	EB3457E714C8AE6D002E3B87 /* RaptorRemoteSession.cpp:41 */ = {
+		isa = PBXFileBreakpoint;
+		actions = (
+		);
+		breakpointStyle = 0;
+		continueAfterActions = 0;
+		countType = 0;
+		delayBeforeContinue = 0;
+		fileReference = EBB83EAD14C730F300E43B4A /* RaptorRemoteSession.cpp */;
+		functionName = "RaptorRemoteSession::getIncomingMessage()";
+		hitCount = 5;
+		ignoreCount = 0;
+		lineNumber = 41;
+		location = RaptorRemoteInterface;
+		modificationTime = 348697300.237036;
+		originalNumberOfMultipleMatches = 1;
+		state = 1;
+	};
+	EB53EBF714C8B245005C6CFD /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = EBB83EA114C72F1300E43B4A /* MyTCPSocketUtils.cpp */;
+		name = "MyTCPSocketUtils.cpp: 42";
+		rLen = 0;
+		rLoc = 890;
+		rType = 0;
+		vrLen = 858;
+		vrLoc = 517;
+	};
+	EB53EBF814C8B245005C6CFD /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = EBB83E6C14C65D2C00E43B4A /* RaptorRemoteServer.cpp */;
+		name = "RaptorRemoteServer.cpp: 59";
+		rLen = 16;
+		rLoc = 1361;
+		rType = 0;
+		vrLen = 865;
+		vrLoc = 0;
+	};
+	EB53EC0114C8B2DB005C6CFD /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = EBB83EAD14C730F300E43B4A /* RaptorRemoteSession.cpp */;
+		name = "RaptorRemoteSession.cpp: 43";
+		rLen = 0;
+		rLoc = 1069;
+		rType = 0;
+		vrLen = 933;
+		vrLoc = 338;
+	};
+	EBA5BA3E14D8B6DA00839B9F /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = EBB83EAD14C730F300E43B4A /* RaptorRemoteSession.cpp */;
+		name = "RaptorRemoteSession.cpp: 46";
+		rLen = 0;
+		rLoc = 1069;
+		rType = 0;
+		vrLen = 829;
+		vrLoc = 448;
+	};
+	EBB83E5114C65C1B00E43B4A /* RaptorRemoteInterface */ = {
+		isa = PBXExecutable;
+		activeArgIndices = (
+		);
+		argumentStrings = (
+		);
+		autoAttachOnCrash = 1;
+		breakpointsEnabled = 1;
+		configStateDict = {
+		};
+		customDataFormattersEnabled = 1;
+		dataTipCustomDataFormattersEnabled = 1;
+		dataTipShowTypeColumn = 1;
+		dataTipSortType = 0;
+		debuggerPlugin = GDBDebugging;
+		disassemblyDisplayState = 0;
+		dylibVariantSuffix = "";
+		enableDebugStr = 1;
+		environmentEntries = (
+		);
+		executableSystemSymbolLevel = 0;
+		executableUserSymbolLevel = 0;
+		libgmallocEnabled = 0;
+		name = RaptorRemoteInterface;
+		savedGlobals = {
+		};
+		showTypeColumn = 0;
+		sourceDirectories = (
+		);
+		variableFormatDictionary = {
+			"0-char-RaptorRemoteSession::getIncomingMessage" = 1;
+		};
+	};
+	EBB83E6714C65C2900E43B4A /* Source Control */ = {
+		isa = PBXSourceControlManager;
+		fallbackIsa = XCSourceControlManager;
+		isSCMEnabled = 0;
+		scmConfiguration = {
+			repositoryNamesForRoots = {
+				"" = "";
+			};
+		};
+	};
+	EBB83E6814C65C2900E43B4A /* Code sense */ = {
+		isa = PBXCodeSenseManager;
+		indexTemplatePath = "";
+	};
+	EBB83E6B14C65D2C00E43B4A /* RaptorRemoteServer.h */ = {
+		uiCtxt = {
+			sepNavIntBoundsRect = "{{0, 0}, {849, 675}}";
+			sepNavSelRange = "{671, 0}";
+			sepNavVisRange = "{0, 741}";
+		};
+	};
+	EBB83E6C14C65D2C00E43B4A /* RaptorRemoteServer.cpp */ = {
+		uiCtxt = {
+			sepNavIntBoundsRect = "{{0, 0}, {850, 1080}}";
+			sepNavSelRange = "{1361, 16}";
+			sepNavVisRange = "{0, 865}";
+		};
+	};
+	EBB83E7214C7272A00E43B4A /* RaptorRemoteServer.cpp:72 */ = {
+		isa = PBXFileBreakpoint;
+		actions = (
+		);
+		breakpointStyle = 0;
+		continueAfterActions = 0;
+		countType = 0;
+		delayBeforeContinue = 0;
+		fileReference = EBB83E6C14C65D2C00E43B4A /* RaptorRemoteServer.cpp */;
+		functionName = "startServer()";
+		hitCount = 0;
+		ignoreCount = 0;
+		lineNumber = 72;
+		location = RaptorRemoteInterface;
+		modificationTime = 348697306.204208;
+		originalNumberOfMultipleMatches = 1;
+		state = 1;
+	};
+	EBB83E8C14C7290900E43B4A /* RaptorRemoteSessionProtocol.h */ = {
+		uiCtxt = {
+			sepNavIntBoundsRect = "{{0, 0}, {849, 615}}";
+			sepNavSelRange = "{537, 0}";
+			sepNavVisRange = "{3, 668}";
+		};
+	};
+	EBB83E8D14C7290900E43B4A /* RaptorRemoteSessionProtocol.cpp */ = {
+		uiCtxt = {
+			sepNavIntBoundsRect = "{{0, 0}, {849, 593}}";
+			sepNavSelRange = "{197, 0}";
+			sepNavVisRange = "{0, 210}";
+		};
+	};
+	EBB83EA014C72F1300E43B4A /* MyTCPSocketUtils.h */ = {
+		uiCtxt = {
+			sepNavIntBoundsRect = "{{0, 0}, {849, 593}}";
+			sepNavSelRange = "{373, 0}";
+			sepNavVisRange = "{0, 866}";
+		};
+	};
+	EBB83EA114C72F1300E43B4A /* MyTCPSocketUtils.cpp */ = {
+		uiCtxt = {
+			sepNavIntBoundsRect = "{{0, 0}, {850, 930}}";
+			sepNavSelRange = "{890, 0}";
+			sepNavVisRange = "{517, 858}";
+		};
+	};
+	EBB83EAC14C730F300E43B4A /* RaptorRemoteSession.h */ = {
+		uiCtxt = {
+			sepNavIntBoundsRect = "{{0, 0}, {850, 735}}";
+			sepNavSelRange = "{380, 0}";
+			sepNavVisRange = "{165, 723}";
+		};
+	};
+	EBB83EAD14C730F300E43B4A /* RaptorRemoteSession.cpp */ = {
+		uiCtxt = {
+			sepNavIntBoundsRect = "{{0, 0}, {850, 5115}}";
+			sepNavSelRange = "{1069, 0}";
+			sepNavVisRange = "{448, 829}";
+		};
+	};
+}

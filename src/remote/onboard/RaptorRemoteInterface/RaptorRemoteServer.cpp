@@ -41,7 +41,7 @@ int RaptorRemoteServer::startServer() {
         
         printf("New connection received\n");
         
-        RaptorSessionMessage* message = newSession->getIncomingMessage();
+        AbstractPacket* message = newSession->getIncomingMessage();
         
         switch (message->messageType) {
             case PING_MSG:
@@ -78,9 +78,11 @@ int RaptorRemoteServer::startServer() {
 
 
 RaptorRemoteSession* RaptorRemoteServer::acceptNewSession() {
-	int newSocketFD = acceptConnection(this->serverSocketFD);
+    struct sockaddr_in* newHostAddress = (sockaddr_in*)malloc(sizeof(sockaddr_in));
+    
+	int newSocketFD = acceptConnection(this->serverSocketFD, newHostAddress);
 	
-	RaptorRemoteSession* newSession = new RaptorRemoteSession(newSocketFD);
+	RaptorRemoteSession* newSession = new RaptorRemoteSession(newSocketFD, newHostAddress);
 	
 	return newSession;
 }

@@ -7,18 +7,59 @@ public class RaptorRemoteClient {
 	private static final int SERVER_PORT_NUMER = 7234;
 	
 	// timeout if we haven't received a response to our ping
-	// within this many miliseconds
-	private static final int PING_RSP_TIMEOUT_MILLIS = 5000;
+	// within this many milliseconds
+	private static final int RSP_TIMEOUT_MILLIS = 5000;
 	
+	private SimpleSocket socket;
+	private RaptorVideoStreamClient videoStreamClient;
 	
-	SimpleSocket socket;
+	private boolean connected;
 	
 	
 	public RaptorRemoteClient() {
+		connected = false;
 	}
 	
-	public void connect(InetAddress hostAddr) throws IOException {
+	public boolean connect(InetAddress hostAddr) throws IOException {
 		socket = new SimpleSocket(hostAddr, SERVER_PORT_NUMER);
+		
+		if (socket.isConnected()) {
+			
+			socket.writeBytes(RaptorRemoteProtocol.newInitPacket());
+			
+			socket.flush();
+			
+			socket.setTimeout(RSP_TIMEOUT_MILLIS);
+			
+			RaptorSessionMessage response = RaptorRemoteProtocol.readFromSocket(socket);
+			
+			if (response != null && response.type == RaptorSessionMessage.MessageType.INIT_RSP && response.success) {
+				connected = true;
+				return true;
+			}
+			
+		}	
+		
+		socket.close();
+				
+		return false;
+	}
+	
+	public boolean disconnect() throws IOException {
+		if (this.isConnected()) {
+			socket.writeBytes(RaptorRemoteProtocol.newQuitPacket());
+			
+			socket.flush();
+			
+			RaptorSessionMessage response = RaptorRemoteProtocol.readFromSocket(socket);
+			
+			if (response != null && response.type == RaptorSessionMessage.MessageType.QUIT_RSP) {
+				connected = false;
+				return true;
+			}
+		}
+		
+		return false;
 	}
 	
 	public boolean ping(InetAddress hostAddr) throws IOException {
@@ -27,40 +68,63 @@ public class RaptorRemoteClient {
 		
 		if (tempSocket.isConnected()) {
 						
-			tempSocket.write(RaptorRemoteProtocol.newPingPacket());
+			tempSocket.writeBytes(RaptorRemoteProtocol.newPingPacket());
 			
 			tempSocket.flush();
 			
-			tempSocket.getUnderlyingSocket().setSoTimeout(PING_RSP_TIMEOUT_MILLIS);
+			tempSocket.setTimeout(RSP_TIMEOUT_MILLIS);
 			
-			char[] buff = new char[10];
-			int bytesRead = tempSocket.read(buff, 0, 2);
+			RaptorSessionMessage response = RaptorRemoteProtocol.readFromSocket(tempSocket);
 			
-			if (bytesRead == 2 && buff[0] == RaptorRemoteProtocol.RAPTOR_REMOTE_SESSION_PROTOCOL_VERSION_ID &&
-					buff[1] == RaptorRemoteProtocol.PING_RSP_MSG) {
-				System.out.println("PING: Response received from host");
-			} else {
-				System.out.println("PING: No valid response received from host");
+			if (response.type == RaptorSessionMessage.MessageType.PING_RSP) {
+				tempSocket.close();
+				return true;
 			}
-						
-			tempSocket.close();
-			
-			return true;
 		}
 		
 		tempSocket.close();
-		
-		System.out.println("PING: failed to connect");
-		
+				
 		return false;
 	}
 	
-	public boolean disconnect() {
-		return false;
+	public boolean isConnected() {
+		return connected && socket.isConnected();
 	}
-	
-	public boolean send(char[] buffer) {
+
+	public boolean initVideoStream(VideoPlayer clientPlayer) {
+		if (this.isConnected()) {
+			videoStreamClient = new RaptorVideoStreamClient(clientPlayer);
+			
+			if (videoStreamClient.init(socket)) {
+				videoStreamClient.start();
+				return true;
+			}
+		}
+		
 		return false;
 		
 	}
+
+	public boolean stopVideoStream() {
+		if (this.isConnected()) {
+			try {
+				socket.writeBytes(RaptorRemoteProtocol.newVideoEndPacket());
+				socket.flush();
+			} catch (IOException e) {
+				return false;
+			}
+			
+			RaptorSessionMessage response = RaptorRemoteProtocol.readFromSocket(socket);
+			
+			if (response.type == RaptorSessionMessage.MessageType.VID_END_RSP &&
+					response.success) {
+				return true;
+			}
+		}
+		
+		return false;
+		
+	}
+	
+
 }

@@ -1,0 +1,255 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		EB1D808815278325003767F0 /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = EB1D808715278325003767F0 /* main.cpp */; };
+		EB1D808A15278325003767F0 /* Streamer.1 in CopyFiles */ = {isa = PBXBuildFile; fileRef = EB1D808915278325003767F0 /* Streamer.1 */; };
+		EB1D809215278344003767F0 /* MySocketUtils.cpp in Sources */ = {isa = PBXBuildFile; fileRef = EB1D809015278344003767F0 /* MySocketUtils.cpp */; };
+		EB9B285615339EA000EB9328 /* VideoStreamer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = EB9B285515339EA000EB9328 /* VideoStreamer.cpp */; };
+		EBC477D41527A460008C3DE1 /* libopencv_core.2.3.1.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = EBC477D11527A460008C3DE1 /* libopencv_core.2.3.1.dylib */; };
+		EBC477D51527A460008C3DE1 /* libopencv_highgui.2.3.1.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = EBC477D21527A460008C3DE1 /* libopencv_highgui.2.3.1.dylib */; };
+		EBC477D61527A460008C3DE1 /* libopencv_ml.2.3.1.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = EBC477D31527A460008C3DE1 /* libopencv_ml.2.3.1.dylib */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		EB1D808115278325003767F0 /* CopyFiles */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = /usr/share/man/man1/;
+			dstSubfolderSpec = 0;
+			files = (
+				EB1D808A15278325003767F0 /* Streamer.1 in CopyFiles */,
+			);
+			runOnlyForDeploymentPostprocessing = 1;
+		};
+/* End PBXCopyFilesBuildPhase section */
+
+/* Begin PBXFileReference section */
+		EB0330541528FDAC00424B45 /* pstdint.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = pstdint.h; sourceTree = "<group>"; };
+		EB1D808315278325003767F0 /* Streamer */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = Streamer; sourceTree = BUILT_PRODUCTS_DIR; };
+		EB1D808715278325003767F0 /* main.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = main.cpp; sourceTree = "<group>"; };
+		EB1D808915278325003767F0 /* Streamer.1 */ = {isa = PBXFileReference; lastKnownFileType = text.man; path = Streamer.1; sourceTree = "<group>"; };
+		EB1D809015278344003767F0 /* MySocketUtils.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = MySocketUtils.cpp; sourceTree = "<group>"; };
+		EB1D809115278344003767F0 /* MySocketUtils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MySocketUtils.h; sourceTree = "<group>"; };
+		EB9B285515339EA000EB9328 /* VideoStreamer.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = VideoStreamer.cpp; sourceTree = "<group>"; };
+		EB9B285815339EC300EB9328 /* VideoStreamer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VideoStreamer.h; sourceTree = "<group>"; };
+		EBC477D11527A460008C3DE1 /* libopencv_core.2.3.1.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libopencv_core.2.3.1.dylib; path = ../../../../../../../../../../../opt/local/lib/libopencv_core.2.3.1.dylib; sourceTree = "<group>"; };
+		EBC477D21527A460008C3DE1 /* libopencv_highgui.2.3.1.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libopencv_highgui.2.3.1.dylib; path = ../../../../../../../../../../../opt/local/lib/libopencv_highgui.2.3.1.dylib; sourceTree = "<group>"; };
+		EBC477D31527A460008C3DE1 /* libopencv_ml.2.3.1.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libopencv_ml.2.3.1.dylib; path = ../../../../../../../../../../../opt/local/lib/libopencv_ml.2.3.1.dylib; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		EB1D808015278325003767F0 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				EBC477D41527A460008C3DE1 /* libopencv_core.2.3.1.dylib in Frameworks */,
+				EBC477D51527A460008C3DE1 /* libopencv_highgui.2.3.1.dylib in Frameworks */,
+				EBC477D61527A460008C3DE1 /* libopencv_ml.2.3.1.dylib in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		EB1D807815278324003767F0 = {
+			isa = PBXGroup;
+			children = (
+				EBC477D01527A393008C3DE1 /* OpenCV-Frameworks */,
+				EB1D808615278325003767F0 /* Streamer */,
+				EB1D808415278325003767F0 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		EB1D808415278325003767F0 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				EB1D808315278325003767F0 /* Streamer */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		EB1D808615278325003767F0 /* Streamer */ = {
+			isa = PBXGroup;
+			children = (
+				EB0330541528FDAC00424B45 /* pstdint.h */,
+				EB1D809015278344003767F0 /* MySocketUtils.cpp */,
+				EB1D809115278344003767F0 /* MySocketUtils.h */,
+				EB1D808715278325003767F0 /* main.cpp */,
+				EB1D808915278325003767F0 /* Streamer.1 */,
+				EB9B285515339EA000EB9328 /* VideoStreamer.cpp */,
+				EB9B285815339EC300EB9328 /* VideoStreamer.h */,
+			);
+			path = Streamer;
+			sourceTree = "<group>";
+		};
+		EBC477D01527A393008C3DE1 /* OpenCV-Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				EBC477D11527A460008C3DE1 /* libopencv_core.2.3.1.dylib */,
+				EBC477D21527A460008C3DE1 /* libopencv_highgui.2.3.1.dylib */,
+				EBC477D31527A460008C3DE1 /* libopencv_ml.2.3.1.dylib */,
+			);
+			name = "OpenCV-Frameworks";
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		EB1D808215278325003767F0 /* Streamer */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = EB1D808D15278325003767F0 /* Build configuration list for PBXNativeTarget "Streamer" */;
+			buildPhases = (
+				EB1D807F15278325003767F0 /* Sources */,
+				EB1D808015278325003767F0 /* Frameworks */,
+				EB1D808115278325003767F0 /* CopyFiles */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = Streamer;
+			productName = Streamer;
+			productReference = EB1D808315278325003767F0 /* Streamer */;
+			productType = "com.apple.product-type.tool";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		EB1D807A15278324003767F0 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastUpgradeCheck = 0420;
+			};
+			buildConfigurationList = EB1D807D15278324003767F0 /* Build configuration list for PBXProject "Streamer" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+			);
+			mainGroup = EB1D807815278324003767F0;
+			productRefGroup = EB1D808415278325003767F0 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				EB1D808215278325003767F0 /* Streamer */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXSourcesBuildPhase section */
+		EB1D807F15278325003767F0 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				EB1D808815278325003767F0 /* main.cpp in Sources */,
+				EB1D809215278344003767F0 /* MySocketUtils.cpp in Sources */,
+				EB9B285615339EA000EB9328 /* VideoStreamer.cpp in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin XCBuildConfiguration section */
+		EB1D808B15278325003767F0 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ARCHS = "$(ARCHS_STANDARD_64_BIT)";
+				COPY_PHASE_STRIP = NO;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_ENABLE_OBJC_EXCEPTIONS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_MISSING_PROTOTYPES = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 10.6;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = macosx;
+			};
+			name = Debug;
+		};
+		EB1D808C15278325003767F0 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ARCHS = "$(ARCHS_STANDARD_64_BIT)";
+				COPY_PHASE_STRIP = YES;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_ENABLE_OBJC_EXCEPTIONS = YES;
+				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_MISSING_PROTOTYPES = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 10.6;
+				SDKROOT = macosx;
+			};
+			name = Release;
+		};
+		EB1D808E15278325003767F0 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ARCHS = "$(ARCHS_STANDARD_64_BIT)";
+				HEADER_SEARCH_PATHS = /opt/local/include;
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					/opt/local/lib,
+				);
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Debug;
+		};
+		EB1D808F15278325003767F0 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ARCHS = "$(ARCHS_STANDARD_64_BIT)";
+				HEADER_SEARCH_PATHS = /opt/local/include;
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					/opt/local/lib,
+				);
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		EB1D807D15278324003767F0 /* Build configuration list for PBXProject "Streamer" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				EB1D808B15278325003767F0 /* Debug */,
+				EB1D808C15278325003767F0 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		EB1D808D15278325003767F0 /* Build configuration list for PBXNativeTarget "Streamer" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				EB1D808E15278325003767F0 /* Debug */,
+				EB1D808F15278325003767F0 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = EB1D807A15278324003767F0 /* Project object */;
+}
