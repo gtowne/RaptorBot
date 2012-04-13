@@ -1,0 +1,58 @@
+/*
+ *  RaptorRemoteServer.h
+ *  RaptorRemoteInterface
+ *
+ *  Created by Gordon Towne on 1/17/12.
+ *  Copyright 2012 __MyCompanyName__. All rights reserved.
+ *
+ */
+
+#ifndef RAPTOR_REMOTE_SERVER_H
+#define RAPTOR_REMOTE_SERVER_H
+
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+#include <unistd.h>
+#include <sys/types.h> 
+#include <sys/socket.h>
+#include <netinet/in.h>
+#include <pthread.h>
+
+#include "RaptorRemoteSessionProtocol.h"
+#include "utils/MySocketUtils.h"
+#include "RaptorRemoteSession.h"
+
+#define MACHINE_NAME "RacerX"
+
+#define SERVER_LISTENING_PORT_NO 7234
+#define SEND_RECV_BUFF_SIZE 512
+
+class RaptorRemoteServer {
+	
+private:
+	int serverSocketFD;
+	
+	pthread_t serverThread;
+
+	char sendBuff[SEND_RECV_BUFF_SIZE];
+	char recvBuff[SEND_RECV_BUFF_SIZE];
+
+	RaptorRemoteSession* activeSession;
+
+	int sendPingResponse(int socketFD, char* machineName);
+	int sendInitResponse(int socketFD, bool success);
+
+	bool sessionIsActive();
+
+public:
+	RaptorRemoteServer();
+	~RaptorRemoteServer();
+	
+	int startServer();
+
+	int serverThreadRoutine();
+	
+};
+
+#endif
