@@ -1,0 +1,8 @@
+
+public class BehaviorParam {
+	public enum Maneuver {MOVE, PIVOT_TURN, ARC_TURN};
+	
+	public Maneuver maneuver;
+	
+
+}

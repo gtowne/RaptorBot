@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<commands>
+	<addComponent
+		id="custom_1327528185725"
+		name="MultiSplitLayout"
+		visible="true"
+		class="org.jdesktop.swingx.MultiSplitLayout"
+		category="org.eclipse.wb.swing.layouts"/>
+</commands>

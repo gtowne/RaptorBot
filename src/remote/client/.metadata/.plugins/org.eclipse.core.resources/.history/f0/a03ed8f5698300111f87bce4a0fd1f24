@@ -1,0 +1,4 @@
+
+public class BehaviorControlPanel extends UIPanel {
+
+}

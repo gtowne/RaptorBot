@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<session version="1.0">
+<refactoring comment="Rename type &apos;ParialPacket&apos; to &apos;PartialPacket&apos;&#x0A;- Original project: &apos;Streamer&apos;&#x0A;- Original element: &apos;ParialPacket&apos;&#x0A;- Renamed element: &apos;PartialPacket&apos;&#x0A;- Update references to refactored element&#x0A;- Update textual occurrences in comments and strings" description="Rename type &apos;ParialPacket&apos;" flags="589830" id="org.eclipse.jdt.ui.rename.type" input="/src&lt;{ParialPacket.java[ParialPacket" matchStrategy="1" name="PartialPacket" qualified="false" references="true" similarDeclarations="false" stamp="1333400118629" textual="false" version="1.0"/>
+</session>

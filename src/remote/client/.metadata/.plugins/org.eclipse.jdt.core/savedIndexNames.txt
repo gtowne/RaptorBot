@@ -1,0 +1,7 @@
+INDEX VERSION 1.126+/Users/gordontowne/Documents/Schoolwork/Senior/DirectedStudy/RaptorBot/src/remote/client/.metadata/.plugins/org.eclipse.jdt.core
+705225650.index
+3217280942.index
+3629932776.index
+182667985.index
+2981310983.index
+2155472552.index

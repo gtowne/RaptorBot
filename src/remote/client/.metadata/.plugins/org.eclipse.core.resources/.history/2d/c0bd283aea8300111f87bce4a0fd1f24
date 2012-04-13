@@ -1,0 +1,21 @@
+import java.net.InetAddress;
+import java.util.Arrays;
+
+
+public class Main {
+	public static void main(String[] args) {
+		System.out.println(Arrays.toString(getMyIP()))
+	}
+	
+	public static String getMyIP() {  
+	    String addr=null;  
+	    try  
+	    {  
+	        InetAddress ip=InetAddress.getLocalHost();  
+	        addr = ip.getHostAddress();
+	          
+	    }catch(Exception e){e.printStackTrace();}  
+	    return addr;  
+	}  
+}
+

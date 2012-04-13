@@ -1,0 +1,11 @@
+
+public class BehaviorParam {
+	public enum Maneuver {MOVE, PIVOT_TURN, ARC_TURN};
+	public enum MoveDirection {FORWARD, BACKWARD};
+	public enum PivotDirection {LEFT, RIGHT};
+	
+	public Maneuver maneuver;
+	
+	
+
+}

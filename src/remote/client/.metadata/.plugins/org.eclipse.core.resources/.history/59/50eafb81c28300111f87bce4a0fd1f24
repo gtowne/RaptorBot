@@ -1,0 +1,6 @@
+
+public class BehaviorControlParam {
+	public int minSpeed;
+	public int maxSpeed;
+	
+}

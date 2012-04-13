@@ -1,0 +1,32 @@
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.net.DatagramSocket;
+import java.net.InetAddress;
+import java.net.InetSocketAddress;
+import java.net.SocketException;
+
+
+public class SimpleUDPSocket {
+	private DatagramSocket socket;
+	private BufferedReader in;
+	private BufferedWriter out;
+	
+	public SimpleUDPSocket(int localPort) {
+		try {
+			socket = new DatagramSocket();
+			in = new BufferedReader(socket.)
+		} catch (SocketException e) {
+			e.printStackTrace();
+		}
+	}
+	
+	public void bind(int localPort) throws SocketException {
+		socket.bind(new InetSocketAddress("localhost", localPort));
+	}
+	
+	public void connect(InetAddress addr, int port) {
+		socket.connect(addr, port);
+	}
+	
+	
+}

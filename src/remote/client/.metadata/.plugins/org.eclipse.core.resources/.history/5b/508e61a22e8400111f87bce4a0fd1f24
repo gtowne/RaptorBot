@@ -1,0 +1,22 @@
+
+public class RaptorRemoteSession {
+	private SimpleSocket controlSocket;
+	private ListeningThread listeningThread;
+	
+	public RaptorRemoteSession(SimpleSocket controlSocket) {
+		this.controlSocket = controlSocket;
+		listeningThread = new ListeningThread();
+		listeningThread.start();
+	}
+	
+	private class ListeningThread extends Thread {
+		
+		public void run() {
+			System.out.println("RaptorRemoteSession::Listening thread for session started");
+			while(true) {
+				
+			}
+		}
+		
+	}
+}

@@ -1,5 +1,7 @@
 package videoStreaming;
+import java.awt.Image;
 import java.awt.image.BufferedImage;
+import java.awt.image.RenderedImage;
 import java.io.ByteArrayInputStream;
 import java.io.File;
 import java.io.IOException;
@@ -10,6 +12,12 @@ import java.net.SocketException;
 import java.util.Arrays;
 import java.util.Hashtable;
 import java.util.concurrent.Semaphore;
+import javax.media.jai.PlanarImage;
+import com.sun.media.jai.codec.ByteArraySeekableStream;
+import com.sun.media.jai.codec.ImageCodec;
+import com.sun.media.jai.codec.ImageDecoder;
+import com.sun.media.jai.codec.SeekableStream;
+
 
 import javax.imageio.ImageIO;
 
@@ -18,7 +26,7 @@ public class VideoStreamer extends Thread {
 	
 	public static final int LOCAL_PORT_NO = 7777;
 	public static final int RECEIVE_BUFFER_SIZE = 1024 * 768 * 4;
-	public static final int TARGET_NUM_BUFFERED_FRAMES = 10;
+	public static final int TARGET_NUM_BUFFERED_FRAMES = 5;
 	
 	private DatagramSocket socket;
 	private DatagramPacket receivePacket;
@@ -32,7 +40,7 @@ public class VideoStreamer extends Thread {
 	
 	private Semaphore bufferMutex;
 	
-	public VideoStreamer() {
+	public VideoStreamer() {		
 		try {
 			socket = new DatagramSocket(LOCAL_PORT_NO);
 		} catch (SocketException e) {
@@ -93,14 +101,14 @@ public class VideoStreamer extends Thread {
 				
 			} else if (bufferedFrames.containsKey(oldestBufferedFrame)) {
 				
-				System.out.printf("VideoStreamer:: Playing out frame %d, \n", oldestBufferedFrame);
+				//System.out.printf("VideoStreamer:: Playing out frame %d, \n", oldestBufferedFrame);
 				
 				returnFrame = bufferedFrames.get(oldestBufferedFrame);
 				
 				// if this is the last frame in the buffer, save it and we'll return
 				// it on the next call if we don't receive another packet before then
 				if (bufferedFrames.size() == 1) {
-					System.out.println("    VideoStreamer:: No more frames to play out;");
+					//System.out.println("    VideoStreamer:: No more frames to play out;");
 					
 				// else, do some buffer management
 				} else {
@@ -108,7 +116,7 @@ public class VideoStreamer extends Thread {
 				}
 				
 			} else { // oldestBufferedFrame is not in buffer, something is wrong 
-				 System.out.println("VideoStreamer:: Error, oldestBufferedFrame is not in Buffer");
+				 //System.out.println("VideoStreamer:: Error, oldestBufferedFrame is not in Buffer");
 				
 				doCleanUp = true;
 			}
@@ -139,8 +147,8 @@ public class VideoStreamer extends Thread {
 					}
 				}
 				
-				 System.out.printf("   VideoStreamer:: Next frame to play out is %d\n", oldestBufferedFrame);
-				 System.out.printf("   VideoStreamer:: Total in queue %d\n", bufferedFrames.size());
+				 //System.out.printf("   VideoStreamer:: Next frame to play out is %d\n", oldestBufferedFrame);
+				 //System.out.printf("   VideoStreamer:: Total in queue %d\n", bufferedFrames.size());
 			}
 			
 		bufferMutex.release();
@@ -168,6 +176,7 @@ public class VideoStreamer extends Thread {
 		// System.out.printf("Received frame %d of size %d and dims %d x %d\n", frameNum, dataLength, imWidth, imHeight);
 	
 		ByteArrayInputStream inputStream = new ByteArrayInputStream(newData, 20, dataLength);
+		
 		BufferedImage frameImage = null;
 		try {
 			frameImage = ImageIO.read(inputStream);
@@ -265,6 +274,16 @@ public class VideoStreamer extends Thread {
 		return result;
 	}
 	
+	static BufferedImage loadImage(byte[] data, int offset, int len) throws Exception{
+	    BufferedImage image = null;
+	    SeekableStream stream = new ByteArraySeekableStream(data, offset, len);
+	    String[] names = ImageCodec.getDecoderNames(stream);
+	    ImageDecoder dec = 
+	      ImageCodec.createImageDecoder(names[0], stream, null);
+	    RenderedImage im = dec.decodeAsRenderedImage();
+	    image = PlanarImage.wrapRenderedImage(im).getAsBufferedImage();
+	    return image;
+	  }
 	
 	
 

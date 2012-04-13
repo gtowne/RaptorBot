@@ -1,0 +1,13 @@
+import java.awt.GridBagLayout;
+
+public class BehaviorControlPanel extends UIPanel {
+
+	private static final int MIN_SPEED;
+	private static final int MAX_SPEED;
+	public BehaviorControlPanel() {
+		super();
+		this.setLayout(new GridBagLayout());
+		
+		
+	}
+}

@@ -1,0 +1,145 @@
+package userInterface;
+import java.awt.EventQueue;
+import java.awt.Toolkit;
+
+import javax.swing.JFrame;
+import java.awt.Dimension;
+import javax.swing.JToolBar;
+import java.awt.BorderLayout;
+import java.awt.event.ActionEvent;
+import java.io.IOException;
+
+import javax.swing.AbstractAction;
+import javax.swing.JButton;
+import javax.swing.JMenu;
+import javax.swing.JMenuItem;
+import javax.swing.SpringLayout;
+import javax.swing.JPanel;
+import javax.swing.JMenuBar;
+import javax.swing.JSplitPane;
+import javax.swing.JTextPane;
+
+import org.jdesktop.swingx.MultiSplitLayout;
+import org.jdesktop.swingx.MultiSplitPane;
+
+import videoStreaming.*;
+import sessionManagement.*;
+
+
+public class RaptorRemoteUserInterface {
+
+	private JFrame frame;
+	
+	
+	/*
+	 * Menu bar members
+	 */
+	private JMenuBar menuBar;
+	private JMenu fileMenu;
+	private JMenuItem openConnection;
+	private JMenu viewMenu;
+	
+	private VideoPanel videoPanel;
+	private ConsolePanel consolePanel;
+	private BehaviorControlPanel behaviorControlPanel;
+	
+	private RaptorRemoteSession remoteSession;
+	private VideoStreamer videoStreamer;
+	private StreamingVideoFrameLoader frameLoader;
+
+	/**
+	 * Launch the application.
+	 */
+	public static void main(String[] args) {		
+		EventQueue.invokeLater(new Runnable() {
+			public void run() {
+				RaptorRemoteUserInterface window = null;
+				try {
+					window = new RaptorRemoteUserInterface();
+					window.frame.setVisible(true);
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+			}
+		});
+		
+		
+	}
+
+	/**
+	 * Create the application.
+	 */
+	public RaptorRemoteUserInterface() {
+		initialize();
+	}
+
+	/**
+	 * Initialize the contents of the frame.
+	 */
+	private void initialize() {
+		Toolkit.getDefaultToolkit().setDynamicLayout(true);
+		frame = new JFrame();
+		frame.setLayout(new BorderLayout());
+		frame.setMinimumSize(new Dimension(800, 600));
+		frame.setBounds(100, 100, 845, 592);
+		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		
+		MultiSplitPane multiSplitPane = new MultiSplitPane();
+		
+		//String layoutDef =
+		//    "(COLUMN (ROW weight=1.0 left (COLUMN middle.top middle middle.bottom) right) bottom)";
+		
+		String layoutDef =
+			"(COLUMN (ROW weight=0.2 (LEAF name=topleft weight=0.5) (LEAF name=topright weight=0.5)) (ROW weight=0.2 (LEAF name=bottomleft weight=0.5) (LEAF name=bottomright weight=0.5))  (LEAF name=consolearea))";
+		
+		MultiSplitLayout.Node modelRoot = MultiSplitLayout.parseModel(layoutDef);
+		
+		multiSplitPane.getMultiSplitLayout().setModel(modelRoot);
+		
+		videoPanel = new VideoPanel();
+		multiSplitPane.add(videoPanel, "topleft");
+		
+		multiSplitPane.add(new UIPanel(), "topright");
+		multiSplitPane.add(new UIPanel(), "bottomleft");
+		
+		BehaviorControlParam bcp = new BehaviorControlParam();
+		bcp.minSpeed = 0;
+		bcp.maxSpeed = 20;
+		
+		behaviorControlPanel = new BehaviorControlPanel(bcp);
+		multiSplitPane.add(behaviorControlPanel, "bottomright");
+		
+		consolePanel = new ConsolePanel();
+		multiSplitPane.add(consolePanel, "consolearea");
+
+		
+		frame.getContentPane().add(multiSplitPane, BorderLayout.CENTER);
+		
+		
+		
+		menuBar = new JMenuBar();
+		fileMenu = new JMenu("File");
+		viewMenu = new JMenu("View");
+		menuBar.add(fileMenu);
+		menuBar.add(viewMenu);
+		
+		
+		openConnection = new JMenuItem("Open Connection");
+		
+		frameLoader = new StreamingVideoFrameLoader(videoPanel, videoStreamer, 30);
+				
+		fileMenu.add(openConnection);
+		
+		frame.getContentPane().add(menuBar, BorderLayout.NORTH);
+	}
+	
+	public void startVideo(VideoStreamer _videoStreamer) {
+		if (this.videoStreamer != null) {
+			return;
+		}
+		
+		this.videoStreamer = videoStreamer;
+		frameLoader = new StreamingVideoFrameLoader(this.videoPanel, this.videoStreamer, 30);
+	}
+	
+}

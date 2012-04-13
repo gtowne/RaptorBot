@@ -1,0 +1,84 @@
+import java.io.IOException;
+import java.net.DatagramSocket;
+import java.net.InetAddress;
+import java.net.ServerSocket;
+import java.net.InetSocketAddress;
+import java.net.Socket;
+import java.net.SocketException;
+import java.util.concurrent.Semaphore;
+
+
+public class RaptorVideoStreamClient extends Thread {
+	
+	private ServerSocket serverSocket;
+	private SimpleSocket controlSocket;
+	private DatagramSocket dataSocket;
+	private InetAddress remoteInetAddr;
+	private VideoPlayer clientPlayer;
+	private int refreshMS;
+		
+	public RaptorVideoStreamClient(VideoPlayer _clientPlayer){
+		clientPlayer = _clientPlayer;
+	}
+	
+	public boolean init(SimpleSocket hostSocket) {
+		try {
+			serverSocket = new ServerSocket();
+		} catch (IOException e3) {
+			System.out.println("Error openeing server socket for video stream");
+		}
+		
+		int myServerPort = serverSocket.getLocalPort();
+		
+		try {
+			dataSocket = new DatagramSocket();
+		} catch (SocketException e2) {
+			System.out.println("Error opening data socket for video stream");
+			return false;
+		}
+		
+		int myDataPort = dataSocket.getLocalPort();
+		
+		try {
+			hostSocket.write(RaptorRemoteProtocol.newVideoStartPacket(myServerPort, myDataPort));
+		} catch (IOException e1) {
+			System.out.println("Error sending video start request");
+			return false;
+		}
+		
+		try {
+			serverSocket.setSoTimeout(10000);
+		} catch (SocketException e1) {
+			System.out.println("Error setting server socket timeout");
+		}
+		
+		try {
+			Socket temp = serverSocket.accept();
+			controlSocket = new SimpleSocket(temp);
+		} catch (IOException e) {
+			System.out.println("Error accepting conneciton on video stream server socket");
+			return false;
+		}
+		
+		remoteInetAddr = controlSocket.getUnderlyingSocket().getInetAddress();
+		try {
+			dataSocket = new DatagramSocket();
+		} catch (SocketException e) {
+			System.out.println("Error opening data socket in video client");
+		}
+		
+		
+		
+		System.out.println("Video client connected");
+		
+		return true;
+	}
+	
+	
+	public void run() {
+		
+		
+		
+	}
+ 	
+}

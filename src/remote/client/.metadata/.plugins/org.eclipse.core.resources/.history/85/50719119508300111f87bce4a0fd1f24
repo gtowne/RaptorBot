@@ -1,0 +1,62 @@
+import java.awt.BorderLayout;
+import java.awt.Button;
+import java.awt.Image;
+import java.awt.geom.AffineTransform;
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
+
+import javax.imageio.ImageIO;
+import javax.media.*;
+import javax.swing.ImageIcon;
+import javax.swing.JLabel;
+
+public class VideoPanel extends UIPanel implements VideoPlayer {
+	
+	JLabel imageLabel;
+	BufferedImage curImage;
+	BufferedImage curScaledImage;
+	
+	public VideoPanel() {
+		super();
+		
+		this.setLayout(new BorderLayout());
+				
+		imageLabel = new JLabel();
+		this.add(imageLabel);
+		
+		System.out.println("VideoPanel initialized");
+	}
+
+	public void updateFrame(BufferedImage newFrame) {
+		setCurFrame(newFrame);
+	}
+	
+	private void setCurFrame(BufferedImage newFrame) {
+		curImage = newFrame;
+		curScaledImage = 
+		ImageIcon newIcon = new ImageIcon(curImage);
+		
+		int curPanelWidth = this.getWidth();
+		int curPanelHeight = this.getHeight();
+		
+		imageLabel.setIcon(new ImageIcon(curImage));
+	}
+	
+	private static BufferedImage scaleToFit(BufferedImage raw, int maxWidth, int maxHeight) {
+		int curWidth = raw.getWidth();
+		int curHeight = raw.getHeight();
+		
+		double curAspect = curWidth / curHeight;
+		double newAspect = maxWidth / maxHeight;
+		double scaleFactor;
+		
+		if (newAspect > curAspect)  {// image is bounded height
+			scaleFactor = (double)maxHeight / (double)curHeight;
+		} else { // image is bounded by width
+			
+		}
+		AffineTransform at = new AffineTransform();
+		at.scale(scaleFactor, scaleFactor);
+	}
+}

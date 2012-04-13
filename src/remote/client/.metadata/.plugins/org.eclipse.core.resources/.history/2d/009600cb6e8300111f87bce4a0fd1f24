@@ -1,0 +1,46 @@
+import java.awt.GridBagConstraints;
+import java.awt.GridBagLayout;
+
+import javax.swing.JLabel;
+import javax.swing.JSlider;
+
+public class BehaviorControlPanel extends UIPanel {
+
+	private static final int MIN_SPEED = 0;
+	private static final int MAX_SPEED = 20;
+	
+	private JLabel speedLabel;
+	private JSlider speedSlider;
+	
+	private JLabel currentManeuverLabel;
+	private JLabel currentManeuverValueLabel;
+	
+	public BehaviorControlPanel() {
+		super();
+		this.setLayout(new GridBagLayout());
+		
+		GridBagConstraints labelConstraints = new GridBagConstraints();
+		labelConstraints.anchor = GridBagConstraints.WEST;
+		labelConstraints.gridx = 0;
+		labelConstraints.gridy = 0;
+		
+		GridBagConstraints centerControlConstraints = new GridBagConstraints();
+		labelConstraints.anchor = GridBagConstraints.EAST;
+		labelConstraints.gridx = 1;
+		labelConstraints.gridy = 0;
+				
+		speedLabel = new JLabel("Speed");
+		this.add(speedLabel, labelConstraints);
+		
+		speedSlider = new JSlider(JSlider.HORIZONTAL, MIN_SPEED, MAX_SPEED, 0);
+		this.add(speedSlider, centerControlConstraints);
+		
+		currentManeuverLabel = new JLabel("Current Maneuver");
+		labelConstraints.gridy = 1;
+		this.add(currentManeuverLabel, labelConstraints);
+		
+		currentManeuverValueLabel = new JLabel("None");
+		centerControlConstraints.gridy = 1;
+		this.add(currentManeuverValueLabel, centerControlConstraints);
+	}
+}
