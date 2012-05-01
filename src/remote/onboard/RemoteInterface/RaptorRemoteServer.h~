@@ -20,7 +20,7 @@
 #include <pthread.h>
 
 #include "RaptorRemoteSessionProtocol.h"
-#include "MySocketUtils.h"
+#include "utils/MySocketUtils.h"
 #include "RaptorRemoteSession.h"
 
 #define MACHINE_NAME "RacerX"

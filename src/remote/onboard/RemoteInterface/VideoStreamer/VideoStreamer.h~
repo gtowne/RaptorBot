@@ -55,11 +55,17 @@ public:
     
     // start streaming, returns 1 if successful, 0 if error
     int start();
+	bool isActive();
+	bool stop();
 
     int targetFPS;
     int camNum;
     char* hostname;
     int hostport;
+	bool keepStreaming;
+
+	
+
 
 };
 

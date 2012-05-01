@@ -42,19 +42,6 @@ int newQuitMsg(char* buff) {
     return sizeof(QuitPacket);
 }
 
-int newQuitRspMsg(char* buff, bool success) {
-    QuitRspPacket* packet = (QuitRspPacket*) buff;
-    packet->messageType = htonl(QUIT_RSP_MSG);
-    
-    if (success) {
-        packet->success = htonl(1);
-    } else {
-        packet-> success = htonl(0);
-    }
-    
-    return sizeof(QuitRspPacket);
-}
-
 int newVidInitRspMsg(char* buff, bool success) {
 	VideoInitRspPacket* packet = (VideoInitRspPacket*) buff;
 
@@ -67,5 +54,13 @@ int newVidInitRspMsg(char* buff, bool success) {
     }
 
 	return sizeof(VideoInitRspPacket);
+}
+
+int newFeedbackMsg(char* buff) {
+	FeedbackPacket* packet = (FeedbackPacket*)buff;
+
+	packet->messageType = htonl(FEEDBACK_MSG);
+
+	return sizeof(FeedbackPacket);
 }
 

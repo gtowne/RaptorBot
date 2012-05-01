@@ -1,0 +1,5 @@
+1 --- Initializing
+Mon Apr 30 17:08:44 2012
+ --- Begin Move Forward 10 Meters at 1 m/s
+Mon Apr 30 17:08:49 2012
+ --- Begin Pivot Turn Right 10 degrees

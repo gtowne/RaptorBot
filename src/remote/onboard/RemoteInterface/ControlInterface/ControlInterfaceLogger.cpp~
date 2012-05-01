@@ -1,0 +1,81 @@
+
+#include "ControlInterface.h"
+
+char* getCurTimeString() {
+	time_t curtime;
+	time(&curtime);
+	struct tm* timeinfo;
+	timeinfo = localtime ( &rawtime );
+	return asctime (timeinfo);
+
+}
+
+ControlInterface::ControlInterface() {
+	
+}
+
+
+/*direction - either FORWARDS or BACKWARDS
+ *distance - the distance the robot should move in meters 
+ *speed - the speed the robot should move in meters/second
+ *This function moves the robot either forwards or backwards, over the distance and at a speed 
+ *specified as arguments.
+ */
+int ControlInterface::Move(char direction, float distance, float speed) {
+	
+}
+
+/*
+ *direction - either FORWARDS or BACKWARDS 
+ *distance - the distance the robot should move in meters
+ *This function moves the robot either forwards or backwards, over the distance specified 
+ *as an argument at the speed previously specified with the Set() function.
+ */
+int ControlInterface::Move(char direction, float distance) {
+	return this->Move(direction, distance, this->curSpeed);
+}
+
+/*
+ *direction - either FORWARDS or BACKWARDS
+ * This function moves the robot either forwards or backwards, over the distance and at the speed
+ * previously specified with the Set() function.
+ */
+int ControlInterface::Move(char direction);
+
+/*
+ * direction - either LEFT or RIGHT 
+ * degrees - the number of degrees that the robot should turn (can be
+ *     greater than 360)
+ * This function makes the robot perform a pivot-turn in the direction and for the angle 
+ * specified as arguments.
+ */
+int ControlInterface::PivotTurn(char direction, float degrees);
+
+/*
+ * direction - either LEFT or RIGHT (which are macros you must define)
+ * This function makes the robot perform a pi	printf("Initialized serial connection to Arduino\n");vot-turn in the direction specified as an 
+ * argument, for the number of degrees previously specified with Set().
+ */
+int ControlInterface::PivotTurn(char direction);
+
+/*
+ * direction - either FORWARD LEFT,	FORWARD RIGHT, BACKWARDS LEFT or BACKWARDS RIGHT
+ * degrees - the number of degrees that the arc turn should travel  
+ * radius - the radius that the arc turn should be taken at
+ */
+int ControlInterface::ArcTurn(char direction, float degrees, float radius);
+
+/*
+ * direction - either	FORWARD_LEFT,	FORWARD_RIGHT, BACKWARDS_LEFT or BACKWARDS_RIGHT 
+ * degrees - the number of degrees that the arc turn should travel 
+ */
+int ControlInterface::ArcTurn(char direction, float degrees);
+
+/* 
+ * direction - either FORWARD LEFT,	FORWARD RIGHT, BACKWARDS LEFT or BACKWARDS RIGHT
+ */
+int ControlInterface::ArcTurn(char direction);
+
+
+
+

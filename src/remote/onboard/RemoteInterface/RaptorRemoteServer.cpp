@@ -17,7 +17,7 @@ void* startServerThread(void* arg) {
 }
 
 RaptorRemoteServer::RaptorRemoteServer() {
-
+	activeSession = NULL;
 }
 
 RaptorRemoteServer::~RaptorRemoteServer() {
@@ -49,6 +49,7 @@ int RaptorRemoteServer::serverThreadRoutine() {
 
 		int newSocketFD = acceptConnection(serverSocketFD, &hostAddr);
 
+		InitPacket* newInitPacket = NULL;
 
 		if (newSocketFD > 0) {
 			printf("RaptorRemoteServer::New incoming conneciton received\n");
@@ -70,12 +71,32 @@ int RaptorRemoteServer::serverThreadRoutine() {
 			case INIT_SESSION_MSG:
 				printf("RaptorRemoteServer::Received Init Session Message\n");
 				
+				readFully(newSocketFD, recvBuff, sizeof(AbstractPacket), sizeof(InitPacket) - sizeof(AbstractPacket));
+
+				newInitPacket = (InitPacket*)recvBuff;
+
+				newInitPacket->remoteFeedbackServerPort = ntohl(newInitPacket->remoteFeedbackServerPort);
+				newInitPacket->remoteIPLen = ntohl(newInitPacket->remoteIPLen);
+
+				char remoteIP[128];
+				bzero (remoteIP, 128);
+				memcpy(remoteIP, newInitPacket->remoteIP, newInitPacket->remoteIPLen);
+
+
 				if (sessionIsActive()) {
 					printf("RaptorRemoteServer::There is already an active session, replying to new Init request with failure\n");
 					sendInitResponse(newSocketFD, false);
 				} else {
-					activeSession = new RaptorRemoteSession(newSocketFD, &hostAddr);
-					activeSession->startNewSession();
+					printf("RaptorRemoteServer::Opening feedback socket to %s at port %d\n", remoteIP, newInitPacket->remoteFeedbackServerPort);
+					int feedbackSocketFD = openTCPSocket(remoteIP, newInitPacket->remoteFeedbackServerPort);
+
+					if (feedbackSocketFD < 0) {
+						sendInitResponse(newSocketFD, false);
+					} else {
+
+						activeSession = new RaptorRemoteSession(newSocketFD, feedbackSocketFD, &hostAddr);
+						activeSession->startNewSession();
+					}
 				}
 
 				break;
@@ -93,7 +114,7 @@ int RaptorRemoteServer::serverThreadRoutine() {
 }
 
 bool RaptorRemoteServer::sessionIsActive() {
-	if (activeSession && activeSession->isActive()) {
+	if (activeSession!=NULL && activeSession->isActive()) {
 		return true;
 	}
 
