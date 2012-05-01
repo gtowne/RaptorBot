@@ -1,0 +1,89 @@
+package userInterface;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
+import java.util.concurrent.Semaphore;
+
+import javax.swing.Timer;
+
+import javax.imageio.ImageIO;
+
+import videoStreaming.Frame;
+import videoStreaming.VideoStreamer;
+
+
+public class StreamingVideoFrameLoader {
+	
+	VideoPlayer player;
+	VideoStreamer streamer;
+	Timer timer;
+	FrameLoader frameLoader;
+	
+	public StreamingVideoFrameLoader(VideoPlayer player, VideoStreamer streamer, int framesPerSecond) {
+		this.player = player;
+		this.streamer = streamer;
+		frameLoader = new FrameLoader(player, streamer);
+		
+		timer = new Timer(fpsToMSDelay(framesPerSecond), frameLoader);
+		
+		System.out.println("StreamingVideoFrameLoader initialized");
+	}
+	
+	public void start() {
+		timer.start();
+		
+		System.out.println("FrameLoader:: Starting timed frame update events");
+	}
+	
+	public void setFrameRate(int framesPerSecond) {
+		timer.setDelay(fpsToMSDelay(framesPerSecond));
+	}
+	
+	public void stop() {
+		timer.stop();
+	}
+	
+	public static int fpsToMSDelay(int fps) {
+		return (int)Math.round((1.0/fps) * 1000.0);
+	}
+	
+	protected class FrameLoader implements ActionListener {
+
+		private VideoPlayer player;
+		private VideoStreamer streamer;
+		private int highestFrameNum;
+		private Semaphore sem;
+		
+		public FrameLoader(VideoPlayer player, VideoStreamer streamer) {
+			this.player = player;
+			this.streamer = streamer;
+			this.highestFrameNum = -1;
+			this.sem = new Semaphore(1);
+		}
+		
+		public void actionPerformed(ActionEvent arg0) {
+			try {
+				sem.acquire();
+			} catch (InterruptedException e) {
+				e.printStackTrace();
+			}
+						
+			Frame nextFrame = streamer.getFrame();
+			
+			if (nextFrame != null) {
+				System.out.println("Updating view frame to frame " + nextFrame.seqNo);
+				
+				if (nextFrame.seqNo > highestFrameNum) {
+					highestFrameNum = nextFrame.seqNo;
+					player.updateFrame(nextFrame.frame);
+				}
+			}
+			
+			sem.release();
+		}
+		
+	}
+}
+

@@ -1,0 +1,208 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		EBDDFF86154E13D000346BCA /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = EBDDFF85154E13D000346BCA /* main.cpp */; };
+		EBDDFF88154E13D000346BCA /* FileReader.1 in CopyFiles */ = {isa = PBXBuildFile; fileRef = EBDDFF87154E13D000346BCA /* FileReader.1 */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		EBDDFF7F154E13D000346BCA /* CopyFiles */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = /usr/share/man/man1/;
+			dstSubfolderSpec = 0;
+			files = (
+				EBDDFF88154E13D000346BCA /* FileReader.1 in CopyFiles */,
+			);
+			runOnlyForDeploymentPostprocessing = 1;
+		};
+/* End PBXCopyFilesBuildPhase section */
+
+/* Begin PBXFileReference section */
+		EBDDFF81154E13D000346BCA /* FileReader */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = FileReader; sourceTree = BUILT_PRODUCTS_DIR; };
+		EBDDFF85154E13D000346BCA /* main.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = main.cpp; sourceTree = "<group>"; };
+		EBDDFF87154E13D000346BCA /* FileReader.1 */ = {isa = PBXFileReference; lastKnownFileType = text.man; path = FileReader.1; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		EBDDFF7E154E13D000346BCA /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		EBDDFF76154E13D000346BCA = {
+			isa = PBXGroup;
+			children = (
+				EBDDFF84154E13D000346BCA /* FileReader */,
+				EBDDFF82154E13D000346BCA /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		EBDDFF82154E13D000346BCA /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				EBDDFF81154E13D000346BCA /* FileReader */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		EBDDFF84154E13D000346BCA /* FileReader */ = {
+			isa = PBXGroup;
+			children = (
+				EBDDFF85154E13D000346BCA /* main.cpp */,
+				EBDDFF87154E13D000346BCA /* FileReader.1 */,
+			);
+			path = FileReader;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		EBDDFF80154E13D000346BCA /* FileReader */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = EBDDFF8B154E13D000346BCA /* Build configuration list for PBXNativeTarget "FileReader" */;
+			buildPhases = (
+				EBDDFF7D154E13D000346BCA /* Sources */,
+				EBDDFF7E154E13D000346BCA /* Frameworks */,
+				EBDDFF7F154E13D000346BCA /* CopyFiles */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = FileReader;
+			productName = FileReader;
+			productReference = EBDDFF81154E13D000346BCA /* FileReader */;
+			productType = "com.apple.product-type.tool";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		EBDDFF78154E13D000346BCA /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastUpgradeCheck = 0420;
+			};
+			buildConfigurationList = EBDDFF7B154E13D000346BCA /* Build configuration list for PBXProject "FileReader" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+			);
+			mainGroup = EBDDFF76154E13D000346BCA;
+			productRefGroup = EBDDFF82154E13D000346BCA /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				EBDDFF80154E13D000346BCA /* FileReader */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXSourcesBuildPhase section */
+		EBDDFF7D154E13D000346BCA /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				EBDDFF86154E13D000346BCA /* main.cpp in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin XCBuildConfiguration section */
+		EBDDFF89154E13D000346BCA /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ARCHS = "$(ARCHS_STANDARD_64_BIT)";
+				COPY_PHASE_STRIP = NO;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_ENABLE_OBJC_EXCEPTIONS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_MISSING_PROTOTYPES = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 10.6;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = macosx;
+			};
+			name = Debug;
+		};
+		EBDDFF8A154E13D000346BCA /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ARCHS = "$(ARCHS_STANDARD_64_BIT)";
+				COPY_PHASE_STRIP = YES;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_ENABLE_OBJC_EXCEPTIONS = YES;
+				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_MISSING_PROTOTYPES = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 10.6;
+				SDKROOT = macosx;
+			};
+			name = Release;
+		};
+		EBDDFF8C154E13D000346BCA /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Debug;
+		};
+		EBDDFF8D154E13D000346BCA /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		EBDDFF7B154E13D000346BCA /* Build configuration list for PBXProject "FileReader" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				EBDDFF89154E13D000346BCA /* Debug */,
+				EBDDFF8A154E13D000346BCA /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		EBDDFF8B154E13D000346BCA /* Build configuration list for PBXNativeTarget "FileReader" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				EBDDFF8C154E13D000346BCA /* Debug */,
+				EBDDFF8D154E13D000346BCA /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = EBDDFF78154E13D000346BCA /* Project object */;
+}

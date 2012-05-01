@@ -40,18 +40,20 @@ public class RaptorRemoteUserInterface {
 	private JMenuBar menuBar;
 		private JMenu connectionSettingsMenu;
 			private JMenuItem openConnection;
+			private JMenuItem closeConnection;
 		
 		private JMenu videoSettingsMenu;
 			private JMenuItem stopVideoFeed;
 			private JMenuItem initVideoFeed;
 	
-	private VideoPanel videoPanel;
-	private ConsolePanel consolePanel;
-	private BehaviorControlPanel behaviorControlPanel;
+	protected VideoPanel videoPanel;
+	protected ConsolePanel consolePanel;
+	protected BehaviorControlPanel behaviorControlPanel;
+	protected DepthMapPanel depthMapPanel;
 	
-	private RaptorRemoteSession remoteSession;
-	private VideoStreamer videoStreamer;
-	private StreamingVideoFrameLoader frameLoader;
+	protected RaptorRemoteSession remoteSession;
+	protected VideoStreamer videoStreamer;
+	protected StreamingVideoFrameLoader frameLoader;
 
 	/**
 	 * Launch the application.
@@ -87,7 +89,7 @@ public class RaptorRemoteUserInterface {
 		frame = new JFrame();
 		frame.setLayout(new BorderLayout());
 		frame.setMinimumSize(new Dimension(800, 600));
-		frame.setBounds(100, 100, 845, 592);
+		frame.setBounds(100, 100, 1200, 800);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		
 		
@@ -97,30 +99,29 @@ public class RaptorRemoteUserInterface {
 		//    "(COLUMN (ROW weight=1.0 left (COLUMN middle.top middle middle.bottom) right) bottom)";
 		
 		String layoutDef =
-			"(COLUMN (ROW weight=0.2 (LEAF name=topleft weight=0.5) (LEAF name=topright weight=0.5)) (ROW weight=0.2 (LEAF name=bottomleft weight=0.5) (LEAF name=bottomright weight=0.5))  (LEAF name=consolearea))";
+			"(COLUMN (ROW weight=0.5 (LEAF name=topleft weight=0.5) (LEAF name=topright weight=0.5)) (ROW weight=0.5 (LEAF name=bottomleft weight=0.5) (LEAF name=bottomright weight=0.5)) )";
 		
 		MultiSplitLayout.Node modelRoot = MultiSplitLayout.parseModel(layoutDef);
 		
 		multiSplitPane.getMultiSplitLayout().setModel(modelRoot);
 		
-		videoPanel = new VideoPanel();
+		videoPanel = new VideoPanel(this);
 		multiSplitPane.add(videoPanel, "topleft");
 		
 		videoStreamer = new VideoStreamer();
 		frameLoader = new StreamingVideoFrameLoader(videoPanel, videoStreamer, 30);
 		
-		multiSplitPane.add(new UIPanel(), "topright");
-		multiSplitPane.add(new UIPanel(), "bottomleft");
+		multiSplitPane.add(new UIPanel(this), "topright");
+		multiSplitPane.add(new UIPanel(this), "bottomleft");
 		
-		BehaviorControlParam bcp = new BehaviorControlParam();
-		bcp.minSpeed = 0;
-		bcp.maxSpeed = 20;
-		
-		behaviorControlPanel = new BehaviorControlPanel(bcp);
+		behaviorControlPanel = new BehaviorControlPanel(this);
 		multiSplitPane.add(behaviorControlPanel, "bottomright");
 		
-		consolePanel = new ConsolePanel();
-		multiSplitPane.add(consolePanel, "consolearea");
+		//consolePanel = new ConsolePanel();
+		//multiSplitPane.add(consolePanel, "consolearea");
+		
+		depthMapPanel = new DepthMapPanel(this, 10);
+		multiSplitPane.add(depthMapPanel, "topright");
 
 		frame.getContentPane().add(multiSplitPane, BorderLayout.CENTER);
 		
@@ -133,7 +134,10 @@ public class RaptorRemoteUserInterface {
 		menuBar.add(connectionSettingsMenu);
 		openConnection = new JMenuItem(new OpenConnectionAction());
 		openConnection.setText("Open Device Connection");
+		closeConnection = new JMenuItem(new CloseConnectionAction());
+		closeConnection.setText("Close Device Connection");
 		connectionSettingsMenu.add(openConnection);
+		connectionSettingsMenu.add(closeConnection);
 
 		//Set up Video Settings
 		videoSettingsMenu = new JMenu("Video");
@@ -190,6 +194,17 @@ public class RaptorRemoteUserInterface {
 		}
 	}
 	
+	private class CloseConnectionAction extends AbstractAction {
+		public void actionPerformed(ActionEvent e) {
+			if (remoteSession == null || !remoteSession.isActive()) {
+				JOptionPane.showMessageDialog(null, "No open device conneciton to close", "Error", JOptionPane.WARNING_MESSAGE);
+				return;
+			}
+			
+			remoteSession.close();
+		}
+	}
+	
 	private class StartVideoAction extends AbstractAction {
 		public void actionPerformed(ActionEvent e) {
 			if (remoteSession == null || !remoteSession.isActive()) {
@@ -197,8 +212,13 @@ public class RaptorRemoteUserInterface {
 				return;
 			}
 			
-			frameLoader.start();
-			videoStreamer.start();
+			if (!frameLoader.isActive()) {
+				frameLoader.start();
+			}
+			
+			if (!videoStreamer.isAlive()) {
+				videoStreamer.start();
+			}
 			
 			boolean success = remoteSession.initVideoStream(0, 20);
 			
@@ -213,7 +233,13 @@ public class RaptorRemoteUserInterface {
 	
 	private class StopVideoAction extends AbstractAction {
 		public void actionPerformed(ActionEvent e) {
+			if (remoteSession == null || !remoteSession.isActive()) {
+				JOptionPane.showMessageDialog(null, "No open connection to stop video feed", "Error", JOptionPane.WARNING_MESSAGE);
+				return;
+			}
 			
+			remoteSession.stopVideoStream();
+
 		}
 	}
 }

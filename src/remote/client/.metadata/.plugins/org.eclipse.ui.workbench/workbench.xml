@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <workbench progressCount="35" version="2.0">
 <workbenchAdvisor/>
-<window height="878" width="1381" x="35" y="22">
+<window height="748" maximized="true" width="1253" x="42" y="22">
 <fastViewData fastViewLocation="1024"/>
 <perspectiveBar>
 <itemSize x="160"/>
@@ -46,48 +46,48 @@
 </folder>
 </info>
 </editorArea>
-<editor activePart="true" focus="true" id="org.eclipse.jdt.ui.CompilationUnitEditor" name="MainWindow.java" partName="MainWindow.java" path="/Users/gordontowne/Documents/Schoolwork/Senior/DirectedStudy/RaptorBot/src/remote/client/RaptorRemoteControlGUI/src/MainWindow.java" title="MainWindow.java" tooltip="RaptorRemoteControlGUI/src/MainWindow.java" workbook="DefaultEditorWorkbook">
-<input factoryID="org.eclipse.ui.part.FileEditorInputFactory" path="/RaptorRemoteControlGUI/src/MainWindow.java"/>
-<editorState selectionHorizontalPixel="0" selectionLength="0" selectionOffset="1213" selectionTopPixel="283"/>
+<editor activePart="true" focus="true" id="org.eclipse.jdt.ui.CompilationUnitEditor" name="RaptorRemoteProtocol.java" partName="RaptorRemoteProtocol.java" path="/Users/gordontowne/Documents/Schoolwork/Senior/DirectedStudy/RaptorBot/src/remote/client/RaptorRemoteControlGUI/src/sessionManagement/RaptorRemoteProtocol.java" title="RaptorRemoteProtocol.java" tooltip="RaptorRemoteControlGUI/src/sessionManagement/RaptorRemoteProtocol.java" workbook="DefaultEditorWorkbook">
+<input factoryID="org.eclipse.ui.part.FileEditorInputFactory" path="/RaptorRemoteControlGUI/src/sessionManagement/RaptorRemoteProtocol.java"/>
+<editorState selectionHorizontalPixel="0" selectionLength="34" selectionOffset="2994" selectionTopPixel="1397"/>
 </editor>
-<editor id="org.eclipse.jdt.ui.CompilationUnitEditor" name="PartialPacket.java" partName="PartialPacket.java" path="/Users/gordontowne/Documents/Schoolwork/Senior/DirectedStudy/RaptorBot/src/remote/client/Streamer/src/videoStreaming/PartialPacket.java" title="PartialPacket.java" tooltip="Streamer/src/videoStreaming/PartialPacket.java" workbook="DefaultEditorWorkbook">
-<input factoryID="org.eclipse.ui.part.FileEditorInputFactory" path="/Streamer/src/videoStreaming/PartialPacket.java"/>
-<editorState selectionHorizontalPixel="0" selectionLength="0" selectionOffset="950" selectionTopPixel="0"/>
+<editor id="org.eclipse.jdt.ui.CompilationUnitEditor" name="SimpleSocket.java" partName="SimpleSocket.java" path="/Users/gordontowne/Documents/Schoolwork/Senior/DirectedStudy/RaptorBot/src/remote/client/RaptorRemoteControlGUI/src/sessionManagement/SimpleSocket.java" title="SimpleSocket.java" tooltip="RaptorRemoteControlGUI/src/sessionManagement/SimpleSocket.java" workbook="DefaultEditorWorkbook">
+<input factoryID="org.eclipse.ui.part.FileEditorInputFactory" path="/RaptorRemoteControlGUI/src/sessionManagement/SimpleSocket.java"/>
+<editorState selectionHorizontalPixel="0" selectionLength="0" selectionOffset="1692" selectionTopPixel="300"/>
 </editor>
-<editor id="org.eclipse.jdt.ui.CompilationUnitEditor" name="Frame.java" partName="Frame.java" path="/Users/gordontowne/Documents/Schoolwork/Senior/DirectedStudy/RaptorBot/src/remote/client/Streamer/src/videoStreaming/Frame.java" title="Frame.java" tooltip="Streamer/src/videoStreaming/Frame.java" workbook="DefaultEditorWorkbook">
-<input factoryID="org.eclipse.ui.part.FileEditorInputFactory" path="/Streamer/src/videoStreaming/Frame.java"/>
-<editorState selectionHorizontalPixel="0" selectionLength="0" selectionOffset="24" selectionTopPixel="0"/>
+<editor id="org.eclipse.jdt.ui.CompilationUnitEditor" name="RaptorRemoteUserInterface.java" partName="RaptorRemoteUserInterface.java" path="/Users/gordontowne/Documents/Schoolwork/Senior/DirectedStudy/RaptorBot/src/remote/client/RaptorRemoteControlGUI/src/userInterface/RaptorRemoteUserInterface.java" title="RaptorRemoteUserInterface.java" tooltip="RaptorRemoteControlGUI/src/userInterface/RaptorRemoteUserInterface.java" workbook="DefaultEditorWorkbook">
+<input factoryID="org.eclipse.ui.part.FileEditorInputFactory" path="/RaptorRemoteControlGUI/src/userInterface/RaptorRemoteUserInterface.java"/>
+<editorState selectionHorizontalPixel="0" selectionLength="0" selectionOffset="6681" selectionTopPixel="2567"/>
 </editor>
-<editor id="org.eclipse.wb.core.guiEditor" name="MainWindow.java" partName="MainWindow.java" path="/Users/gordontowne/Documents/Schoolwork/Senior/DirectedStudy/RaptorBot/src/remote/client/RaptorRemoteControlGUI/src/MainWindow.java" title="MainWindow.java" tooltip="RaptorRemoteControlGUI/src/MainWindow.java" workbook="DefaultEditorWorkbook">
-<input factoryID="org.eclipse.ui.part.FileEditorInputFactory" path="/RaptorRemoteControlGUI/src/MainWindow.java"/>
-<editorState selectionHorizontalPixel="0" selectionLength="0" selectionOffset="2895" selectionTopPixel="900"/>
+<editor id="org.eclipse.jdt.ui.CompilationUnitEditor" name="RaptorRemoteSession.java" partName="RaptorRemoteSession.java" path="/Users/gordontowne/Documents/Schoolwork/Senior/DirectedStudy/RaptorBot/src/remote/client/RaptorRemoteControlGUI/src/sessionManagement/RaptorRemoteSession.java" title="RaptorRemoteSession.java" tooltip="RaptorRemoteControlGUI/src/sessionManagement/RaptorRemoteSession.java" workbook="DefaultEditorWorkbook">
+<input factoryID="org.eclipse.ui.part.FileEditorInputFactory" path="/RaptorRemoteControlGUI/src/sessionManagement/RaptorRemoteSession.java"/>
+<editorState selectionHorizontalPixel="0" selectionLength="90" selectionOffset="862" selectionTopPixel="75"/>
 </editor>
-<editor id="org.eclipse.jdt.ui.CompilationUnitEditor" name="VideoPlayer.java" partName="VideoPlayer.java" path="/Users/gordontowne/Documents/Schoolwork/Senior/DirectedStudy/RaptorBot/src/remote/client/RaptorRemoteControlGUI/src/VideoPlayer.java" title="VideoPlayer.java" tooltip="RaptorRemoteControlGUI/src/VideoPlayer.java" workbook="DefaultEditorWorkbook">
-<input factoryID="org.eclipse.ui.part.FileEditorInputFactory" path="/RaptorRemoteControlGUI/src/VideoPlayer.java"/>
-<editorState selectionHorizontalPixel="0" selectionLength="0" selectionOffset="118" selectionTopPixel="0"/>
+<editor id="org.eclipse.jdt.ui.CompilationUnitEditor" name="RaptorRemoteClient.java" partName="RaptorRemoteClient.java" path="/Users/gordontowne/Documents/Schoolwork/Senior/DirectedStudy/RaptorBot/src/remote/client/RaptorRemoteControlGUI/src/sessionManagement/RaptorRemoteClient.java" title="RaptorRemoteClient.java" tooltip="RaptorRemoteControlGUI/src/sessionManagement/RaptorRemoteClient.java" workbook="DefaultEditorWorkbook">
+<input factoryID="org.eclipse.ui.part.FileEditorInputFactory" path="/RaptorRemoteControlGUI/src/sessionManagement/RaptorRemoteClient.java"/>
+<editorState selectionHorizontalPixel="0" selectionLength="0" selectionOffset="1125" selectionTopPixel="322"/>
 </editor>
-<editor id="org.eclipse.jdt.ui.CompilationUnitEditor" name="VideoPanel.java" partName="VideoPanel.java" path="/Users/gordontowne/Documents/Schoolwork/Senior/DirectedStudy/RaptorBot/src/remote/client/RaptorRemoteControlGUI/src/VideoPanel.java" title="VideoPanel.java" tooltip="RaptorRemoteControlGUI/src/VideoPanel.java" workbook="DefaultEditorWorkbook">
-<input factoryID="org.eclipse.ui.part.FileEditorInputFactory" path="/RaptorRemoteControlGUI/src/VideoPanel.java"/>
-<editorState selectionHorizontalPixel="0" selectionLength="0" selectionOffset="571" selectionTopPixel="0"/>
+<editor id="org.eclipse.jdt.ui.CompilationUnitEditor" name="StreamingVideoFrameLoader.java" partName="StreamingVideoFrameLoader.java" path="/Users/gordontowne/Documents/Schoolwork/Senior/DirectedStudy/RaptorBot/src/remote/client/RaptorRemoteControlGUI/src/userInterface/StreamingVideoFrameLoader.java" title="StreamingVideoFrameLoader.java" tooltip="RaptorRemoteControlGUI/src/userInterface/StreamingVideoFrameLoader.java" workbook="DefaultEditorWorkbook">
+<input factoryID="org.eclipse.ui.part.FileEditorInputFactory" path="/RaptorRemoteControlGUI/src/userInterface/StreamingVideoFrameLoader.java"/>
+<editorState selectionHorizontalPixel="0" selectionLength="0" selectionOffset="977" selectionTopPixel="74"/>
 </editor>
-<editor id="org.eclipse.jdt.ui.CompilationUnitEditor" name="StreamingVideoFrameLoader.java" partName="StreamingVideoFrameLoader.java" path="/Users/gordontowne/Documents/Schoolwork/Senior/DirectedStudy/RaptorBot/src/remote/client/RaptorRemoteControlGUI/src/StreamingVideoFrameLoader.java" title="StreamingVideoFrameLoader.java" tooltip="RaptorRemoteControlGUI/src/StreamingVideoFrameLoader.java" workbook="DefaultEditorWorkbook">
-<input factoryID="org.eclipse.ui.part.FileEditorInputFactory" path="/RaptorRemoteControlGUI/src/StreamingVideoFrameLoader.java"/>
-<editorState selectionHorizontalPixel="0" selectionLength="0" selectionOffset="2008" selectionTopPixel="411"/>
+<editor id="org.eclipse.jdt.ui.CompilationUnitEditor" name="VideoPlayer.java" partName="VideoPlayer.java" path="/Users/gordontowne/Documents/Schoolwork/Senior/DirectedStudy/RaptorBot/src/remote/client/RaptorRemoteControlGUI/src/userInterface/VideoPlayer.java" title="VideoPlayer.java" tooltip="RaptorRemoteControlGUI/src/userInterface/VideoPlayer.java" workbook="DefaultEditorWorkbook">
+<input factoryID="org.eclipse.ui.part.FileEditorInputFactory" path="/RaptorRemoteControlGUI/src/userInterface/VideoPlayer.java"/>
+<editorState selectionHorizontalPixel="0" selectionLength="0" selectionOffset="0" selectionTopPixel="0"/>
 </editor>
 <editor id="org.eclipse.jdt.ui.CompilationUnitEditor" name="VideoStreamer.java" partName="VideoStreamer.java" path="/Users/gordontowne/Documents/Schoolwork/Senior/DirectedStudy/RaptorBot/src/remote/client/RaptorRemoteControlGUI/src/videoStreaming/VideoStreamer.java" title="VideoStreamer.java" tooltip="RaptorRemoteControlGUI/src/videoStreaming/VideoStreamer.java" workbook="DefaultEditorWorkbook">
 <input factoryID="org.eclipse.ui.part.FileEditorInputFactory" path="/RaptorRemoteControlGUI/src/videoStreaming/VideoStreamer.java"/>
-<editorState selectionHorizontalPixel="0" selectionLength="0" selectionOffset="2762" selectionTopPixel="1521"/>
+<editorState selectionHorizontalPixel="0" selectionLength="0" selectionOffset="1881" selectionTopPixel="431"/>
 </editor>
 </editors>
 <views>
 <view id="org.eclipse.debug.ui.DebugView" partName="Debug">
 <viewState/>
 </view>
-<view id="org.eclipse.ui.console.ConsoleView:Console View #1" partName="Console">
-<viewState/>
-</view>
 <view id="org.eclipse.ui.views.ProblemView" partName="Problems">
 <viewState PRIMARY_SORT_FIELD="org.eclipse.ui.ide.severityAndDescriptionField" categoryGroup="org.eclipse.ui.ide.severity" markerContentGenerator="org.eclipse.ui.ide.problemsGenerator" partName="Problems">
+<expanded>
+<category IMemento.internal.id="Warnings (35 items)"/>
+</expanded>
 <columnWidths org.eclipse.ui.ide.locationField="90" org.eclipse.ui.ide.markerType="90" org.eclipse.ui.ide.pathField="120" org.eclipse.ui.ide.resourceField="90" org.eclipse.ui.ide.severityAndDescriptionField="300"/>
 <visible IMemento.internal.id="org.eclipse.ui.ide.severityAndDescriptionField"/>
 <visible IMemento.internal.id="org.eclipse.ui.ide.resourceField"/>
@@ -144,7 +144,10 @@
 <sort7 sortDirection="1" sortKey="NONE"/>
 </sorter>
 </sorter>
-<filteredTreeFindHistory/>
+<filteredTreeFindHistory>
+<historyItem text="io"/>
+<historyItem text="lab"/>
+</filteredTreeFindHistory>
 </viewState>
 </view>
 <view id="org.eclipse.debug.ui.BreakpointView" partName="Breakpoints">
@@ -158,9 +161,11 @@
 <view id="org.eclipse.ui.views.ContentOutline" partName="Outline">
 <viewState/>
 </view>
-<view id="org.eclipse.jdt.ui.JavadocView" partName="Javadoc"/>
+<view id="org.eclipse.jdt.ui.JavadocView" partName="Javadoc">
+<viewState/>
+</view>
 </views>
-<perspectives activePart="org.eclipse.jdt.ui.CompilationUnitEditor" activePerspective="org.eclipse.jdt.ui.JavaPerspective">
+<perspectives activePart="org.eclipse.ui.console.ConsoleView" activePerspective="org.eclipse.jdt.ui.JavaPerspective">
 <perspective editorAreaTrimState="2" editorAreaVisible="1" fixed="0" version="0.016">
 <descriptor class="org.eclipse.jdt.internal.ui.JavaPerspectiveFactory" id="org.eclipse.jdt.ui.JavaPerspective" label="Java"/>
 <alwaysOnActionSet id="org.eclipse.ui.cheatsheets.actionSet"/>
@@ -228,7 +233,6 @@
 <view id="org.eclipse.jdt.ui.JavadocView"/>
 <view id="org.eclipse.jdt.ui.SourceView"/>
 <view id="org.eclipse.ui.console.ConsoleView"/>
-<view id="org.eclipse.ui.console.ConsoleView:Console View #1"/>
 <fastViewBars/>
 <layout>
 <mainWindow>
@@ -281,19 +285,18 @@
 </presentation>
 </folder>
 </info>
-<info folder="true" part="org.eclipse.ui.internal.ViewStack@11e586c0" ratio="0.60151327" ratioLeft="477" ratioRight="316" relationship="4" relative="org.eclipse.ui.editorss">
-<folder activePageID="org.eclipse.ui.console.ConsoleView:Console View #1" appearance="2" expanded="2">
+<info folder="true" part="org.eclipse.ui.internal.ViewStack@11e586c0" ratio="0.721519" ratioLeft="570" ratioRight="220" relationship="4" relative="org.eclipse.ui.editorss">
+<folder activePageID="org.eclipse.ui.console.ConsoleView" appearance="2" expanded="2">
 <page content="org.eclipse.ui.views.ProblemView" label="Problems"/>
 <page content="org.eclipse.jdt.ui.JavadocView" label="Javadoc"/>
 <page content="org.eclipse.jdt.ui.SourceView" label="Declaration"/>
 <page content="org.eclipse.ui.console.ConsoleView" label="Console"/>
-<page content="org.eclipse.ui.console.ConsoleView:Console View #1" label="Console"/>
+<page content="org.eclipse.ui.console.ConsoleView:Console View #1" label="LabelNotFound"/>
 <presentation id="org.eclipse.ui.presentations.WorkbenchPresentationFactory">
 <part id="0"/>
 <part id="1"/>
 <part id="2"/>
 <part id="3"/>
-<part id="4"/>
 </presentation>
 </folder>
 </info>
@@ -319,6 +322,7 @@
 <alwaysOnActionSet id="org.eclipse.debug.ui.breakpointActionSet"/>
 <alwaysOnActionSet id="org.eclipse.jdt.debug.ui.JDTDebugActionSet"/>
 <alwaysOnActionSet id="org.eclipse.jdt.ui.JavaActionSet"/>
+<alwaysOnActionSet id="com.google.gdt.eclipse.designer.actionset"/>
 <alwaysOnActionSet id="org.eclipse.debug.ui.debugActionSet"/>
 <show_view_action id="org.eclipse.debug.ui.DebugView"/>
 <show_view_action id="org.eclipse.debug.ui.VariableView"/>
@@ -342,42 +346,58 @@
 <view id="org.eclipse.debug.ui.BreakpointView"/>
 <view id="org.eclipse.ui.views.ContentOutline"/>
 <fastViewBars/>
-<layout>&#x0A;<mainWindow>&#x0A;<info folder="true" part="org.eclipse.debug.internal.ui.NavigatorFolderView">&#x0A;<folder activePageID="org.eclipse.debug.ui.DebugView" appearance="2" expanded="2">&#x0A;<page content="org.eclipse.debug.ui.DebugView" label="Debug"/>
+<layout>
+<mainWindow>
+<info folder="true" part="org.eclipse.debug.internal.ui.NavigatorFolderView">
+<folder activePageID="org.eclipse.debug.ui.DebugView" appearance="2" expanded="2">
+<page content="org.eclipse.debug.ui.DebugView" label="Debug"/>
 <page content="org.eclipse.ui.views.ResourceNavigator" label="LabelNotFound"/>
 <page content="org.eclipse.jdt.ui.PackageExplorer" label="LabelNotFound"/>
 <page content="org.eclipse.jdt.ui.TypeHierarchy" label="LabelNotFound"/>
-<presentation id="org.eclipse.ui.presentations.WorkbenchPresentationFactory">&#x0A;<part id="0"/>
+<presentation id="org.eclipse.ui.presentations.WorkbenchPresentationFactory">
+<part id="0"/>
 </presentation>
 </folder>
 </info>
-<info folder="true" part="stickyFolderRight" ratio="0.7498116" ratioLeft="995" ratioRight="332" relationship="2" relative="org.eclipse.debug.internal.ui.NavigatorFolderView">&#x0A;<folder appearance="2" expanded="2">&#x0A;<page content="org.eclipse.help.ui.HelpView" label="LabelNotFound"/>
+<info folder="true" part="stickyFolderRight" ratio="0.7498116" ratioLeft="995" ratioRight="332" relationship="2" relative="org.eclipse.debug.internal.ui.NavigatorFolderView">
+<folder appearance="2" expanded="2">
+<page content="org.eclipse.help.ui.HelpView" label="LabelNotFound"/>
 <page content="org.eclipse.ui.internal.introview" label="LabelNotFound"/>
 <page content="org.eclipse.ui.cheatsheets.views.CheatSheetView" label="LabelNotFound"/>
 </folder>
 </info>
-<info folder="true" part="org.eclipse.debug.internal.ui.ConsoleFolderView" ratio="0.76962024" ratioLeft="608" ratioRight="182" relationship="4" relative="org.eclipse.debug.internal.ui.NavigatorFolderView">&#x0A;<folder activePageID="org.eclipse.ui.console.ConsoleView" appearance="2" expanded="2">&#x0A;<page content="org.eclipse.ui.console.ConsoleView" label="Console"/>
+<info folder="true" part="org.eclipse.debug.internal.ui.ConsoleFolderView" ratio="0.76962024" ratioLeft="608" ratioRight="182" relationship="4" relative="org.eclipse.debug.internal.ui.NavigatorFolderView">
+<folder activePageID="org.eclipse.ui.console.ConsoleView" appearance="2" expanded="2">
+<page content="org.eclipse.ui.console.ConsoleView" label="Console"/>
 <page content="org.eclipse.ui.views.TaskList" label="Tasks"/>
 <page content="org.eclipse.ui.views.BookmarkView" label="LabelNotFound"/>
 <page content="org.eclipse.ui.views.PropertySheet" label="LabelNotFound"/>
 <page content="org.eclipse.jdt.debug.ui.DisplayView" label="LabelNotFound"/>
 <page content="org.eclipse.search.SearchResultView" label="LabelNotFound"/>
-<presentation id="org.eclipse.ui.presentations.WorkbenchPresentationFactory">&#x0A;<part id="0"/>
+<presentation id="org.eclipse.ui.presentations.WorkbenchPresentationFactory">
+<part id="0"/>
 <part id="1"/>
 </presentation>
 </folder>
 </info>
 <info part="org.eclipse.ui.editorss" ratio="0.6780952" ratioLeft="356" ratioRight="169" relationship="4" relative="org.eclipse.debug.internal.ui.NavigatorFolderView"/>
-<info folder="true" part="org.eclipse.debug.internal.ui.OutlineFolderView" ratio="0.7498116" ratioLeft="995" ratioRight="332" relationship="2" relative="org.eclipse.ui.editorss">&#x0A;<folder activePageID="org.eclipse.ui.views.ContentOutline" appearance="2" expanded="2">&#x0A;<page content="org.eclipse.ui.views.ContentOutline" label="Outline"/>
+<info folder="true" part="org.eclipse.debug.internal.ui.OutlineFolderView" ratio="0.7498116" ratioLeft="995" ratioRight="332" relationship="2" relative="org.eclipse.ui.editorss">
+<folder activePageID="org.eclipse.ui.views.ContentOutline" appearance="2" expanded="2">
+<page content="org.eclipse.ui.views.ContentOutline" label="Outline"/>
 <page content="org.eclipse.ant.ui.views.AntView" label="LabelNotFound"/>
-<presentation id="org.eclipse.ui.presentations.WorkbenchPresentationFactory">&#x0A;<part id="0"/>
+<presentation id="org.eclipse.ui.presentations.WorkbenchPresentationFactory">
+<part id="0"/>
 </presentation>
 </folder>
 </info>
-<info folder="true" part="org.eclipse.debug.internal.ui.ToolsFolderView" ratio="0.4996232" ratioLeft="663" ratioRight="664" relationship="2" relative="org.eclipse.debug.internal.ui.NavigatorFolderView">&#x0A;<folder activePageID="org.eclipse.debug.ui.VariableView" appearance="2" expanded="2">&#x0A;<page content="org.eclipse.debug.ui.VariableView" label="Variables"/>
+<info folder="true" part="org.eclipse.debug.internal.ui.ToolsFolderView" ratio="0.4996232" ratioLeft="663" ratioRight="664" relationship="2" relative="org.eclipse.debug.internal.ui.NavigatorFolderView">
+<folder activePageID="org.eclipse.debug.ui.VariableView" appearance="2" expanded="2">
+<page content="org.eclipse.debug.ui.VariableView" label="Variables"/>
 <page content="org.eclipse.debug.ui.BreakpointView" label="Breakpoints"/>
 <page content="org.eclipse.debug.ui.ExpressionView" label="LabelNotFound"/>
 <page content="org.eclipse.debug.ui.RegisterView" label="LabelNotFound"/>
-<presentation id="org.eclipse.ui.presentations.WorkbenchPresentationFactory">&#x0A;<part id="0"/>
+<presentation id="org.eclipse.ui.presentations.WorkbenchPresentationFactory">
+<part id="0"/>
 <part id="1"/>
 </presentation>
 </folder>
@@ -389,165 +409,160 @@
 <workingSets/>
 <navigationHistory>
 <editors>
-<editor factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.wb.core.guiEditor" path="/RaptorRemoteControlGUI/src/MainWindow.java"/>
-<editor factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.jdt.ui.CompilationUnitEditor" path="/RaptorRemoteControlGUI/src/VideoPlayer.java"/>
-<editor factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.jdt.ui.CompilationUnitEditor" path="/RaptorRemoteControlGUI/src/VideoPanel.java"/>
-<editor factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.jdt.ui.CompilationUnitEditor" path="/RaptorRemoteControlGUI/src/StreamingVideoFrameLoader.java"/>
-<editor factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.jdt.ui.CompilationUnitEditor" path="/RaptorRemoteControlGUI/src/videoStreaming/VideoStreamer.java"/>
-<editor factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.jdt.ui.CompilationUnitEditor" path="/RaptorRemoteControlGUI/src/MainWindow.java"/>
-<editor factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.jdt.ui.CompilationUnitEditor" path="/RaptorRemoteControlGUI/src/videoStreaming/VideoStreamer.java"/>
-<editor factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.wb.core.guiEditor" path="/RaptorRemoteControlGUI/src/VideoStreamOptionsDialog.java"/>
-<editor factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.jdt.ui.CompilationUnitEditor" path="/RaptorRemoteControlGUI/src/VideoStreamOptions.java"/>
+<editor factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.jdt.ui.CompilationUnitEditor" path="/RaptorRemoteControlGUI/src/sessionManagement/RaptorRemoteClient.java"/>
+<editor factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.jdt.ui.CompilationUnitEditor" path="/RaptorRemoteControlGUI/src/userInterface/RaptorRemoteUserInterface.java"/>
+<editor factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.jdt.ui.CompilationUnitEditor" path="/RaptorRemoteControlGUI/src/sessionManagement/RaptorRemoteSession.java"/>
+<editor factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.jdt.ui.CompilationUnitEditor" path="/RaptorRemoteControlGUI/src/sessionManagement/RaptorRemoteProtocol.java"/>
 </editors>
-<item historyLabel="VideoStreamer.java" index="4">
-<position info="not_deleted" x="1558" y="0"/>
+<item historyLabel="RaptorRemoteSession.java" index="2">
+<position info="not_deleted" x="1765" y="0"/>
 </item>
-<item historyLabel="VideoStreamer.java" index="4">
-<position info="not_deleted" x="1671" y="0"/>
+<item historyLabel="RaptorRemoteProtocol.java" index="3">
+<position info="not_deleted" x="2719" y="0"/>
 </item>
-<item historyLabel="VideoStreamer.java" index="4">
-<position info="not_deleted" x="1671" y="0"/>
+<item historyLabel="RaptorRemoteSession.java" index="2">
+<position info="not_deleted" x="2605" y="0"/>
 </item>
-<item historyLabel="VideoPlayer.java" index="1">
-<position info="not_deleted" x="118" y="0"/>
+<item historyLabel="RaptorRemoteSession.java" index="2">
+<position info="not_deleted" x="1345" y="0"/>
 </item>
-<item historyLabel="VideoPanel.java" index="2">
-<position info="not_deleted" x="571" y="0"/>
+<item historyLabel="RaptorRemoteProtocol.java" index="3">
+<position info="not_deleted" x="558" y="0"/>
 </item>
-<item historyLabel="MainWindow.java" index="0">
-<position info="not_deleted" x="3187" y="0"/>
+<item historyLabel="RaptorRemoteSession.java" index="2">
+<position info="not_deleted" x="1345" y="0"/>
 </item>
-<item historyLabel="VideoStreamer.java" index="4">
-<position info="not_deleted" x="4327" y="0"/>
+<item historyLabel="RaptorRemoteSession.java" index="2">
+<position info="not_deleted" x="540" y="0"/>
 </item>
-<item historyLabel="StreamingVideoFrameLoader.java" index="3">
-<position info="not_deleted" x="878" y="0"/>
-</item>
-<item historyLabel="VideoPanel.java" index="2">
-<position info="not_deleted" x="571" y="0"/>
-</item>
-<item historyLabel="StreamingVideoFrameLoader.java" index="3">
-<position info="not_deleted" x="878" y="0"/>
-</item>
-<item historyLabel="StreamingVideoFrameLoader.java" index="3">
-<position/>
-</item>
-<item historyLabel="StreamingVideoFrameLoader.java" index="3">
-<position info="not_deleted" x="1681" y="0"/>
-</item>
-<item historyLabel="VideoStreamer.java" index="4">
-<position info="not_deleted" x="2470" y="0"/>
-</item>
-<item historyLabel="StreamingVideoFrameLoader.java" index="3">
-<position info="not_deleted" x="1681" y="0"/>
-</item>
-<item historyLabel="VideoStreamer.java" index="4">
-<position info="not_deleted" x="2762" y="0"/>
-</item>
-<item historyLabel="VideoPanel.java" index="2">
-<position info="not_deleted" x="571" y="0"/>
-</item>
-<item historyLabel="StreamingVideoFrameLoader.java" index="3">
-<position info="not_deleted" x="1681" y="0"/>
-</item>
-<item historyLabel="StreamingVideoFrameLoader.java" index="3">
-<position info="not_deleted" x="1672" y="0"/>
-</item>
-<item historyLabel="StreamingVideoFrameLoader.java" index="3">
-<position info="not_deleted" x="1759" y="0"/>
-</item>
-<item historyLabel="StreamingVideoFrameLoader.java" index="3">
-<position info="not_deleted" x="2008" y="0"/>
-</item>
-<item historyLabel="MainWindow.java" index="0">
-<position info="not_deleted" x="3276" y="0"/>
-</item>
-<item historyLabel="MainWindow.java" index="5">
-<position/>
-</item>
-<item historyLabel="MainWindow.java" index="5">
-<position/>
-</item>
-<item historyLabel="MainWindow.java" index="5">
-<position/>
-</item>
-<item historyLabel="VideoStreamer.java" index="6">
-<position info="not_deleted" x="2762" y="0"/>
-</item>
-<item historyLabel="VideoStreamOptionsDialog.java" index="7">
+<item historyLabel="RaptorRemoteClient.java" index="0">
 <position info="not_deleted" x="0" y="0"/>
 </item>
-<item historyLabel="VideoStreamOptionsDialog.java" index="7">
-<position info="not_deleted" x="1649" y="0"/>
+<item historyLabel="RaptorRemoteClient.java" index="0">
+<position info="not_deleted" x="372" y="14"/>
 </item>
-<item historyLabel="VideoStreamOptionsDialog.java" index="7">
-<position info="not_deleted" x="1809" y="0"/>
+<item historyLabel="RaptorRemoteClient.java" index="0">
+<position info="not_deleted" x="903" y="0"/>
 </item>
-<item historyLabel="VideoStreamOptionsDialog.java" index="7">
-<position info="not_deleted" x="1835" y="0"/>
+<item historyLabel="RaptorRemoteProtocol.java" index="3">
+<position info="not_deleted" x="1130" y="6"/>
 </item>
-<item historyLabel="VideoStreamOptionsDialog.java" index="7">
+<item historyLabel="RaptorRemoteProtocol.java" index="3">
+<position info="not_deleted" x="1369" y="0"/>
+</item>
+<item historyLabel="RaptorRemoteProtocol.java" index="3">
+<position info="not_deleted" x="1401" y="0"/>
+</item>
+<item historyLabel="RaptorRemoteProtocol.java" index="3">
+<position info="not_deleted" x="1466" y="0"/>
+</item>
+<item historyLabel="RaptorRemoteUserInterface.java" index="1">
+<position info="not_deleted" x="6681" y="0"/>
+</item>
+<item historyLabel="RaptorRemoteClient.java" index="0">
+<position info="not_deleted" x="903" y="0"/>
+</item>
+<item historyLabel="RaptorRemoteClient.java" index="0">
+<position info="not_deleted" x="1563" y="0"/>
+</item>
+<item historyLabel="RaptorRemoteSession.java" index="2">
+<position info="not_deleted" x="582" y="0"/>
+</item>
+<item historyLabel="RaptorRemoteClient.java" index="0">
+<position info="not_deleted" x="1563" y="0"/>
+</item>
+<item historyLabel="RaptorRemoteSession.java" index="2">
+<position info="not_deleted" x="541" y="0"/>
+</item>
+<item historyLabel="RaptorRemoteClient.java" index="0">
+<position info="not_deleted" x="1532" y="0"/>
+</item>
+<item historyLabel="RaptorRemoteSession.java" index="2">
+<position info="not_deleted" x="541" y="0"/>
+</item>
+<item historyLabel="RaptorRemoteProtocol.java" index="3">
+<position info="not_deleted" x="1507" y="0"/>
+</item>
+<item historyLabel="RaptorRemoteClient.java" index="0">
+<position info="not_deleted" x="1532" y="0"/>
+</item>
+<item historyLabel="RaptorRemoteClient.java" index="0">
+<position info="not_deleted" x="950" y="0"/>
+</item>
+<item historyLabel="RaptorRemoteClient.java" index="0">
+<position info="not_deleted" x="1074" y="0"/>
+</item>
+<item historyLabel="RaptorRemoteClient.java" index="0">
+<position info="not_deleted" x="1125" y="0"/>
+</item>
+<item historyLabel="RaptorRemoteSession.java" index="2">
+<position info="not_deleted" x="541" y="0"/>
+</item>
+<item historyLabel="RaptorRemoteSession.java" index="2">
+<position info="not_deleted" x="783" y="0"/>
+</item>
+<item historyLabel="RaptorRemoteSession.java" index="2">
 <position/>
 </item>
-<item historyLabel="VideoStreamOptionsDialog.java" index="7">
-<position/>
+<item historyLabel="RaptorRemoteSession.java" index="2">
+<position info="not_deleted" x="804" y="0"/>
 </item>
-<item historyLabel="VideoStreamOptions.java" index="8">
-<position info="not_deleted" x="0" y="0"/>
+<item historyLabel="RaptorRemoteSession.java" index="2">
+<position info="not_deleted" x="949" y="0"/>
 </item>
-<item historyLabel="VideoStreamOptionsDialog.java" index="7">
-<position/>
+<item historyLabel="RaptorRemoteSession.java" index="2">
+<position info="not_deleted" x="1033" y="0"/>
 </item>
-<item historyLabel="VideoStreamOptions.java" index="8">
-<position info="not_deleted" x="86" y="0"/>
+<item historyLabel="RaptorRemoteSession.java" index="2">
+<position info="not_deleted" x="1035" y="0"/>
 </item>
-<item historyLabel="VideoStreamOptionsDialog.java" index="7">
-<position/>
+<item historyLabel="RaptorRemoteProtocol.java" index="3">
+<position info="not_deleted" x="1507" y="0"/>
 </item>
-<item historyLabel="VideoStreamOptionsDialog.java" index="7">
-<position/>
+<item historyLabel="RaptorRemoteProtocol.java" index="3">
+<position info="not_deleted" x="4888" y="0"/>
 </item>
-<item historyLabel="VideoStreamOptionsDialog.java" index="7">
-<position/>
+<item historyLabel="RaptorRemoteProtocol.java" index="3">
+<position info="not_deleted" x="4890" y="0"/>
 </item>
-<item historyLabel="VideoStreamOptionsDialog.java" index="7">
-<position info="not_deleted" x="2227" y="0"/>
+<item historyLabel="RaptorRemoteSession.java" index="2">
+<position info="not_deleted" x="1035" y="0"/>
 </item>
-<item historyLabel="VideoStreamOptions.java" index="8">
-<position info="not_deleted" x="86" y="0"/>
+<item historyLabel="RaptorRemoteSession.java" index="2">
+<position info="not_deleted" x="1040" y="0"/>
 </item>
-<item historyLabel="VideoStreamOptionsDialog.java" index="7">
-<position info="not_deleted" x="2227" y="0"/>
+<item historyLabel="RaptorRemoteSession.java" index="2">
+<position info="not_deleted" x="747" y="21"/>
 </item>
-<item historyLabel="VideoStreamer.java" index="6">
-<position info="not_deleted" x="2762" y="0"/>
+<item historyLabel="RaptorRemoteSession.java" index="2">
+<position info="not_deleted" x="1285" y="5"/>
 </item>
-<item historyLabel="VideoStreamOptions.java" index="8">
-<position info="not_deleted" x="86" y="0"/>
+<item historyLabel="RaptorRemoteSession.java" index="2">
+<position info="not_deleted" x="1533" y="15"/>
 </item>
-<item historyLabel="VideoStreamOptionsDialog.java" index="7">
-<position info="not_deleted" x="2227" y="0"/>
+<item historyLabel="RaptorRemoteSession.java" index="2">
+<position info="not_deleted" x="1957" y="15"/>
 </item>
-<item historyLabel="VideoStreamOptionsDialog.java" index="7">
-<position/>
+<item historyLabel="RaptorRemoteSession.java" index="2">
+<position info="not_deleted" x="414" y="6"/>
 </item>
-<item historyLabel="VideoStreamOptionsDialog.java" index="7">
-<position info="not_deleted" x="1991" y="0"/>
+<item historyLabel="RaptorRemoteSession.java" index="2">
+<position info="not_deleted" x="785" y="0"/>
 </item>
-<item historyLabel="VideoStreamOptionsDialog.java" index="7">
-<position/>
+<item historyLabel="RaptorRemoteClient.java" index="0">
+<position info="not_deleted" x="1125" y="0"/>
 </item>
-<item historyLabel="VideoStreamOptionsDialog.java" index="7">
-<position/>
+<item historyLabel="RaptorRemoteSession.java" index="2">
+<position info="not_deleted" x="785" y="0"/>
 </item>
-<item historyLabel="VideoStreamOptionsDialog.java" index="7">
-<position/>
+<item historyLabel="RaptorRemoteProtocol.java" index="3">
+<position info="not_deleted" x="2994" y="34"/>
 </item>
-<item historyLabel="VideoStreamOptionsDialog.java" index="7">
-<position info="not_deleted" x="2459" y="0"/>
+<item historyLabel="RaptorRemoteSession.java" index="2">
+<position info="not_deleted" x="862" y="90"/>
 </item>
-<item active="true" historyLabel="MainWindow.java" index="5">
-<position info="not_deleted" x="1022" y="0"/>
+<item active="true" historyLabel="RaptorRemoteProtocol.java" index="3">
+<position info="not_deleted" x="2994" y="34"/>
 </item>
 </navigationHistory>
 <input factoryID="org.eclipse.ui.internal.model.ResourceFactory" path="/" type="8"/>
@@ -555,6 +570,13 @@
 <workbenchWindowAdvisor/>
 <actionBarAdvisor/>
 <trimLayout>
+<trimArea IMemento.internal.id="16384">
+<trimItem IMemento.internal.id="left"/>
+</trimArea>
+<trimArea IMemento.internal.id="131072">
+<trimItem IMemento.internal.id="org.eclipse.ui.internal.ViewStack@67cd2b82"/>
+<trimItem IMemento.internal.id="right"/>
+</trimArea>
 <trimArea IMemento.internal.id="128">
 <trimItem IMemento.internal.id="org.eclipse.mylyn.tasks.ui.trim.container"/>
 <trimItem IMemento.internal.id="org.eclipse.ui.internal.WorkbenchWindow.topBar"/>
@@ -563,54 +585,49 @@
 <trimItem IMemento.internal.id="org.eclise.ui.internal.FastViewBar"/>
 <trimItem IMemento.internal.id="org.eclipse.jface.action.StatusLineManager"/>
 <trimItem IMemento.internal.id="org.eclipse.ui.internal.progress.ProgressRegion"/>
+<trimItem IMemento.internal.id="org.eclipse.ui.internal.ViewStack@11e586c0"/>
 </trimArea>
 </trimLayout>
 </window>
 <mruList>
-<file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.jdt.ui.CompilationUnitEditor" name="VideoStreamOptions.java" tooltip="RaptorRemoteControlGUI/src/VideoStreamOptions.java">
-<persistable path="/RaptorRemoteControlGUI/src/VideoStreamOptions.java"/>
-</file>
-<file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.wb.core.guiEditor" name="VideoStreamOptionsDialog.java" tooltip="RaptorRemoteControlGUI/src/VideoStreamOptionsDialog.java">
-<persistable path="/RaptorRemoteControlGUI/src/VideoStreamOptionsDialog.java"/>
-</file>
 <file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.jdt.ui.CompilationUnitEditor" name="VideoStreamer.java" tooltip="RaptorRemoteControlGUI/src/videoStreaming/VideoStreamer.java">
 <persistable path="/RaptorRemoteControlGUI/src/videoStreaming/VideoStreamer.java"/>
 </file>
-<file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.jdt.ui.CompilationUnitEditor" name="VideoPanel.java" tooltip="RaptorRemoteControlGUI/src/VideoPanel.java">
-<persistable path="/RaptorRemoteControlGUI/src/VideoPanel.java"/>
+<file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.jdt.ui.CompilationUnitEditor" name="VideoPlayer.java" tooltip="RaptorRemoteControlGUI/src/userInterface/VideoPlayer.java">
+<persistable path="/RaptorRemoteControlGUI/src/userInterface/VideoPlayer.java"/>
 </file>
-<file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.jdt.ui.CompilationUnitEditor" name="VideoPlayer.java" tooltip="RaptorRemoteControlGUI/src/VideoPlayer.java">
-<persistable path="/RaptorRemoteControlGUI/src/VideoPlayer.java"/>
+<file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.jdt.ui.CompilationUnitEditor" name="StreamingVideoFrameLoader.java" tooltip="RaptorRemoteControlGUI/src/userInterface/StreamingVideoFrameLoader.java">
+<persistable path="/RaptorRemoteControlGUI/src/userInterface/StreamingVideoFrameLoader.java"/>
 </file>
-<file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.jdt.ui.CompilationUnitEditor" name="ConsolePanel.java" tooltip="RaptorRemoteControlGUI/src/ConsolePanel.java">
-<persistable path="/RaptorRemoteControlGUI/src/ConsolePanel.java"/>
+<file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.jdt.ui.CompilationUnitEditor" name="RaptorRemoteClient.java" tooltip="RaptorRemoteControlGUI/src/sessionManagement/RaptorRemoteClient.java">
+<persistable path="/RaptorRemoteControlGUI/src/sessionManagement/RaptorRemoteClient.java"/>
 </file>
-<file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.wb.core.guiEditor" name="MainWindow.java" tooltip="RaptorRemoteControlGUI/src/MainWindow.java">
-<persistable path="/RaptorRemoteControlGUI/src/MainWindow.java"/>
+<file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.jdt.ui.CompilationUnitEditor" name="RaptorRemoteSession.java" tooltip="RaptorRemoteControlGUI/src/sessionManagement/RaptorRemoteSession.java">
+<persistable path="/RaptorRemoteControlGUI/src/sessionManagement/RaptorRemoteSession.java"/>
 </file>
-<file factoryID="org.eclipse.jdt.ui.ClassFileEditorInputFactory" id="org.eclipse.jdt.ui.ClassFileEditor" name="Raster.class" tooltip="java.awt.image.Raster">
-<persistable org.eclipse.jdt.ui.ClassFileIdentifier="=RaptorRemoteControlClient/\/System\/Library\/Java\/JavaVirtualMachines\/1.6.0.jdk\/Contents\/Classes\/classes.jar&lt;java.awt.image(Raster.class"/>
+<file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.jdt.ui.CompilationUnitEditor" name="UIPanel.java" tooltip="RaptorRemoteControlGUI/src/userInterface/UIPanel.java">
+<persistable path="/RaptorRemoteControlGUI/src/userInterface/UIPanel.java"/>
 </file>
-<file factoryID="org.eclipse.jdt.ui.ClassFileEditorInputFactory" id="org.eclipse.jdt.ui.ClassFileEditor" name="MultiPixelPackedSampleModel.class" tooltip="java.awt.image.MultiPixelPackedSampleModel">
-<persistable org.eclipse.jdt.ui.ClassFileIdentifier="=RaptorRemoteControlClient/\/System\/Library\/Java\/JavaVirtualMachines\/1.6.0.jdk\/Contents\/Classes\/classes.jar&lt;java.awt.image(MultiPixelPackedSampleModel.class"/>
+<file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.jdt.ui.CompilationUnitEditor" name="RaptorRemoteUserInterface.java" tooltip="RaptorRemoteControlGUI/src/userInterface/RaptorRemoteUserInterface.java">
+<persistable path="/RaptorRemoteControlGUI/src/userInterface/RaptorRemoteUserInterface.java"/>
 </file>
-<file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.jdt.ui.CompilationUnitEditor" name="MyUtils.java" tooltip="Streamer/src/MyUtils.java">
-<persistable path="/Streamer/src/MyUtils.java"/>
+<file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.jdt.ui.CompilationUnitEditor" name="BehaviorControlClient.java" tooltip="RaptorRemoteControlGUI/src/behaviorControl/BehaviorControlClient.java">
+<persistable path="/RaptorRemoteControlGUI/src/behaviorControl/BehaviorControlClient.java"/>
 </file>
-<file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.jdt.ui.CompilationUnitEditor" name="Streamer.java" tooltip="Streamer/src/Streamer.java">
-<persistable path="/Streamer/src/Streamer.java"/>
+<file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.jdt.ui.CompilationUnitEditor" name="BehaviorControlPanel.java" tooltip="RaptorRemoteControlGUI/src/userInterface/BehaviorControlPanel.java">
+<persistable path="/RaptorRemoteControlGUI/src/userInterface/BehaviorControlPanel.java"/>
 </file>
-<file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.jdt.ui.CompilationUnitEditor" name="Main.java" tooltip="Streamer/src/Main.java">
-<persistable path="/Streamer/src/Main.java"/>
+<file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.jdt.ui.CompilationUnitEditor" name="DepthMapPanel.java" tooltip="RaptorRemoteControlGUI/src/userInterface/DepthMapPanel.java">
+<persistable path="/RaptorRemoteControlGUI/src/userInterface/DepthMapPanel.java"/>
 </file>
-<file factoryID="org.eclipse.jdt.ui.ClassFileEditorInputFactory" id="org.eclipse.jdt.ui.ClassFileEditor" name="ImageIcon.class" tooltip="javax.swing.ImageIcon">
-<persistable org.eclipse.jdt.ui.ClassFileIdentifier="=RaptorRemoteControlClient/\/System\/Library\/Java\/JavaVirtualMachines\/1.6.0.jdk\/Contents\/Classes\/classes.jar&lt;javax.swing(ImageIcon.class"/>
+<file factoryID="org.eclipse.jdt.ui.ClassFileEditorInputFactory" id="org.eclipse.jdt.ui.ClassFileEditor" name="ByteArrayOutputStream.class" tooltip="java.io.ByteArrayOutputStream">
+<persistable org.eclipse.jdt.ui.ClassFileIdentifier="=TestBed/\/System\/Library\/Java\/JavaVirtualMachines\/1.6.0.jdk\/Contents\/Classes\/classes.jar&lt;java.io(ByteArrayOutputStream.class"/>
 </file>
-<file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.wb.core.guiEditor" name="UIPanel.java" tooltip="RaptorRemoteControlGUI/src/UIPanel.java">
-<persistable path="/RaptorRemoteControlGUI/src/UIPanel.java"/>
+<file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.jdt.ui.CompilationUnitEditor" name="RaptorRemoteProtocol.java" tooltip="RaptorRemoteControlClient/src/RaptorRemoteProtocol.java">
+<persistable path="/RaptorRemoteControlClient/src/RaptorRemoteProtocol.java"/>
 </file>
-<file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.jdt.ui.CompilationUnitEditor" name="SimpleSocket.java" tooltip="RaptorRemoteControlClient/src/SimpleSocket.java">
-<persistable path="/RaptorRemoteControlClient/src/SimpleSocket.java"/>
+<file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.jdt.ui.CompilationUnitEditor" name="Main.java" tooltip="TestBed/src/Main.java">
+<persistable path="/TestBed/src/Main.java"/>
 </file>
 </mruList>
 </workbench>

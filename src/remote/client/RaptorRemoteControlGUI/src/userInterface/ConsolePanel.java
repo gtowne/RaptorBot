@@ -12,8 +12,8 @@ public class ConsolePanel extends UIPanel {
 	public static final int CONSOLE_CHAR_WIDTH = 100;
 	public static final int CONSOLE_CHAR_HEIGHT = 40;
 	
-	public ConsolePanel() {
-		super();
+	public ConsolePanel(RaptorRemoteUserInterface parentUI) {
+		super(parentUI);
 		
 		textArea = new TextArea();
 		textArea.setBackground(Color.black);

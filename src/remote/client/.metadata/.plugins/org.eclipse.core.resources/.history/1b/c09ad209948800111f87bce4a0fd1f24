@@ -1,0 +1,8 @@
+package userInterface;
+
+public class BehaviorControlParam {
+	public static final int MIN_SPEED = 0;
+	public static final int MAX_SPEED = 20;
+	
+	
+}

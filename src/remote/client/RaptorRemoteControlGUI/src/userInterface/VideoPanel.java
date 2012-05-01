@@ -24,8 +24,8 @@ public class VideoPanel extends UIPanel implements VideoPlayer {
 	BufferedImage curImage;
 	BufferedImage curScaledImage;
 	
-	public VideoPanel() {
-		super();
+	public VideoPanel(RaptorRemoteUserInterface parentUI) {
+		super(parentUI);
 		
 		this.setLayout(new BorderLayout());
 		this.setBackground(Color.black);

@@ -1,6 +1,8 @@
 package sessionManagement;
 import java.io.IOException;
 import java.net.InetAddress;
+import java.net.ServerSocket;
+import java.net.Socket;
 import java.util.Hashtable;
 import java.util.Map.Entry;
 
@@ -11,6 +13,14 @@ public class RaptorRemoteClient {
 	public static final int ONBOARD_LISTENING_PORT = 7234;
 	
 	public static RaptorRemoteSession initNewSession(RaptorRemoteUserInterface ui, String hostIP) {
+		ServerSocket feedbackServerSocket;
+		try {
+			feedbackServerSocket = new ServerSocket();
+			feedbackServerSocket.bind(null);
+		} catch (IOException e) {
+			return null;
+		}
+		
 		SimpleSocket socket = null;
 		try {
 			socket = new SimpleSocket(hostIP, 7234);
@@ -18,9 +28,22 @@ public class RaptorRemoteClient {
 			return null;
 		}
 		
+		SimpleSocket feedbackSocket = null;
+		
 		try {
-			socket.writeBytes(RaptorRemoteProtocol.newInitSessionPacket());
+			socket.writeBytes(RaptorRemoteProtocol.newInitSessionPacket(getMyIP(), feedbackServerSocket.getLocalPort()));
+			feedbackServerSocket.setSoTimeout(2000);
+			feedbackSocket = new SimpleSocket(feedbackServerSocket.accept());
+			
+			if (feedbackSocket.isConnected()) {
+				System.out.println("RaptorRemoteClient::Feedback Socket connected");
+			} else {
+				System.out.println("RaptorRemoteClient::Error, Feedback Socket not connected");
+				throw new IOException();
+			}
+			
 		} catch (IOException e) {
+			System.out.println("RaptorRemoteClient::Could not connect to device");
 			return null;
 		}
 		
@@ -28,12 +51,14 @@ public class RaptorRemoteClient {
 		
 		RaptorRemoteSession newSession = null;
 		
+		
 		if (initResponse.type == RaptorSessionMessage.MessageType.INIT_RSP) {
 			System.out.println("RaptorRemoteClient::Received Init Response Message");
 			
 			if (initResponse.success) {
-				newSession = new RaptorRemoteSession(ui,socket);
+				newSession = new RaptorRemoteSession(ui,socket, feedbackSocket);
 			} else {
+				System.out.println("RaptorRemoteClient::Error, received failed init response message, could not init session");
 				return null;
 			}
 		} else {

@@ -1,0 +1,55 @@
+package userInterface;
+
+import java.awt.Canvas;
+import java.awt.Dimension;
+import java.awt.Graphics;
+import java.awt.Graphics2D;
+import java.util.concurrent.Semaphore;
+
+public class DepthMapPanel extends UIPanel {
+	private enum DataOrdering {LEFT_TO_RIGHT, RIGHT_TO_LEFT};
+	
+	private DepthCanvas canvas;
+	
+	private double[] curDepthMapData;
+	private double maxDisplayRadius;
+	
+	private Semaphore updateMutex;;
+	
+	public DepthMapPanel(double maxDisplayRadius) {
+		super();
+		
+		updateMutex = new Semaphore(1);
+		this.maxDisplayRadius = maxDisplayRadius;
+		
+		canvas = new DepthCanvas();
+		this.add(canvas);
+	}
+	
+	
+	private class DepthCanvas extends Canvas {
+		public void update(Graphics g) {
+			paint(g);
+		}
+		
+		public void paint(Graphics g) {
+			redrawDepth((Graphics2D) g);
+		}
+		
+		public void redrawDepth(Graphics2D g) {
+			try {
+				DepthMapPanel.this.updateMutex.acquire();
+			} catch (InterruptedException e) {
+				e.printStackTrace();
+			}
+			
+			Dimension curCanvasSize = this.getSize();
+			
+			Point originPoint = new Point(curCanvasSize.width / 2, 0);
+			
+			DepthMapPanel.this.updateMutex.release();
+		}
+	}
+	
+	
+}

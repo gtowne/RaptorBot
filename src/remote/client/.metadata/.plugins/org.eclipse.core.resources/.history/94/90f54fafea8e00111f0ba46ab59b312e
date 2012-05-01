@@ -1,0 +1,117 @@
+package sessionManagement;
+
+import java.io.IOException;
+import java.net.ServerSocket;
+
+import userInterface.RaptorRemoteUserInterface;
+import videoStreaming.VideoStreamer;
+
+
+public class RaptorRemoteSession {
+	private SimpleSocket controlSocket;
+	private SimpleSocket feedbackSocket;
+	
+	private FeedbackListingThread feedbackListeningThread;
+		
+	private boolean sessionIsActive;
+	private RaptorRemoteUserInterface thisUI;
+	
+	public RaptorRemoteSession(RaptorRemoteUserInterface thisUI, SimpleSocket controlSocket, SimpleSocket feedbackSocket) {
+		this.controlSocket = controlSocket;		
+		this.thisUI = thisUI;
+		sessionIsActive = true;
+		feedbackListeningThread = new FeedbackListingThread();
+		feedbackListeningThread.start();
+	}
+	
+	private class FeedbackListingThread extends Thread {
+		public void run() {
+			while (RaptorRemoteSession.this.sessionIsActive) {
+				RaptorSessionMessage newMessage = RaptorRemoteProtocol.readFromSocket(feedbackSocket);
+				
+				System.out.println("RaptorRemoteSession::Received new feedback message");
+			}
+			
+			try {
+				feedbackSocket.flush();
+				feedbackSocket.close();
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+		}
+	}
+	
+	public boolean isActive() {
+		return controlSocket.isConnected() && sessionIsActive;
+	}
+	
+	public boolean close() {
+		boolean sendSuccess = this.sendQuitMessage();
+				
+		sessionIsActive = false;
+		
+		try {
+			controlSocket.flush();
+			controlSocket.close();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		
+		return true;
+	}
+	
+	public boolean initVideoStream(int camNum, int targetFPS) {		
+		sendVideoInitMessage(RaptorRemoteClient.getMyIP(), VideoStreamer.LOCAL_PORT_NO, camNum, targetFPS);
+		
+		RaptorSessionMessage reply = RaptorRemoteProtocol.readFromSocket(controlSocket);
+		
+		if (reply == null) {
+			return false;
+		}
+		
+		if (reply.type != RaptorSessionMessage.MessageType.VID_START_RSP) {
+			return false;
+		}
+		
+		return reply.success;
+	}
+	
+	public boolean stopVideoStream() {
+		return sendVideoStopMessage();
+	}
+	
+	private boolean sendVideoInitMessage(String thisIP, int thisPort, int camNum, int targetFPS) {
+		
+		try {
+			controlSocket.writeBytes(RaptorRemoteProtocol.newVideoInitPacket(thisIP, thisPort, camNum, targetFPS));
+		} catch (IOException e) {
+			return false;
+		}
+		
+		return true;
+		
+	}
+	
+	private boolean sendVideoStopMessage() {
+		try {
+			controlSocket.writeBytes(RaptorRemoteProtocol.newVideoStopPacket());
+		} catch (IOException e) {
+			return false;
+		}
+		
+		return true;
+	}
+	
+	private boolean sendQuitMessage() {
+		try {
+			controlSocket.writeBytes(RaptorRemoteProtocol.newQuitPacket());
+		} catch (IOException e) {
+			return false;
+		}
+		
+		return true;
+	}
+
+	
+	
+}

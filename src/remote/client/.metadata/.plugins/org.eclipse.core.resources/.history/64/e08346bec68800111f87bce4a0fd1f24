@@ -1,0 +1,200 @@
+package userInterface;
+import java.awt.GridBagConstraints;
+import java.awt.GridBagLayout;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+
+import javax.swing.DefaultComboBoxModel;
+import javax.swing.JComboBox;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
+import javax.swing.JSlider;
+import javax.swing.SwingConstants;
+import javax.swing.event.ChangeListener;
+
+public class BehaviorControlPanel extends UIPanel {
+	
+	private JLabel speedLabel;
+	private JSlider speedSlider;
+	
+	private JLabel currentManeuverLabel;
+	private JLabel currentManeuverValueLabel;
+	
+	private JLabel timeToCompletionLabel;
+	private JLabel timeToCompletionValueLabel;
+	
+	private JLabel nextManeuverLabel;
+	private JComboBox nextManeuverComboBox;
+	
+	private JLabel directionLabel;
+	private JComboBox directionComboBox;
+	private DefaultComboBoxModel moveDirectionComboBoxModel;
+	private DefaultComboBoxModel pivotDirectionComboBoxModel;
+	private DefaultComboBoxModel arcDirectionComboBoxModel;
+	
+	private JLabel degreesLabel;
+	private JSlider degreesSlider;
+		
+	public BehaviorControlPanel() {
+		super();
+		this.setLayout(new GridBagLayout());
+		
+		GridBagConstraints labelConstraints = new GridBagConstraints();
+		labelConstraints.weightx = .1;
+		labelConstraints.anchor = GridBagConstraints.EAST;
+		labelConstraints.gridx = 0;
+		labelConstraints.gridy = 0;
+		labelConstraints.ipadx = 5;
+		labelConstraints.ipady = 5;
+		
+		GridBagConstraints centerControlConstraints = new GridBagConstraints();
+		centerControlConstraints.weightx = .8;
+		centerControlConstraints.anchor = GridBagConstraints.WEST;
+		centerControlConstraints.gridx = 1;
+		centerControlConstraints.gridy = 0;
+		centerControlConstraints.ipadx = 5;
+		centerControlConstraints.ipady = 5;
+		
+		GridBagConstraints rightControlConstraints = new GridBagConstraints();
+		rightControlConstraints.weightx = .8;
+		rightControlConstraints.anchor = GridBagConstraints.WEST;
+		rightControlConstraints.gridx = 2;
+		rightControlConstraints.gridy = 0;
+		rightControlConstraints.ipadx = 5;
+		rightControlConstraints.ipady = 5;
+		
+		speedLabel = new JLabel("Speed (m/s):");
+		this.add(speedLabel, labelConstraints);
+		
+		speedSlider = new JSlider(JSlider.HORIZONTAL, BehaviorParam.MIN_SPEED, BehaviorParam.MAX_SPEED, 0);
+		speedSlider.setPaintTicks(true);
+		speedSlider.setMajorTickSpacing((BehaviorParam.MAX_SPEED - BehaviorParam.MIN_SPEED) / 5);
+		speedSlider.setMinorTickSpacing(1);
+		speedSlider.setPaintLabels(true);
+		this.add(speedSlider, centerControlConstraints);
+		
+		currentManeuverLabel = new JLabel("Current Maneuver:");
+		labelConstraints.gridy = 1;
+		this.add(currentManeuverLabel, labelConstraints);
+		
+		currentManeuverValueLabel = new JLabel("None");
+		centerControlConstraints.gridy = 1;
+		this.add(currentManeuverValueLabel, centerControlConstraints);
+		
+		timeToCompletionLabel = new JLabel("Time to Completion:");
+		labelConstraints.gridy = 2;
+		this.add(timeToCompletionLabel, labelConstraints);
+		
+		timeToCompletionValueLabel = new JLabel(getTimeString(0,0));
+		centerControlConstraints.gridy = 2;
+		this.add(timeToCompletionValueLabel, centerControlConstraints);
+		
+		nextManeuverLabel = new JLabel("Next Maneuver:");
+		labelConstraints.gridy = 3;
+		this.add(nextManeuverLabel, labelConstraints);
+		
+		nextManeuverComboBox = new JComboBox(BehaviorParam.BEHAVIOR_NAMES);
+		centerControlConstraints.gridy = 3;
+		this.add(nextManeuverComboBox, centerControlConstraints);
+		
+		
+		directionLabel = new JLabel("Direction:");
+		centerControlConstraints.anchor = GridBagConstraints.EAST;
+		centerControlConstraints.gridy = 4;
+		this.add(directionLabel, centerControlConstraints);
+		
+		moveDirectionComboBoxModel = new DefaultComboBoxModel(BehaviorParam.MOVE_DIRECTION_NAMES);
+		pivotDirectionComboBoxModel = new DefaultComboBoxModel(BehaviorParam.PIVOT_DIRECTION_NAMES);
+		arcDirectionComboBoxModel = new DefaultComboBoxModel(BehaviorParam.ARC_DIRECTION_NAMES);
+		
+		directionComboBox = new JComboBox();
+		rightControlConstraints.gridy = 4;
+		directionComboBox.setVerifyInputWhenFocusTarget(false);
+		this.add(directionComboBox, rightControlConstraints);
+		directionComboBox.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent evt) {
+				BehaviorControlPanel.this.update();
+			}
+		});
+		
+		degreesLabel = new JLabel("Degrees");
+		centerControlConstraints.gridy = 5;
+		this.add(degreesLabel, centerControlConstraints);
+		
+		degreesSlider = new JSlider(JSlider.HORIZONTAL, 0, 90, 0);
+		degreesSlider.setMajorTickSpacing(10);
+		degreesSlider.setMinorTickSpacing(5);
+		degreesSlider.setPaintTicks(true);
+		degreesSlider.setPaintLabels(true);
+		rightControlConstraints.gridy = 5;
+		this.add(degreesSlider, rightControlConstraints);
+		degreesSlider.addChangeListener(new ChangeListener() {
+			public void stateChange(ChangeEvent e ){
+				
+			}
+		});
+		
+		update();
+		
+	}
+	
+	private void setViewForSelectedManeuver(BehaviorParam.Maneuver maneuver) {
+		directionLabel.setEnabled(false);
+		directionComboBox.setEnabled(false);
+		degreesLabel.setEnabled(false);
+		degreesSlider.setEnabled(false);
+
+		switch (maneuver) {
+		case MOVE:
+				directionComboBox.setModel(moveDirectionComboBoxModel);
+				directionLabel.setEnabled(true);
+				directionComboBox.setEnabled(true);
+			break;
+		case ARC_TURN:
+				directionComboBox.setModel(arcDirectionComboBoxModel);
+				directionLabel.setEnabled(true);
+				directionComboBox.setEnabled(true);
+				
+				degreesLabel.setEnabled(true);
+				degreesSlider.setEnabled(true);
+			break;
+			
+		case PIVOT_TURN:
+				directionComboBox.setModel(pivotDirectionComboBoxModel);
+				directionLabel.setEnabled(true);
+				directionComboBox.setEnabled(true);
+				
+				degreesLabel.setEnabled(true);
+				degreesSlider.setEnabled(true);
+			break;
+		}
+	}
+	
+	private void update() {
+		BehaviorParam.Maneuver selectedManeuver = getManeuverByIndex(nextManeuverComboBox.getSelectedIndex());	
+		setViewForSelectedManeuver(selectedManeuver);
+	}
+	
+	private static String getTimeString (int minutes, int seconds) {
+		String string = "";
+		if (minutes < 10) {
+			string += '0';
+		}
+		
+		string += minutes + " : ";
+		
+		if (seconds < 10) {
+			string += '0';
+		}
+		
+		string += seconds;
+		
+		return string;
+	}
+	
+	private static BehaviorParam.Maneuver getManeuverByIndex(int index) {
+		return BehaviorParam.Maneuver.values()[index];
+	}
+	
+	
+}

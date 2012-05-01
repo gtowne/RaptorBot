@@ -1,0 +1,245 @@
+package sessionManagement;
+
+import java.io.IOException;
+import java.net.ServerSocket;
+import java.util.concurrent.Semaphore;
+
+import behaviorControl.BehaviorParam;
+import behaviorControl.BehaviorParam.ArcDirection;
+import behaviorControl.BehaviorParam.PivotDirection;
+
+import userInterface.RaptorRemoteUserInterface;
+import videoStreaming.VideoStreamer;
+
+
+public class RaptorRemoteSession {
+	private SimpleSocket controlSocket;
+	private SimpleSocket feedbackSocket;
+	
+	private Semaphore controlSocketMutex;
+	
+	private FeedbackListingThread feedbackListeningThread;
+		
+	private boolean sessionIsActive;
+	private RaptorRemoteUserInterface thisUI;
+	
+	public RaptorRemoteSession(RaptorRemoteUserInterface thisUI, SimpleSocket controlSocket, SimpleSocket feedbackSocket) {
+		System.out.println("RaptorRemoteSession:: Initializing new session");
+		
+		this.controlSocket = controlSocket;		
+		
+		controlSocketMutex = new Semaphore(1);
+		
+		this.thisUI = thisUI;
+		sessionIsActive = true;
+		feedbackListeningThread = new FeedbackListingThread(feedbackSocket);
+		feedbackListeningThread.start();
+		
+	}
+	
+	public void sendMoveCommand(BehaviorParam.MoveDirection direction, int speed, int distance) {
+		try {
+			controlSocketMutex.acquire();
+		} catch (InterruptedException e) {
+			System.out.println("RaptorRemoteSession:: Error, could not acquire contorl socket mutex");
+			return;
+		}
+		
+		int maneuver = RaptorRemoteProtocol.MAN_MOVE;
+		int _direction = 0;
+		
+		if (direction == BehaviorParam.MoveDirection.FORWARD) {
+			_direction = RaptorRemoteProtocol.DIR_FORWARD;
+		} else if (direction == BehaviorParam.MoveDirection.BACKWARD) {
+			_direction = RaptorRemoteProtocol.DIR_BACKWARD;
+		}
+		
+		
+		try {
+			controlSocket.writeBytes(RaptorRemoteProtocol.newManeuverPacket(maneuver, _direction, 0, speed, distance, 0));
+		} catch (IOException e) {
+			System.out.println("RaptorRemoteSession:: Error, could not send maneuver packet");
+			return;
+		}
+		
+		
+		controlSocketMutex.release();
+	}
+	
+	public void sendArcCommand(BehaviorParam.ArcDirection direction, double speed, double degrees, double radius) {
+		try {
+			controlSocketMutex.acquire();
+		} catch (InterruptedException e) {
+			System.out.println("RaptorRemoteSession:: Error, could not acquire contorl socket mutex");
+			return;
+		}
+		
+		int maneuver = RaptorRemoteProtocol.MAN_ARC;
+		int _direction = 0;
+		
+		switch (direction) {
+		case FORWARD_LEFT:
+			_direction = RaptorRemoteProtocol.DIR_FORWARD_LEFT;
+			break;
+			
+		case FORWARD_RIGHT:
+			_direction = RaptorRemoteProtocol.DIR_FORWARD_RIGHT;
+			break;
+			
+		case BACKWARD_LEFT:
+			_direction = RaptorRemoteProtocol.DIR_BACKWARD_LEFT;
+			break;
+			
+		case BACKWARD_RIGHT:
+			_direction = RaptorRemoteProtocol.DIR_BACKWARD_LEFT;
+			break;
+		}
+		
+		
+		try {
+			controlSocket.writeBytes(RaptorRemoteProtocol.newManeuverPacket(maneuver, _direction, degrees, speed, 0, radius));
+		} catch (IOException e) {
+			System.out.println("RaptorRemoteSession:: Error, could not send maneuver packet");
+			return;
+		}
+		
+		
+		controlSocketMutex.release();
+	}
+	
+	public void sendPivotCommand(BehaviorParam.PivotDirection pivotDir, int degrees) {
+		try {
+			controlSocketMutex.acquire();
+		} catch (InterruptedException e) {
+			System.out.println("RaptorRemoteSession:: Error, could not acquire control socket mutex");
+			return;
+		}
+		
+		int maneuver = RaptorRemoteProtocol.MAN_PIVOT;
+		int _direction = 0;
+		
+		switch (pivotDir) {
+		case LEFT:
+			_direction = RaptorRemoteProtocol.DIR_LEFT;
+			break;
+			
+		case RIGHT:
+			_direction = RaptorRemoteProtocol.DIR_RIGHT;
+			break;
+		}
+		
+		
+		try {
+			controlSocket.writeBytes(RaptorRemoteProtocol.newManeuverPacket(maneuver, _direction, degrees, 0, 0, 0));
+		} catch (IOException e) {
+			System.out.println("RaptorRemoteSession:: Error, could not send maneuver packet");
+			return;
+		}
+		
+		
+		controlSocketMutex.release();
+	}
+	
+	
+	private class FeedbackListingThread extends Thread {
+		private SimpleSocket socket;
+		
+		public FeedbackListingThread(SimpleSocket socket) {
+			this.socket = socket;
+		}
+		
+		public void run() {
+			System.out.println("RaptorRemoteSession:: Feedback Listening Thread for session started");
+			
+			while (RaptorRemoteSession.this.sessionIsActive) {
+				if (socket != null && socket.isConnected()) {
+					RaptorSessionMessage newMessage = RaptorRemoteProtocol.readFromSocket(socket);
+				
+					//System.out.println("RaptorRemoteSession::Received new feedback message");
+				}
+			}
+			
+			System.out.println("RaptorRemoteSession:: Feedback Listening Thread for session exiting");
+			
+			try {
+				feedbackSocket.flush();
+				feedbackSocket.close();
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+		}
+	}
+	
+	public boolean isActive() {
+		return controlSocket.isConnected() && sessionIsActive;
+	}
+	
+	public boolean close() {
+		boolean sendSuccess = this.sendQuitMessage();
+				
+		sessionIsActive = false;
+		
+		try {
+			controlSocket.flush();
+			controlSocket.close();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		
+		return true;
+	}
+	
+	public boolean initVideoStream(int camNum, int targetFPS) {		
+		sendVideoInitMessage(RaptorRemoteClient.getMyIP(), VideoStreamer.LOCAL_PORT_NO, camNum, targetFPS);
+		
+		RaptorSessionMessage reply = RaptorRemoteProtocol.readFromSocket(controlSocket);
+		
+		if (reply == null) {
+			return false;
+		}
+		
+		if (reply.type != RaptorSessionMessage.MessageType.VID_START_RSP) {
+			return false;
+		}
+		
+		return reply.success;
+	}
+	
+	public boolean stopVideoStream() {
+		return sendVideoStopMessage();
+	}
+	
+	private boolean sendVideoInitMessage(String thisIP, int thisPort, int camNum, int targetFPS) {
+		
+		try {
+			controlSocket.writeBytes(RaptorRemoteProtocol.newVideoInitPacket(thisIP, thisPort, camNum, targetFPS));
+		} catch (IOException e) {
+			return false;
+		}
+		
+		return true;
+		
+	}
+	
+	private boolean sendVideoStopMessage() {
+		try {
+			controlSocket.writeBytes(RaptorRemoteProtocol.newVideoStopPacket());
+		} catch (IOException e) {
+			return false;
+		}
+		
+		return true;
+	}
+	
+	private boolean sendQuitMessage() {
+		try {
+			controlSocket.writeBytes(RaptorRemoteProtocol.newQuitPacket());
+		} catch (IOException e) {
+			return false;
+		}
+		
+		return true;
+	}
+
+	
+}

@@ -21,19 +21,27 @@ public class StreamingVideoFrameLoader {
 	Timer timer;
 	FrameLoader frameLoader;
 	
+	boolean isActive;
+	
 	public StreamingVideoFrameLoader(VideoPlayer player, VideoStreamer streamer, int framesPerSecond) {
 		this.player = player;
 		this.streamer = streamer;
 		frameLoader = new FrameLoader(player, streamer);
+		
+		isActive = false;
 		
 		timer = new Timer(fpsToMSDelay(framesPerSecond), frameLoader);
 		
 		System.out.println("StreamingVideoFrameLoader initialized");
 	}
 	
+	public boolean isActive() {
+		return isActive;
+	}
+	
 	public void start() {
 		timer.start();
-		
+		isActive = true;
 		System.out.println("FrameLoader:: Starting timed frame update events");
 	}
 	
@@ -73,7 +81,6 @@ public class StreamingVideoFrameLoader {
 			Frame nextFrame = streamer.getFrame();
 			
 			if (nextFrame != null) {
-				System.out.println("Updating view frame to frame " + nextFrame.seqNo);
 				
 				if (nextFrame.seqNo > highestFrameNum) {
 					highestFrameNum = nextFrame.seqNo;
