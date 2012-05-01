@@ -14,6 +14,7 @@ VideoStreamer::VideoStreamer(char* _hostname, int _hostport, int _camNum, int _t
     this->hostport = _hostport;
     this->camNum = _camNum;
     this->targetFPS = _targetFPS;
+	this->keepStreaming = false;
 }
 
 void* busyLoop(void* arg);
@@ -21,15 +22,20 @@ void* busyLoop(void* arg);
 int VideoStreamer::start() {
     
     if (pthread_create(&busyLoopThread, NULL, busyLoop, (void*) this) == 0) {
-	return 1;
+		return 1;
     }
     
     
     return  0;
 }
 
-bool VideoStreamer::isActive() {
+bool VideoStreamer::stop() {
+	keepStreaming = false;
 	return true;
+}
+
+bool VideoStreamer::isActive() {
+	return keepStreaming;
 }
 
 
@@ -126,6 +132,8 @@ int sendBigPacket(int socketFD, char* buff, int len, int maxPacketLen, int seqNo
 }
 
 void* busyLoop (void* arg) {
+	printf("VideoStreamer::Started feed thread\n");
+
     VideoStreamer* _this = (VideoStreamer*) arg;
     
     cv::VideoCapture cap;
@@ -154,13 +162,15 @@ void* busyLoop (void* arg) {
     
     
     time_t frameGrabTime, loopEndTime;
+
+	_this->keepStreaming = true;
     
     int i = 0;
-    while(true) {
+    while(_this->keepStreaming) {
         frameGrabTime = time(NULL);
         cap >> frame;
 
-	resize(frame, scaledFrame, scaledSize, 0, 0, cv::INTER_NEAREST);
+		resize(frame, scaledFrame, scaledSize, 0, 0, cv::INTER_NEAREST);
 	
         frameSize = frame.size();
         
@@ -192,6 +202,10 @@ void* busyLoop (void* arg) {
         }
         i++;
     }
+
+	frame.release();
+	scaledFrame.release();
+	cap.release();
     
     return 0;
     

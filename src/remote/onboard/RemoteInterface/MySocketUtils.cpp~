@@ -58,7 +58,7 @@ int acceptConnection(int listeningSocketFD, struct sockaddr_in* hostAddr) {
 	
 	newSocketFD = accept(listeningSocketFD, (struct sockaddr*)&clientAddress, &clientAddressLength);
 	
-    memcpy(hostAddr, &clientAddress, sizeof(sockaddr_in));
+    memcpy(hostAddr, &clientAddress, sizeof(struct sockaddr_in));
     
 	return newSocketFD;
 }
@@ -125,27 +125,28 @@ int openUDPSocket(char* remoteAddr, int remotePort) {
  *    get all the data we want or there's an error
  */
 int readFully(int socketFD, char* buff, int offset, int numBytes) {
-    bool doneReading = false;
-    
+
     int totalBytesRead = 0;
+
     int bytesJustRead = 0;
-    
-    while (!doneReading) {
-        bytesJustRead = recv(socketFD, &buff[offset + totalBytesRead], numBytes - totalBytesRead, 0);
-        
+
+    while (totalBytesRead < numBytes) {
+
+        bytesJustRead = recv(socketFD, &(buff[offset + totalBytesRead]), numBytes - totalBytesRead, 0);
+
+
         if (bytesJustRead == 0) {
             return totalBytesRead;
         } else if (bytesJustRead < 1) {
             if (totalBytesRead > 0) {
                 return totalBytesRead;
             }
-            
             return bytesJustRead;
         }
-        
+
         totalBytesRead += bytesJustRead;
     }
-    
+
     return totalBytesRead;
 }
 

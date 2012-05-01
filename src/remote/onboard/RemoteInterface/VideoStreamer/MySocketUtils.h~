@@ -27,8 +27,6 @@
  */
 int openListeningSocket(int listeningPort);
 
-int openTCPSocket(char* hostname, int hostPort);
-
 
 /*
  * acceptConnection() - take a server socket file

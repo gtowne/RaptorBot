@@ -9,10 +9,13 @@
 
 #include "RaptorRemoteSession.h"
 
-RaptorRemoteSession::RaptorRemoteSession(int _socketFD, sockaddr_in* _remoteAddr) {
+RaptorRemoteSession::RaptorRemoteSession(int _socketFD, int _feedbackSocketFD, sockaddr_in* _remoteAddr) {
 	sessionIsActive = false;
 	this->socketFD = _socketFD;
+	this->feedbackSocketFD = _feedbackSocketFD;
 	memcpy(&remoteAddr, _remoteAddr, sizeof(sockaddr_in));
+
+	this->videoStreamer = NULL;
 
 	pthread_mutex_init(&sendMutex, NULL);
 	pthread_mutex_init(&receiveMutex, NULL);
@@ -20,6 +23,9 @@ RaptorRemoteSession::RaptorRemoteSession(int _socketFD, sockaddr_in* _remoteAddr
 
 int RaptorRemoteSession::teardownSession() {
 	this->sessionIsActive = false;
+	if (videoStreamer) {
+		videoStreamer->stop();
+	}
 	close(this->socketFD);
 
 	pthread_mutex_destroy(&sendMutex);
@@ -27,8 +33,8 @@ int RaptorRemoteSession::teardownSession() {
 }
 
 int RaptorRemoteSession::listeningThreadRoutine() {
-	sendInitResponseMessage(true);
 	sessionIsActive = true;
+	sendInitResponseMessage(true);
 
 	printf("RaptorRemoteSession::Listening thread for session started\n");
 
@@ -36,6 +42,144 @@ int RaptorRemoteSession::listeningThreadRoutine() {
 
 	return 0;
 }
+
+void* startFeedbackThread(void* arg) {
+	RaptorRemoteSession* _this = (RaptorRemoteSession*)arg;
+	_this->feedbackThreadRoutine();
+
+	printf("RaptorRemoteSession::Feedback thread for session exited\n");
+
+	return NULL;
+}
+
+int RaptorRemoteSession::feedbackThreadRoutine() {
+	sessionIsActive = true;
+	printf("RaptorRemoteSession::Feedback thread started\n");
+
+	Maneuver* curManeuver;
+	Maneuver* nextManeuver;
+	int msToCompletion;
+	FeedbackPacket* thisPacket;
+
+	while(this->sessionIsActive) {
+		usleep(500000);
+
+		curManeuver = behaviorQueue.getCurrentManeuver();
+		nextManeuver = behaviorQueue.getNextManeuver();
+		msToCompletion = behaviorQueue.getMSToManeuverCompletion();
+
+		printf("RaptorRemoteSession:: Sending feedback message\n");
+		printf("RaptorRemoteSession:: Current Maneuver complete in %d MS:\n", msToCompletion);
+		printManeuver(curManeuver);
+		printManeuver(nextManeuver);
+		
+
+		bzero(feedbackSendBuffer, sizeof(FeedbackPacket));
+
+		thisPacket = (FeedbackPacket*)feedbackSendBuffer;
+
+		thisPacket->messageType = htonl(FEEDBACK_MSG);
+		
+		switch(curManeuver->maneuverType) {
+		case BEHAVIOR_NONE:
+			thisPacket->currentManeuver = htonl(MAN_NONE);
+			break;
+		case BEHAVIOR_MOVE:
+			thisPacket->currentManeuver = htonl(MAN_MOVE);
+			break;
+		case BEHAVIOR_ARC:
+			thisPacket->currentManeuver = htonl(MAN_ARC);
+			break;
+		case BEHAVIOR_PIVOT:
+			thisPacket->currentManeuver = htonl(MAN_PIVOT);
+			break;
+		}
+
+		switch(curManeuver->direction) {
+		case FORWARDS:
+			thisPacket->currentDirection = htonl(DIR_FORWARD);
+			break;
+		case BACKWARDS:
+			thisPacket->currentDirection = htonl(DIR_BACKWARD);
+			break;
+		case LEFT:
+			thisPacket->currentDirection = htonl(DIR_LEFT);
+			break;
+		case RIGHT:
+			thisPacket->currentDirection = htonl(DIR_RIGHT);
+			break;
+		case FORWARDS_LEFT:
+			thisPacket->currentDirection = htonl(DIR_FORWARD_LEFT);
+			break;
+		case FORWARDS_RIGHT:
+			thisPacket->currentDirection = htonl(DIR_FORWARD_RIGHT);			
+			break;
+		case BACKWARDS_LEFT:
+			thisPacket->currentDirection = htonl(DIR_BACKWARD_LEFT);
+			break;
+		case BACKWARDS_RIGHT:
+			thisPacket->currentDirection = htonl(DIR_BACKWARD_RIGHT);
+			break;
+		}
+
+		thisPacket->currentDegrees = htonl((int)(curManeuver->degrees * FLOAT_SCALE_FACTOR));
+		thisPacket->currentSpeed = htonl((int)(curManeuver->speed * FLOAT_SCALE_FACTOR));
+		thisPacket->currentDistance = htonl((int)(curManeuver->distance * FLOAT_SCALE_FACTOR));
+		thisPacket->currentRadius = htonl((int)(curManeuver->radius * FLOAT_SCALE_FACTOR));
+		thisPacket->msToNext = htonl(msToCompletion);
+
+		switch(nextManeuver->maneuverType) {
+		case BEHAVIOR_NONE:
+			thisPacket->nextManeuver = htonl(MAN_NONE);
+			break;
+		case BEHAVIOR_MOVE:
+			thisPacket->nextManeuver = htonl(MAN_MOVE);
+			break;
+		case BEHAVIOR_ARC:
+			thisPacket->nextManeuver = htonl(MAN_ARC);
+			break;
+		case BEHAVIOR_PIVOT:
+			thisPacket->nextManeuver = htonl(MAN_PIVOT);
+			break;
+		}
+
+		switch(nextManeuver->direction) {
+		case FORWARDS:
+			thisPacket->nextManeuver = htonl(DIR_FORWARD);
+			break;
+		case BACKWARDS:
+			thisPacket->nextManeuver = htonl(DIR_BACKWARD);
+			break;
+		case LEFT:
+			thisPacket->nextManeuver = htonl(DIR_LEFT);
+			break;
+		case RIGHT:
+			thisPacket->nextManeuver = htonl(DIR_RIGHT);
+			break;
+		case FORWARDS_LEFT:
+			thisPacket->nextManeuver = htonl(DIR_FORWARD_LEFT);
+			break;
+		case FORWARDS_RIGHT:
+			thisPacket->nextManeuver = htonl(DIR_FORWARD_RIGHT);			
+			break;
+		case BACKWARDS_LEFT:
+			thisPacket->nextManeuver = htonl(DIR_BACKWARD_LEFT);
+			break;
+		case BACKWARDS_RIGHT:
+			thisPacket->nextManeuver = htonl(DIR_BACKWARD_RIGHT);
+			break;
+		}	
+
+		thisPacket->nextDegrees = htonl((int)(nextManeuver->degrees * FLOAT_SCALE_FACTOR));
+		thisPacket->nextSpeed = htonl((int)(nextManeuver->speed * FLOAT_SCALE_FACTOR));	
+		thisPacket->nextDistance = htonl((int)(nextManeuver->distance * FLOAT_SCALE_FACTOR));
+		thisPacket->nextRadius = htonl((int)(nextManeuver->radius * FLOAT_SCALE_FACTOR));
+
+		write(this->feedbackSocketFD, this->feedbackSendBuffer, sizeof(FeedbackPacket));
+	}
+
+	return 0;
+}	
 
 void* startListeningThread(void* _thisSession) {
     RaptorRemoteSession* thisSession = (RaptorRemoteSession*) _thisSession;
@@ -54,7 +198,7 @@ void* startListeningThread(void* _thisSession) {
  *           -1 on failure
  */
 int RaptorRemoteSession::startNewSession() {
-    if (pthread_create(&this->listeningThread, NULL, startListeningThread, (void*)this) == 0) { 
+    if (pthread_create(&this->listeningThread, NULL, startListeningThread, (void*)this) == 0 && pthread_create(&this->feedbackThread, NULL, startFeedbackThread, (void*)this) == 0 ) { 
         return 0;
     }
     
@@ -91,6 +235,10 @@ bool RaptorRemoteSession::processIncomingMessage() {
 	AbstractPacket* newPacket = (AbstractPacket*)this->receiveBuffer;
 	newPacket->messageType = ntohl(newPacket->messageType);
 
+
+	VideoInitPacket* vidInitPacket;
+	ManeuverPacket* manPacket;
+
     // switch on the message type received
     switch (this->receiveBuffer[0]) {
     case VID_START:
@@ -98,25 +246,22 @@ bool RaptorRemoteSession::processIncomingMessage() {
 
 		bytesRead = readFully(this->socketFD, this->receiveBuffer, sizeof(AbstractPacket), sizeof(VideoInitPacket) - sizeof(AbstractPacket));
 
-		VideoInitPacket* packet = (VideoInitPacket*)this->receiveBuffer;
+		vidInitPacket = (VideoInitPacket*)this->receiveBuffer;
 
-		packet->remoteDataPort = ntohl(packet->remoteDataPort);
-		packet->camNum = ntohl(packet->remoteDataPort);
-		packet->targetFPS = ntohl(packet->targetFPS);
-		packet->remoteIPLen = ntohl(packet->remoteIPLen);
+		vidInitPacket->remoteDataPort = ntohl(vidInitPacket->remoteDataPort);
+		vidInitPacket->camNum = ntohl(vidInitPacket->camNum);
+		vidInitPacket->targetFPS = ntohl(vidInitPacket->targetFPS);
+		vidInitPacket->remoteIPLen = ntohl(vidInitPacket->remoteIPLen);
 
 		char remoteIP[128];
-		sendVidInitResponseMessage(streamerStarted);
 		bzero (remoteIP, 128);
-		memcpy(remoteIP, packet->remoteIP, packet->remoteIPLen);
+		memcpy(remoteIP, vidInitPacket->remoteIP, vidInitPacket->remoteIPLen);
 
-
-		printf("Connecting to %s\n", remoteIP);
 
 		// if we can construct a new video stream
-		if (!this->videoStreamer || (this->videoStreamer && this->videoStreamer->isActive())) {
-			printf("RaptorRemoteSession::Initializing new video stream\n");
-			this->videoStreamer = new VideoStreamer(remoteIP, packet->remoteDataPort, packet->camNum, packet->targetFPS);
+		if (!this->videoStreamer || (this->videoStreamer && !this->videoStreamer->isActive())) {
+			printf("RaptorRemoteSession::Initializing new video stream remoteIP:%s port:%d camNum:%d targetFPS:%d\n", remoteIP, vidInitPacket->remoteDataPort, vidInitPacket->camNum, vidInitPacket->targetFPS);
+			this->videoStreamer = new VideoStreamer(remoteIP, vidInitPacket->remoteDataPort, vidInitPacket->camNum, vidInitPacket->targetFPS);
 			int streamerStarted = videoStreamer->start();
 			bool _streamerStarted = false;
 			if (streamerStarted = 1) {
@@ -130,6 +275,50 @@ bool RaptorRemoteSession::processIncomingMessage() {
 			printf("RaptorRemoteSession::Can't initialize new stream, responding with error\n");
 			sendVidInitResponseMessage(false);
 		}
+
+
+		break;
+
+	case VID_STOP:
+		printf("RaptorRemoteSession::Vid Stop message received\n");
+		
+		if (!this->videoStreamer || (this->videoStreamer && !this->videoStreamer->isActive())) {
+			printf("RaptorRemoteSession::No active video stream to stop\n");	
+		} else {
+			videoStreamer->stop();
+		}
+
+		break;
+
+	case QUIT_MSG:
+		printf("RaptorRemoteSession::Quit Message received\n");
+
+		teardownSession();
+
+		return false;
+
+		break;
+
+	case MANEUVER_MSG:
+
+		printf("RaptorRemoteSession:: Maneuver Message received\n");
+
+		bytesRead = readFully(this->socketFD, this->receiveBuffer, sizeof(AbstractPacket), sizeof(ManeuverPacket) - sizeof(AbstractPacket));
+
+		manPacket = (ManeuverPacket*) this->receiveBuffer;
+
+		manPacket->maneuver = ntohl(manPacket->maneuver);
+		manPacket->direction =  ntohl(manPacket->direction);
+		manPacket->degrees = ntohl(manPacket->degrees) / FLOAT_SCALE_FACTOR;
+		manPacket->speed = ntohl(manPacket->speed) / FLOAT_SCALE_FACTOR;
+		manPacket->distance = ntohl(manPacket->distance) / FLOAT_SCALE_FACTOR;
+		manPacket->radius = ntohl(manPacket->radius) / FLOAT_SCALE_FACTOR;
+
+		printf("RaptorRemoteSession:: Maneuver received \n  maneuver:%d\n  direction:%d\n  degrees:%d\n  speed:%d\n  distance:%d\n  radius:%d\n", manPacket->maneuver, manPacket->direction, manPacket->degrees, manPacket->speed, manPacket->distance, manPacket->radius);
+
+
+		handleManeuver(manPacket->maneuver, manPacket->direction, manPacket->degrees, manPacket->speed, manPacket->distance, manPacket->radius);
+		
 
 
 		break;
@@ -179,6 +368,29 @@ int RaptorRemoteSession::sendVidInitResponseMessage(bool success) {
         return -1;
     }
 	pthread_mutex_unlock(&sendMutex);
+
+	return 0;
+}
+
+int RaptorRemoteSession::handleManeuver(int maneuver, int direction, float degrees, float speed, float distance, float radius) {
+	switch (maneuver) {
+	case MAN_NONE:
+
+		break;
+
+	case MAN_MOVE:
+
+		break;
+
+	case MAN_PIVOT:
+
+		break;
+
+	case MAN_ARC:
+
+		break;
+
+	}
 
 	return 0;
 }

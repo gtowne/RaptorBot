@@ -23,6 +23,7 @@
 #include "RaptorVideoStream.h"
 #include "utils/MySocketUtils.h"
 #include "VideoStreamer/VideoStreamer.h"
+#include "ControlInterface/BehaviorQueue.h"
 
 
 #define SEND_BUFFER_SIZE 256
@@ -47,32 +48,36 @@
 class RaptorRemoteSession {
 private:
 	int socketFD;
+	int feedbackSocketFD;
+
 	bool sessionIsActive;
 
     struct sockaddr_in remoteAddr;
 	char sendBuffer[SEND_BUFFER_SIZE];
 	char receiveBuffer[RECEIVE_BUFFER_SIZE];
+
+	char feedbackSendBuffer[SEND_BUFFER_SIZE];
     
     // mutexes for the send and receive buffers
     pthread_mutex_t sendMutex;
     pthread_mutex_t receiveMutex;
     
     pthread_t listeningThread;
+	pthread_t feedbackThread;
 
 	VideoStreamer* videoStreamer;
-    
+    BehaviorQueue behaviorQueue;
 
 	int sendInitResponseMessage(bool success);
 	int sendVidInitResponseMessage(bool sucess);
-
 	
 	int teardownSession();
 
-	
+	int handleManeuver(int maneuver, int direction, int degrees, int speed, int distance, int radius);
 
 	
 public:
-	RaptorRemoteSession(int _socketFD, sockaddr_in* _remoteAddr);
+	RaptorRemoteSession(int _socketFD, int _feedbackSocketFD, sockaddr_in* _remoteAddr);
 	~RaptorRemoteSession();
 	
     /*
@@ -84,6 +89,7 @@ public:
     
     int startNewSession();
     int listeningThreadRoutine();
+	int feedbackThreadRoutine();
 	bool isActive();
 };
 
