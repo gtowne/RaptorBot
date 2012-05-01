@@ -1,0 +1,9 @@
+import java.awt.GridBagLayout;
+
+public class BehaviorControlPanel extends UIPanel {
+
+	public BehaviorControlPanel() {
+		super();
+		this.setLayout(new GridBagLayout());
+	}
+}

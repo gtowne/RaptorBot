@@ -1,0 +1,37 @@
+import java.io.IOException;
+import java.net.DatagramSocket;
+import java.net.ServerSocket;
+import java.net.InetSocketAddress;
+import java.net.Socket;
+import java.util.concurrent.Semaphore;
+
+
+public class RaptorVideoStreamClient extends Thread {
+	
+	private static int DATA_PORT_NO = 8976;
+	private static int CONTROL_LISTENING_PORT_NO = 8977;
+	
+	private ServerSocket serverSocket;
+	private SimpleSocket controlSocket;
+	private DatagramSocket dataSocket;
+		
+	public RaptorVideoStreamClient() throws IOException {
+		serverSocket = new ServerSocket(CONTROL_LISTENING_PORT_NO);
+		
+		
+	}
+	
+	public void run() {
+		try {
+			Socket temp = serverSocket.accept();
+			controlSocket = new SimpleSocket(temp);
+		} catch (IOException e) {
+			System.out.println("Error accepting conneciton on video stream server socket");
+			return;
+		}
+		
+		
+		
+	}
+ 	
+}

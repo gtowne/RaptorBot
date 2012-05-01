@@ -1,0 +1,22 @@
+import java.io.IOException;
+import java.net.DatagramSocket;
+import java.net.ServerSocket;
+
+
+public class RaptorVideoStreamClient {
+	
+	private static int DATA_PORT_NO = 8976;
+	private static int CONTROL_LISTENING_PORT_NO = 8977;
+	
+	ServerSocket serverSocket;
+	SimpleSocket controlSocket;
+	DatagramSocket dataSocket;
+	
+	public RaptorVideoStreamClient() throws IOException {
+		serverSocket = new ServerSocket(CONTROL_LISTENING_PORT_NO);
+	}
+	
+	
+	
+	
+}

@@ -1,0 +1,16 @@
+
+public class Main {
+	
+}
+
+static String getMyIP()  
+{  
+    String n=null;  
+    try  
+    {  
+        InetAddress ip=InetAddress.getLocalHost();  
+        String n=ip.toString();  
+          
+    }catch(Exception e){e.printStackTrace();}  
+    return n;  
+}  

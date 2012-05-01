@@ -1,0 +1,14 @@
+
+public class RaptorVideoStreamClient {
+	
+	private static int DATA_PORT_NO;
+	private static int CONTROL_LISTENING_PORT_NO;
+	
+	ServerSocket serverSocket;
+	SimpleSocket controlSocket;
+	DatagramSocket dataSocket;
+	
+	public RaptorVideoStreamClient() {
+		
+	}
+}

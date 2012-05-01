@@ -1,0 +1,177 @@
+import java.io.ByteArrayOutputStream;
+import java.io.DataOutputStream;
+import java.io.IOException;
+
+
+
+public class RaptorRemoteProtocol {
+	
+	/*
+	 * Protocol Version
+	 */
+	public static final char RAPTOR_REMOTE_SESSION_PROTOCOL_VERSION_ID = 0x7d;
+
+	/*
+	 * Message Types
+	 */
+	public static final int PING_MSG = 'p';
+	public static final int PING_RSP_MSG = 'P';
+	public static final int INIT_MSG = 'i';
+	public static final int INIT_RSP_MSG = 'I';
+	public static final int QUIT_MSG = 'q';
+	public static final int QUIT_RSP_MSG = 'Q';
+	public static final int CMD_MSG = 'c';
+	
+	private static final int MAX_PACKET_BYTES = 256;
+	
+	public static byte[] newPingPacket() {
+		ByteArrayOutputStream out = new ByteArrayOutputStream();
+		
+		 
+		out.write(PING_MSG);
+		
+		return out.toByteArray();
+	}
+	
+	public static byte[] newInitPacket() {
+
+		ByteArrayOutputStream out = new ByteArrayOutputStream();
+		
+		 
+		out.write(INIT_MSG);
+		
+		return out.toByteArray();
+	}
+	
+	public static byte[] newQuitPacket() {
+		ByteArrayOutputStream out = new ByteArrayOutputStream();
+		
+		 
+		out.write(QUIT_MSG);
+		
+		return out.toByteArray();
+	}
+	
+	public static byte[] newVideoStartPacket(int myServerPort, int myDataPort) {
+		
+		ByteArrayOutputStream _out = new ByteArrayOutputStream();
+		DataOutputStream out = new DataOutputStream(_out);
+		try {
+			out.writeByte(RAPTOR_REMOTE_SESSION_PROTOCOL_VERSION_ID);
+			out.writeByte(VID_START);
+			out.writeInt(myServerPort);
+			out.writeInt(myDataPort);
+		} catch (IOException e) {}
+		
+		return _out.toByteArray();
+	}
+	
+	public static byte[] newVideoEndPacket() {
+		ByteArrayOutputStream out = new ByteArrayOutputStream();
+		
+		out.write(VID_END);
+		
+		return out.toByteArray();
+	}
+	
+	public static RaptorSessionMessage readFromSocket(SimpleSocket socket) {
+		RaptorSessionMessage message = new RaptorSessionMessage();
+			
+		byte messageType = 0x00;
+		
+		try {
+			messageType = socket.readByte();
+		} catch (IOException e) {
+			message.type = RaptorSessionMessage.MessageType.SOCKET_ERROR;
+			return message;
+		}
+		
+		byte success = -1;
+		
+		switch (messageType) {
+		case RaptorRemoteProtocol.PING_RSP_MSG:
+			message.type = RaptorSessionMessage.MessageType.PING_RSP;
+			
+			System.out.println("Ping response message received");
+			
+			break;
+			
+		case RaptorRemoteProtocol.INIT_RSP_MSG:
+			message.type = RaptorSessionMessage.MessageType.INIT_RSP;
+			
+			try {
+				success = socket.readByte();
+			} catch (IOException e) {
+				message.type = RaptorSessionMessage.MessageType.SOCKET_ERROR;
+				return message;
+			}
+						
+			if (success == 1) {
+				message.success = true;
+			} else {
+				message.success = false;
+			}
+			
+			System.out.println("Init response message received");
+			
+			break;
+			
+		case RaptorRemoteProtocol.QUIT_RSP_MSG:
+			
+			message.type = RaptorSessionMessage.MessageType.QUIT_RSP;
+			
+			System.out.println("Quit response message received");
+			
+			break;
+			
+		case RaptorRemoteProtocol.VID_START_RSP:
+			
+			message.type = RaptorSessionMessage.MessageType.VID_START;
+			
+			try {
+				success = socket.readByte();
+			} catch (IOException e) {
+				message.type = RaptorSessionMessage.MessageType.SOCKET_ERROR;
+				return message;
+			}
+			
+			if (success == 1) {
+				message.success = true;
+			} else {
+				message.success = false;
+			}
+			
+			break;
+			
+		case RaptorRemoteProtocol.VID_END_RSP:
+			
+			message.type = RaptorSessionMessage.MessageType.VID_END;
+			
+			try {
+				success = socket.readByte();
+			} catch (IOException e) {
+				message.type = RaptorSessionMessage.MessageType.SOCKET_ERROR;
+				return message;
+			}
+						
+			if (success == 1) {
+				message.success = true;
+			} else {
+				message.success = false;
+			}
+			
+			break;
+			
+		default:
+			message.type = RaptorSessionMessage.MessageType.INVALID_MESSAGE_TYPE;
+			
+			System.out.println("Invalid message type received");
+		}
+		
+		return message;
+		
+	}
+	
+	
+	
+}

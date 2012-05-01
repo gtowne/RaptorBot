@@ -1,0 +1,55 @@
+package sessionManagement;
+
+import userInterface.RaptorRemoteUserInterface;
+import videoStreaming.VideoStreamer;
+
+
+public class RaptorRemoteSession {
+	private SimpleSocket controlSocket;
+	
+	private RaptorRemoteUserInterface thisUI;
+	private ListeningThread listeningThread;
+	
+	public RaptorRemoteSession(RaptorRemoteUserInterface thisUI, SimpleSocket controlSocket) {
+		this.controlSocket = controlSocket;
+		this.thisUI = thisUI;
+		listeningThread = new ListeningThread();
+		listeningThread.start();
+	}
+	
+	public boolean isActive() {
+		return listeningThread.isAlive();
+	}
+	
+	public boolean initVideoStream(int camNum, int targetFPS) {
+		int localPort = VideoStreamer.LOCAL_PORT_NO;
+		
+		sendVideoInitMessage
+		
+		return false;
+	}
+	
+	private boolean sendVideoInitMessage(String thisIP, int thisPort, int camNum, int targetFPS) {
+		
+	}
+	
+	private class ListeningThread extends Thread {
+		
+		public void run() {
+			System.out.println("RaptorRemoteSession::Listening thread for session started");
+			while(true) {
+				
+				RaptorSessionMessage newMessage = RaptorRemoteProtocol.readFromSocket(controlSocket);
+				
+				if (newMessage!= null) {
+					
+					switch(newMessage.type) {
+					
+					}
+					
+				}
+			}
+		}
+		
+	}
+}

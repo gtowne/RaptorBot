@@ -1,0 +1,64 @@
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
+
+import javax.imageio.ImageIO;
+
+import videoStreaming.VideoStreamer;
+
+
+public class ImageDirVidPlayer {
+	
+	VideoPlayer player;
+	VideoStreamer streamer;
+	
+	public ImageDirVidPlayer(VideoPlayer player, VideoStreamer streamer) {
+		this.player = player;
+		this.streamer = streamer;
+	}
+	
+	public void start() {
+		try {
+			playDirectory(player, dirName, repeat);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
+	
+	public void stop() {
+		
+	}
+	
+	public static void playDirectory(VideoPlayer player, String dirName, boolean repeat) throws IOException {
+		System.out.println("In \'playDirectory\'");
+		
+		File directory = new File(dirName);
+
+		do {
+			if (directory.isDirectory()) {
+				File[] files = directory.listFiles();
+
+				for (File curFile:files) {
+					if (curFile.canRead()) {
+						BufferedImage curImage = ImageIO.read(curFile);
+						
+						if (curImage != null) {
+							player.updateFrame(curImage);
+							try {
+								Thread.sleep(33);
+							} catch (InterruptedException e) {
+								e.printStackTrace();
+							}
+						}
+						
+					}
+				}
+
+			} 
+			
+		} while(repeat);
+
+
+	}
+}
+

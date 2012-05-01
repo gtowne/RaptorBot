@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<session version="1.0">
+<refactoring comment="Move element &apos;MultiSplitPane.java&apos; to &apos;RaptorRemoteControlGUI/src/org.jdesktop.swingx&apos;&#x0A;- Original project: &apos;RaptorRemoteControlGUI&apos;&#x0A;- Destination element: &apos;RaptorRemoteControlGUI/src/org.jdesktop.swingx&apos;&#x0A;- Original element: &apos;MultiSplitPane.java&apos;&#x0A;- Update references to refactored element" description="Move compilation unit" destination="/src&lt;org.jdesktop.swingx" element1="/src&lt;{MultiSplitPane.java" files="0" flags="589830" folders="0" id="org.eclipse.jdt.ui.move" policy="org.eclipse.jdt.ui.moveResources" qualified="false" references="true" stamp="1327528095660" units="1" version="1.0"/>
+</session>

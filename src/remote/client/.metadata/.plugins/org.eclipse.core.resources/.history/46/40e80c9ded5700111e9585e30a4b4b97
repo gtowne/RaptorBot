@@ -1,0 +1,10 @@
+import java.net.DatagramSocket;
+
+
+public class SimpleUDPSocket {
+	private DatagramSocket socket;
+	
+	public SimpleUDPSocket(int localPort) {
+		socket = new DatagramSocket(localPort);
+	}
+}

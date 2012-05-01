@@ -1,0 +1,27 @@
+import java.net.InetAddress;
+import java.util.Arrays;
+
+
+public class Main {
+	public static void main(String[] args) {
+		String myIP = getMyIP();
+		int dotIndex = myIP.lastIndexOf('.');
+		String lanAddrBase = myIP.substring(0, dotIndex+1);
+		String myExtension = myIP.substring(dotIndex+1, myIP.length());
+		
+		System.out.println(lanAddrBase);
+		
+	}
+	
+	public static String getMyIP() {  
+	    String addr=null;  
+	    try  
+	    {  
+	        InetAddress ip=InetAddress.getLocalHost();  
+	        addr = ip.getHostAddress();
+	          
+	    }catch(Exception e){e.printStackTrace();}  
+	    return addr;  
+	}  
+}
+

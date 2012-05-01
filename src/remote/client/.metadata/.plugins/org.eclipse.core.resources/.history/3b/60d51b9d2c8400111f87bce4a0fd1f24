@@ -1,0 +1,8 @@
+
+public class RaptorRemoteSession {
+	private SimpleSocket mainSocket;
+	
+	public RaptorRemoteSession(SimpleSocket mainSocket) {
+		
+	}
+}

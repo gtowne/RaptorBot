@@ -1,0 +1,42 @@
+
+public class BehaviorParam {
+	public enum Maneuver {MOVE, PIVOT_TURN, ARC_TURN};
+	public enum MoveDirection {FORWARD, BACKWARD};
+	public enum PivotDirection {LEFT, RIGHT};
+	public enum ArcDirection {FORWARD_LEFT, FORWARD_RIGHT, BACKWARD_LEFT, BACKWARD_RIGHT};
+	
+	public Maneuver maneuver;
+	public float speed;
+	public float distance;
+	public float degrees;
+	public float radius;
+	public MoveDirection moveDirection;
+	public PivotDirection pivotDirection;
+	public ArcDirection arcDirection;
+	
+	public BehaviorParam(Maneuver maneuver, float speed, float distance, float degrees, float radius,
+			MoveDirection moveDirection, PivotDirection pivotDirection,
+			ArcDirection arcDirection) {
+		this.maneuver = maneuver;
+		this.speed = speed;
+		this.distance = distance;
+		this.degrees = degrees;
+		this.radius = radius;
+		this.moveDirection = moveDirection;
+		this.pivotDirection = pivotDirection;
+		this.arcDirection = arcDirection;
+	}
+	
+	public static BehaviorParam getMove(MoveDirection direction, float distance, float speed) {
+		return new BehaviorParam(Maneuver.MOVE, speed, distance, -1, -1, direction, null, null);
+	}
+	
+	public static BehaviorParam getPivotTurn(PivotDirection direction, float degrees) {
+		return new BehaviorParam(Maneuver.PIVOT_TURN, -1, -1, degrees, null, -1, direction, null);
+	}
+	
+	public static BehaviorParam getArcTurn(ArcDirection direction, float degrees, float radius) {
+		return new BehaviorParam(Maneuver.ARC_TURN, -1, -1, degres, radius, null, null, direction);
+	}
+
+}

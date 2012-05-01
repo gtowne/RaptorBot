@@ -1,0 +1,121 @@
+import java.awt.Color;
+import java.awt.Point;
+import java.awt.image.BufferedImage;
+import java.awt.image.DataBufferByte;
+import java.awt.image.Raster;
+import java.io.File;
+import java.io.IOException;
+import java.net.DatagramPacket;
+import java.net.DatagramSocket;
+import java.net.SocketException;
+import java.util.*;
+
+import javax.imageio.*;
+
+
+public class Main {
+
+	public static final int RECEIVE_BUFFER_SIZE = 1024 * 768 * 4;
+
+	public static void main(String[] args) {
+		/*int myPort = 7777;
+
+		DatagramSocket socket = null;
+		try {
+			socket = new DatagramSocket(myPort);
+		} catch (SocketException e) {
+			System.out.println("Couldn't bind socket to local port");
+			e.printStackTrace();
+		}
+
+		byte[] receiveBuffer = new byte[RECEIVE_BUFFER_SIZE];
+		DatagramPacket rPacket = new DatagramPacket(receiveBuffer, RECEIVE_BUFFER_SIZE);
+
+		while (true) {
+			try {
+				socket.receive(rPacket);
+			} catch (IOException e) {
+				System.out.println("Error receiving packet");
+				e.printStackTrace();
+			}
+
+			System.out.printf("Recveived %d bytes to data\n", rPacket.getLength());
+		}*/
+		
+		Streamer streamer = new Streamer();
+		
+		byte[] frameData;
+		int dataLength;
+		int imWidth;
+		int imHeight;
+		byte[] newData;
+		
+		while(true) {
+			newData = streamer.receive();
+			
+			int messageType = MyUtils.byteArrayToInt(Arrays.copyOfRange(newData, 0, 4));
+			dataLength = MyUtils.byteArrayToInt(Arrays.copyOfRange(newData, 4, 8));
+			int frameNum = MyUtils.byteArrayToInt(Arrays.copyOfRange(newData, 8, 12));
+			imWidth = MyUtils.byteArrayToInt(Arrays.copyOfRange(newData, 12, 16));
+			imHeight = MyUtils.byteArrayToInt(Arrays.copyOfRange(newData, 16, 20));
+			
+			System.out.printf("Received frame %d of size %d and dims %d x %d\n", frameNum, dataLength, imWidth, imHeight);
+						
+			break;
+		}
+		
+		Iterator<ImageReader> imReaders = ImageIO.getImageReadersByFormatName("jpeg");
+		
+		while (imReaders.hasNext())
+			ImageReader jpgReader = imReaders.next();
+		
+	}
+			
+		
+		
+		//BufferedImage frameImage = new BufferedImage(imWidth, imHeight, BufferedImage.TYPE_INT_ARGB);
+				
+		/*int j=0;
+		int[] argbFrameData = new int[imWidth*imHeight];
+		for (int i = 20; i < newData.length; i+=3) {
+			int r = byteToUnsignedIntValue(newData[i]);
+			int g = byteToUnsignedIntValue(newData[i+1]);
+			int b = byteToUnsignedIntValue(newData[i+2]);
+
+			int argb = rgbToIntARGB(b, g, r); 
+			argbFrameData[j++] = argb; 
+		}*/
+				
+		frameImage.setRGB(0, 0, imWidth, imHeight, argbFrameData, 0, 0);
+
+		
+		/*DataBufferByte frameBuffer = new DataBufferByte(frameDataAligned, numBytesAligned);
+		Raster frameRaster = Raster.createPackedRaster( frameBuffer, imWidth, imHeight, 4, new Point(0,0)); 
+		BufferedImage frameImage = new BufferedImage(imWidth, imHeight, BufferedImage.TYPE_3BYTE_BGR);
+		frameImage.setData(frameRaster);*/
+		try {
+			ImageIO.write(frameImage, "jpg", new File("image.jpg"));
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} 
+		
+
+	}
+	
+	public static int byteToUnsignedIntValue(byte signedVal) {
+		int result = (int) signedVal;
+		if (result < 0) result += 256;
+		return result;
+	}
+	
+	public static int rgbToIntARGB(int r, int g, int b) {
+		int result = 0;
+		//result = result | 0xFF000000;
+		result = result | (r << 16);
+		result = result | (g << 8);
+		result = result | b;
+		
+		return result;
+	}
+}

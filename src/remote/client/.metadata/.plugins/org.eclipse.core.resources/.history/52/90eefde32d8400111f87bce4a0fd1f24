@@ -1,0 +1,8 @@
+
+public class RaptorRemoteSession {
+	private SimpleSocket controlSocket;
+	
+	public RaptorRemoteSession(SimpleSocket controlSocket) {
+		this.controlSocket = controlSocket;
+	}
+}

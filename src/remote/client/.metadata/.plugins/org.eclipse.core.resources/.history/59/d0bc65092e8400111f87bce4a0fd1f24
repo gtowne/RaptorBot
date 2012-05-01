@@ -1,0 +1,16 @@
+
+public class RaptorRemoteSession {
+	private SimpleSocket controlSocket;
+	
+	public RaptorRemoteSession(SimpleSocket controlSocket) {
+		this.controlSocket = controlSocket;
+	}
+	
+	private class ListeningThread extends Thread {
+		
+		public ListeningThread() {
+			
+		}
+		
+	}
+}

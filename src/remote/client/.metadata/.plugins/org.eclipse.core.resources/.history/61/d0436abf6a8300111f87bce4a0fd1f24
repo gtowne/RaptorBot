@@ -1,0 +1,7 @@
+
+public class BehaviorControlPanel extends UIPanel {
+
+	public BehaviorControlPanel() {
+		
+	}
+}

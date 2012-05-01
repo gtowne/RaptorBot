@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<session version="1.0">
+<refactoring comment="Rename field &apos;MAX_MESSAGE_BYTES&apos; in &apos;RaptorRemoteProtocol&apos; to &apos;MAX_PACKET_BYTES&apos;&#x0A;- Original project: &apos;RaptorRemoteControlClient&apos;&#x0A;- Original element: &apos;RaptorRemoteProtocol.MAX_MESSAGE_BYTES&apos;&#x0A;- Renamed element: &apos;RaptorRemoteProtocol.MAX_PACKET_BYTES&apos;&#x0A;- Update references to refactored element&#x0A;- Update textual occurrences in comments and strings" delegate="false" deprecate="false" description="Rename field &apos;MAX_MESSAGE_BYTES&apos;" flags="589826" getter="false" id="org.eclipse.jdt.ui.rename.field" input="/src&lt;{RaptorRemoteProtocol.java[RaptorRemoteProtocol^MAX_MESSAGE_BYTES" name="MAX_PACKET_BYTES" references="true" setter="false" stamp="1327082220923" textual="false" version="1.0"/>
+</session>

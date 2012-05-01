@@ -1,0 +1,16 @@
+import java.net.DatagramSocket;
+import java.net.SocketException;
+
+
+public class SimpleUDPSocket {
+	private DatagramSocket socket;
+	private boolean isBound;
+	
+	public SimpleUDPSocket(int localPort) {
+		try {
+			socket = new DatagramSocket(localPort);
+		} catch (SocketException e) {
+			
+		}
+	}
+}

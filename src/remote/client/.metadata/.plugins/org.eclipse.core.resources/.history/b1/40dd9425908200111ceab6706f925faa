@@ -1,0 +1,6 @@
+
+public class VideoStreamOptions {
+	public int cameraNum;
+	public int targetFrameRate;
+
+}

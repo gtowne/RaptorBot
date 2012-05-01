@@ -1,0 +1,29 @@
+import java.awt.GridBagConstraints;
+import java.awt.GridBagLayout;
+
+import javax.swing.JLabel;
+import javax.swing.JSlider;
+
+public class BehaviorControlPanel extends UIPanel {
+
+	private static final int MIN_SPEED = 0;
+	private static final int MAX_SPEED = 20;
+	
+	private JLabel speedLabel;
+	private JSlider speedSlider;
+	
+	public BehaviorControlPanel() {
+		super();
+		this.setLayout(new GridBagLayout());
+		
+		GridBagConstraints labelConstraints = new GridBagConstraints();
+		labelConstraints.anchor = GridBagConstraints.LINE_END;
+		labelConstraints.gridx = 0;
+		labelConstraints.gridy = 0;
+				
+		speedLabel = new JLabel("Speed");
+		this.add(speedLabel, labelConstraints);
+		
+		speedSlider = new JSlider(JSlider.HORIZONTAL, MIN_SPEED, MAX_SPEED, 0);
+	}
+}

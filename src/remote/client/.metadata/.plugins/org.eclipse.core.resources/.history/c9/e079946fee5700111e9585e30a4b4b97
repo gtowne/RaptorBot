@@ -1,0 +1,21 @@
+import java.net.DatagramSocket;
+import java.net.InetAddress;
+import java.net.InetSocketAddress;
+import java.net.SocketException;
+
+
+public class SimpleUDPSocket {
+	private DatagramSocket socket;
+	
+	public SimpleUDPSocket(int localPort) {
+		socket = new DatagramSocket();
+	}
+	
+	public void bind(int localPort) {
+		socket.bind(new InetSocketAddress("localhost", localPort));
+	}
+	
+	public void connect(InetAddress addr, int port) {
+		socket.connect(addr, port);
+	}
+}

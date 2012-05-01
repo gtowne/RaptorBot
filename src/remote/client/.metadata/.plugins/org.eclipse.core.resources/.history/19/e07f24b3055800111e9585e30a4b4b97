@@ -1,0 +1,9 @@
+
+public class RaptorVideoStreamClient {
+	SimpleSocket controlSocket;
+	DatagramSocket dataSocket;
+	
+	public RaptorVideoStreamClient() {
+		
+	}
+}

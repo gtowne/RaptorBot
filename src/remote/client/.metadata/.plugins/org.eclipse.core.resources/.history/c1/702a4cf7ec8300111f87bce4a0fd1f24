@@ -1,0 +1,58 @@
+import java.io.IOException;
+import java.net.InetAddress;
+import java.util.Arrays;
+
+
+public class Main {
+	public static void main(String[] args) {
+		String myIP = getMyIP();
+		int dotIndex = myIP.lastIndexOf('.');
+		String lanAddrBase = myIP.substring(0, dotIndex+1);
+		
+		int myExtension = Integer.parseInt(myIP.substring(dotIndex+1, myIP.length()));
+		
+		int endhostListeningPort = 7234;
+		
+		SimpleSocket socket;
+		
+		for (int i = 0; i < 255; i++) {
+			if (i != myExtension) {
+				try {
+					socket = new SimpleSocket(lanAddrBase + i, endhostListeningPort);
+				} catch (IOException e) {
+					continue;
+				}
+				
+				try {
+					socket.writeBytes(RaptorRemoteProtocol.newPingPacket());
+				} catch (IOException e) {
+					continue;
+				}
+				
+				socket.setTimeout(2000);
+				
+				RaptorSessionMessage response = RaptorRemoteProtocol.readFromSocket(socket);
+				
+				if (response.type == RaptorSessionMessage.MessageType.PING_RSP) {
+					System.out.println("Found IP Addr: " + lanAddrBase + i );
+				}
+			}
+		}
+		
+		System.out.println(lanAddrBase);
+		System.out.println(myExtension);
+		
+	}
+	
+	public static String getMyIP() {  
+	    String addr=null;  
+	    try  
+	    {  
+	        InetAddress ip=InetAddress.getLocalHost();  
+	        addr = ip.getHostAddress();
+	          
+	    }catch(Exception e){e.printStackTrace();}  
+	    return addr;  
+	}  
+}
+
