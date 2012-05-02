@@ -68,10 +68,10 @@ int RaptorRemoteSession::feedbackThreadRoutine() {
 		nextManeuver = behaviorQueue.getNextManeuver();
 		msToCompletion = behaviorQueue.getMSToManeuverCompletion();
 
-		printf("RaptorRemoteSession:: Sending feedback message\n");
-		printf("RaptorRemoteSession:: Current Maneuver complete in %d MS:\n", msToCompletion);
-		printManeuver(curManeuver);
-		printManeuver(nextManeuver);
+		//printf("RaptorRemoteSession:: Sending feedback message\n");
+		//printf("RaptorRemoteSession:: Current Maneuver complete in %d MS:\n", msToCompletion);
+		//printManeuver(curManeuver);
+		//printManeuver(nextManeuver);
 		
 
 		bzero(feedbackSendBuffer, sizeof(FeedbackPacket));
@@ -199,6 +199,9 @@ void* startListeningThread(void* _thisSession) {
  */
 int RaptorRemoteSession::startNewSession() {
     if (pthread_create(&this->listeningThread, NULL, startListeningThread, (void*)this) == 0 && pthread_create(&this->feedbackThread, NULL, startFeedbackThread, (void*)this) == 0 ) { 
+        
+        behaviorQueue.run();
+        
         return 0;
     }
     
@@ -238,6 +241,7 @@ bool RaptorRemoteSession::processIncomingMessage() {
 
 	VideoInitPacket* vidInitPacket;
 	ManeuverPacket* manPacket;
+	ScriptPacket* scriptPacket;
 
     // switch on the message type received
     switch (this->receiveBuffer[0]) {
@@ -313,16 +317,40 @@ bool RaptorRemoteSession::processIncomingMessage() {
 		manPacket->speed = ntohl(manPacket->speed) / FLOAT_SCALE_FACTOR;
 		manPacket->distance = ntohl(manPacket->distance) / FLOAT_SCALE_FACTOR;
 		manPacket->radius = ntohl(manPacket->radius) / FLOAT_SCALE_FACTOR;
+		manPacket->updateMethod = ntohl(manPacket->updateMethod);
 
 		printf("RaptorRemoteSession:: Maneuver received \n  maneuver:%d\n  direction:%d\n  degrees:%d\n  speed:%d\n  distance:%d\n  radius:%d\n", manPacket->maneuver, manPacket->direction, manPacket->degrees, manPacket->speed, manPacket->distance, manPacket->radius);
 
-
-		handleManeuver(manPacket->maneuver, manPacket->direction, manPacket->degrees, manPacket->speed, manPacket->distance, manPacket->radius);
+		handleManeuverUpdate(manPacket->maneuver, manPacket->direction, manPacket->degrees, manPacket->speed, manPacket->distance, manPacket->radius, manPacket->updateMethod);
 		
 
-
 		break;
-
+		
+	case SCRIPT_MSG:
+	
+		printf("RaptorRemoteSession:: Script Message received\n");
+		
+		bytesRead = readFully(this->socketFD, this->receiveBuffer, sizeof(AbstractPacket), sizeof(ScriptPacket) - sizeof(AbstractPacket));
+		
+		scriptPacket = (ScriptPacket*) this->receiveBuffer;
+		scriptPacket->scriptLen = ntohl(scriptPacket->scriptLen);
+		
+		printf("String size received %d\n", scriptPacket->scriptLen);
+		for (int i = 0; i < scriptPacket->scriptLen; i++) {
+			printf("%c", scriptPacket->script[i]);
+		}
+		
+		char* scriptCopy = (char*) malloc(scriptPacket->scriptLen + 1);
+		bzero(scriptCopy, scriptPacket->scriptLen + 1);
+		memcpy(scriptCopy, scriptPacket->script, scriptPacket->scriptLen);
+		//int errorLine = 0;
+		int errorLine = behaviorQueue.loadFromScriptText(scriptCopy, scriptPacket->scriptLen);
+		
+		//printf("RaptorRemoteSession:: Return value from load script: %d\n", errorLine);
+		
+		//sendScriptResponseMessage(errorLine);
+				
+		break;
 	}
     
     pthread_mutex_unlock(&receiveMutex);
@@ -354,6 +382,25 @@ int RaptorRemoteSession::sendInitResponseMessage(bool success) {
     return 0;
 }
 
+int RaptorRemoteSession::sendScriptResponseMessage(int errorLine) {
+	pthread_mutex_lock(&sendMutex);
+	
+	bzero(this->sendBuffer, SEND_BUFFER_SIZE);
+	
+	int packetBytes = newScriptRspMsg(this->sendBuffer, errorLine);
+	
+	int bytesWritten = write(this->socketFD, this->sendBuffer, packetBytes);
+	
+	if (bytesWritten < packetBytes) {
+		pthread_mutex_unlock(&sendMutex);
+		return -1;
+	}
+	
+	pthread_mutex_unlock(&sendMutex);
+	
+	return 0;
+}
+
 int RaptorRemoteSession::sendVidInitResponseMessage(bool success) {
 	pthread_mutex_lock(&sendMutex);
 
@@ -372,24 +419,57 @@ int RaptorRemoteSession::sendVidInitResponseMessage(bool success) {
 	return 0;
 }
 
-int RaptorRemoteSession::handleManeuver(int maneuver, int direction, float degrees, float speed, float distance, float radius) {
+int RaptorRemoteSession::handleManeuverUpdate(int maneuver, int direction, float degrees, float speed, float distance, float radius, int updateMethod) {
+	Maneuver* newManeuver = (Maneuver*) malloc(sizeof(Maneuver));
+	bzero(newManeuver, sizeof(Maneuver));
+	
 	switch (maneuver) {
 	case MAN_NONE:
-
+		newManeuver->maneuverType = BEHAVIOR_NONE;
 		break;
 
 	case MAN_MOVE:
-
+		newManeuver->maneuverType = BEHAVIOR_MOVE;
+		if (direction == DIR_FORWARD) {
+			newManeuver->direction = FORWARDS;
+		} else if (direction == DIR_BACKWARD) {
+			newManeuver->direction = BACKWARDS;
+		}
+		newManeuver->speed = speed;
+		newManeuver->distance = distance;
 		break;
 
 	case MAN_PIVOT:
-
+		newManeuver->maneuverType = BEHAVIOR_PIVOT;
+		if (direction == DIR_LEFT) {
+			newManeuver->direction = LEFT;
+		} else if (direction == DIR_RIGHT) {
+			newManeuver->direction = RIGHT;
+		}
+		newManeuver->degrees = degrees;
+		
 		break;
 
 	case MAN_ARC:
-
+		newManeuver->maneuverType = BEHAVIOR_ARC;
+		if (direction == DIR_FORWARD_LEFT) {
+			newManeuver->direction = FORWARDS_LEFT;
+		} else if (direction == DIR_FORWARD_RIGHT) {
+			newManeuver->direction = FORWARDS_RIGHT;
+		} else if (direction == DIR_BACKWARD_LEFT) {
+			newManeuver->direction = BACKWARDS_LEFT;
+		} else if (direction == DIR_BACKWARD_RIGHT) {
+			newManeuver->direction = BACKWARDS_RIGHT;
+		}
+		newManeuver->degrees = degrees;
+		newManeuver->radius = radius;
 		break;
-
+	}
+	
+	if (updateMethod == MAN_QUEUE_SET_NEXT) {
+		behaviorQueue.setNextManeuver(newManeuver);
+	} else if (updateMethod == MAN_QUEUE_ENQUEUE) {
+		behaviorQueue.enqueue(newManeuver);
 	}
 
 	return 0;

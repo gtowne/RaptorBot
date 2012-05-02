@@ -1,4 +1,4 @@
-all: BehaviorTest BehaviorQueue.o ControlInterface.o
+all: BehaviorQueue.o ControlInterface.o BehaviorTest
 
 BehaviorTest: BehaviorTest.cpp BehaviorQueue.cpp BehaviorQueue.h ControlInterface.cpp ControlInterface.h
 	g++ BehaviorTest.cpp BehaviorQueue.o ControlInterface.o -o BehaviorTest -lpthread

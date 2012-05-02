@@ -18,6 +18,7 @@
 #include <math.h>
 #include <time.h>
 #include <pthread.h>
+#include <unistd.h>
 #include "../utils/MySocketUtils.h"
 
 #define VID_DATA_MSG 0xABC123
