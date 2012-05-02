@@ -1,0 +1,7 @@
+1 --- Initializing
+Tue May  1 18:21:23 2012
+ --- Begin Pivot Turn Left 18 degrees
+Tue May  1 18:21:32 2012
+ --- Begin Arc Turn Backward Left 18 degrees  in radius 0
+Tue May  1 18:21:37 2012
+ --- Begin Arc Turn Backward Left 18 degrees  in radius 0

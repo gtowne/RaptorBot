@@ -29,6 +29,8 @@
 #define VID_STOP 0x09
 #define FEEDBACK_MSG 0x0A
 #define MANEUVER_MSG 0x0B
+#define SCRIPT_MSG 0x0C
+#define SCRIPT_RSP_MSG 0x0D
 
 /*
  * Maneuver Types
@@ -55,10 +57,10 @@
 #define DIR_BACKWARD_LEFT 0x07
 #define DIR_BACKWARD_RIGHT 0x08
 
+#define MAN_QUEUE_SET_NEXT 0x01
+#define MAN_QUEUE_ENQUEUE 0x02
+
 #define FLOAT_SCALE_FACTOR 10000.0
-
-
-#define MAX_PACKET_BYTES 256
 
 #define NUM_PAYLOAD_BYTES(packetDef) (sizeof(packetDef) - sizeof(AbstractPacket))
 
@@ -142,7 +144,19 @@ typedef struct ManeuverPacket_t {
 	int32_t speed;
 	int32_t distance;
 	int32_t radius;
+	int32_t updateMethod;
 } ManeuverPacket;
+
+typedef struct ScriptPacket_t {
+	int32_t messageType;
+	int32_t scriptLen;
+	char script[2048];
+} ScriptPacket;
+
+typedef struct ScriptRspPacket_t {
+	int32_t messageType;
+	int32_t errorLine;
+} ScriptRspPacket;
 
 int newPingMsg(char* buff);
 int newPingRspMsg(char* buff, char* machineName, int machineNameLen);
@@ -151,6 +165,7 @@ int newQuitMsg(char* buff);
 int newQuitRspMsg(char* buff, bool success);
 int newVidInitRspMsg(char* buff, bool success);
 int newFeedbackMsg(char* buff);
+int newScriptRspMsg(char* buff, int errorLine);
 
 
 #endif 

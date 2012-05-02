@@ -21,6 +21,8 @@ int main (int argc, char **argv){
 	BehaviorQueue behaviorQueue;
 
 	behaviorQueue.run();
+	
+	usleep(5000000);
 
 	behaviorQueue.loadFromScriptFile("behavior_script.txt");
 

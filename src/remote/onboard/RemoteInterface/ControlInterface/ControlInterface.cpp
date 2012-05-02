@@ -211,11 +211,11 @@ int ControlInterface::GetMSToManeuverCompletion() {
 
 	double secsSinceLast = difftime(curTime, timeLastManeuverStart);
 
-	if (secsSinceLast > 5) {
+	if (secsSinceLast > 10) {
 		return 0;
 	}
 
-	double secsToComplete = 5 - secsSinceLast;
+	double secsToComplete = 10 - secsSinceLast;
 
 	int msToComplete = (int)(secsToComplete * 1000);
 

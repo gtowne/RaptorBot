@@ -1,0 +1,9 @@
+1 --- Initializing
+Wed May  2 06:06:32 2012
+ --- Begin Move Forward 40 Meters at 1 m/s
+Wed May  2 06:06:37 2012
+ --- Begin Move Forward 71 Meters at 1 m/s
+Wed May  2 06:06:42 2012
+ --- Begin Move Forward 30 Meters at 1 m/s
+Wed May  2 06:06:47 2012
+ --- Begin Move Forward 95 Meters at 1 m/s

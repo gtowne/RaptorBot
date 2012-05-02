@@ -1,0 +1,9 @@
+1 --- Initializing
+Tue May  1 17:09:55 2012
+ --- Begin Move Forward 10 Meters at 1 m/s
+Tue May  1 17:10:00 2012
+ --- Begin Pivot Turn Right 10 degrees
+Tue May  1 17:10:05 2012
+ --- Begin Arc Turn Forward Left 10 degrees  in radius 0
+Tue May  1 17:10:10 2012
+ --- Begin Arc Turn Forward Left 12 degrees  in radius 0

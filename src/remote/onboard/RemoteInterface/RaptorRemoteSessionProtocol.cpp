@@ -64,3 +64,12 @@ int newFeedbackMsg(char* buff) {
 	return sizeof(FeedbackPacket);
 }
 
+int newScriptRspMsg(char* buff, int errorLine) {
+	ScriptRspPacket* packet = (ScriptRspPacket*) buff;
+	
+	packet->messageType = htonl(SCRIPT_RSP_MSG);
+	packet->errorLine = htonl(errorLine);
+	
+	return sizeof(ScriptRspPacket);
+}
+

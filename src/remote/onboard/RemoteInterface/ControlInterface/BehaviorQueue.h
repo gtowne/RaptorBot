@@ -10,6 +10,7 @@
 #include <string.h>
 #include <sstream>
 #include <ctype.h>
+#include <unistd.h>
 #include <algorithm>
 #include "ControlInterface.h"
 
@@ -28,6 +29,8 @@ private:
 	bool isRunning;
 
 	int parseInput(istream* input, vector<Maneuver*>& maneuverVec);
+	
+	int _enqueue(Maneuver* _maneuver);
 
 public:
 	BehaviorQueue();
@@ -35,6 +38,7 @@ public:
 	int run();
 	int kill();
 
+	int setNextManeuver(Maneuver* maneuver);
 	int enqueue(Maneuver* maneuver);
 
 	int busyLoopProcedure();
@@ -42,6 +46,7 @@ public:
 	int loadFromScriptText(char* scriptText, int len);
 
 	int loadFromScriptFile(char* filename);
+	
 
 	Maneuver* getCurrentManeuver();
 	Maneuver* getNextManeuver();

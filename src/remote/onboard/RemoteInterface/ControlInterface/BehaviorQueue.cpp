@@ -2,7 +2,7 @@
 
 BehaviorQueue::BehaviorQueue() {
 	isRunning = false;
-	pthread_mutex_init(&queueMutex, NULL);
+	pthread_mutex_init(&queueMutex, NULL);	
 }
 
 void* startBusyLoop(void* arg) {
@@ -25,12 +25,17 @@ int BehaviorQueue::busyLoopProcedure() {
 	printf("BehaviorQueue:: Busy loop thread started\n");
 
 	while(this->isRunning) {
-		usleep(100);
+		usleep(1000);
 
 		// if there's not a maneuver currently running and we have
 		// a next maneuver enqueued, pop the next one off the queue and
 		// execute
 
+		pthread_mutex_lock(&queueMutex);
+		//printf("Locked 1\n");
+		
+		//printf("Queue size __ %d\n", maneuverQueue.size());
+		
 		if (controlInterface.GetMSToManeuverCompletion() == 0 && !maneuverQueue.empty()) {
 			Maneuver* nextManeuver = maneuverQueue.front();
 			
@@ -54,6 +59,8 @@ int BehaviorQueue::busyLoopProcedure() {
 			}
 			maneuverQueue.pop();
 		}
+		pthread_mutex_unlock(&queueMutex);
+		//printf("Unocked 1\n");
 	}
 
 	printf("BehaviorQueue:: Busy loop thread exited\n");
@@ -87,15 +94,61 @@ int mystrncmpi(char* str1, char* str2, int n) {
 }
 
 int BehaviorQueue::enqueue(Maneuver* _maneuver) {
+	pthread_mutex_lock(&queueMutex);
+	printf("Locked 2\n");
+	int returnVal = _enqueue(_maneuver);
+	pthread_mutex_unlock(&queueMutex);
+	printf("Unocked 2\n");
+	return returnVal;
+}
+
+int BehaviorQueue::_enqueue(Maneuver* _maneuver) {
 	Maneuver* maneuver = (Maneuver*)malloc(sizeof(Maneuver));
+
+	printf("here1\n");
 
 	memcpy(maneuver, _maneuver, sizeof(Maneuver));
 
+	printf("here2\n");
+	
 	printf("BehaviorQueue::Enqueueing maneuver:");
+	
+	printf("here3\n");
+	
 	printManeuver(maneuver);
 	
+	printf("here4\n");
+	
+	printf("Queue size = %d\n", maneuverQueue.size());
+		
 	maneuverQueue.push(maneuver);
+	
+	printf("here5\n");
 
+	return 0;
+}
+
+int BehaviorQueue::setNextManeuver(Maneuver* _maneuver) {
+	Maneuver* maneuver = (Maneuver*)malloc(sizeof(Maneuver));
+	
+	memcpy(maneuver, _maneuver, sizeof(Maneuver));
+	
+	printf("BehaviorQueue::Setting next maneuver:");
+	printManeuver(maneuver);
+	
+	pthread_mutex_lock(&queueMutex);
+	printf("Locked 3\n");
+		
+	if (maneuverQueue.empty()) {
+		maneuverQueue.push(maneuver);
+	} else {
+		Maneuver* curFront = maneuverQueue.front();
+		memcpy(curFront, maneuver, sizeof(Maneuver));
+	}
+	
+	pthread_mutex_unlock(&queueMutex);
+	printf("Unocked 3\n");
+	
 	return 0;
 }
 
@@ -251,6 +304,8 @@ int BehaviorQueue::parseInput(istream* input, vector<Maneuver*>& maneuverVec) {
 		if (didReadValidManeuver) {
 
 			maneuverVec.push_back(newManeuver);
+			
+			printf("Inserting new maneuver \n");
 		}
 
 		bzero(linebuff, 1024);
@@ -268,18 +323,24 @@ int BehaviorQueue::loadFromScriptText(char* scriptText, int len) {
 	vector<Maneuver*> maneuverVec;
 
 	int parseRetVal = parseInput(&stringStream, maneuverVec);
+	
+	printf("BehaviorQueue:: Loading script from string\n");
 
 	if (parseRetVal > 0) {
 		printf("BehaviorQueue:: Error at line %d of script, could not parse input", parseRetVal);
 
-		return -1;
+		return parseRetVal;
 	} 
 
+	pthread_mutex_lock(&queueMutex);
+	printf("Locked 4\n");
 	for (int i = 0; i < maneuverVec.size(); i++) {
+		//this->_enqueue(maneuverVec[i]);
+		printf("Here***\n");
 		printManeuver(maneuverVec[i]);
-
-		this->enqueue(maneuverVec[i]);
 	}
+	pthread_mutex_unlock(&queueMutex);
+	printf("Unocked 4\n");
 
 	return 0;
 }
@@ -303,15 +364,17 @@ int BehaviorQueue::loadFromScriptFile(char* filename) {
 	if (parseRetVal > 0) {
 		printf("BehaviorQueue:: Error at line %d of script, could not parse input", parseRetVal);
 
-		return -1;
+		return parseRetVal;
 	} 
 
-
 	pthread_mutex_lock(&queueMutex);
+	printf("Locked 5\n");
 	for (int i = 0; i < maneuverVec.size(); i++) {
-		this->enqueue(maneuverVec[i]);
+		this->_enqueue(maneuverVec[i]);
 	}
 	pthread_mutex_unlock(&queueMutex);
+	printf("Unocked 5\n");
+
 
 	return 0;
 }
@@ -375,13 +438,18 @@ Maneuver* BehaviorQueue::getCurrentManeuver() {
 }
 
 Maneuver* BehaviorQueue::getNextManeuver() {
+	pthread_mutex_lock(&queueMutex);
+	printf("Locked 6\n");
 	Maneuver* maneuver = (Maneuver*) malloc(sizeof(Maneuver));	
 	if (maneuverQueue.empty()) {
 		maneuver->maneuverType = BEHAVIOR_NONE;
+		pthread_mutex_unlock(&queueMutex);
 		return maneuver;
 	}
 
 	memcpy(maneuver, maneuverQueue.front(), sizeof(Maneuver));
+	pthread_mutex_unlock(&queueMutex);
+	printf("Unocked 6\n");
 
 	return maneuver;
 }

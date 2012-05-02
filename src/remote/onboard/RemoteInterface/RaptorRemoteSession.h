@@ -70,11 +70,11 @@ private:
 
 	int sendInitResponseMessage(bool success);
 	int sendVidInitResponseMessage(bool sucess);
+	int sendScriptResponseMessage(int errorLine);
 	
 	int teardownSession();
 
-	int handleManeuver(int maneuver, int direction, int degrees, int speed, int distance, int radius);
-
+	int handleManeuverUpdate(int maneuver, int direction, float degrees, float speed, float distance, float radius, int updateMethod);
 	
 public:
 	RaptorRemoteSession(int _socketFD, int _feedbackSocketFD, sockaddr_in* _remoteAddr);

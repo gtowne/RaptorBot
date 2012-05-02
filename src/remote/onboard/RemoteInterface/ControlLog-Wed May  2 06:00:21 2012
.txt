@@ -1,0 +1,7 @@
+1 --- Initializing
+Wed May  2 06:00:37 2012
+ --- Begin Arc Turn Forward Left 39 degrees  in radius 6
+Wed May  2 06:00:42 2012
+ --- Begin Arc Turn Forward Left 39 degrees  in radius 6
+Wed May  2 06:00:47 2012
+ --- Begin Arc Turn Forward Left 39 degrees  in radius 6

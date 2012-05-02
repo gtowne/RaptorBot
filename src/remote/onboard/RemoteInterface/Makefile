@@ -10,3 +10,4 @@ clean:
 	cd utils; make clean
 	cd VideoStreamer; make clean
 	rm -f *.o
+	rm RemoteInterface
