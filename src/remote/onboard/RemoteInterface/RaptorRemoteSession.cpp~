@@ -67,11 +67,6 @@ int RaptorRemoteSession::feedbackThreadRoutine() {
 		curManeuver = behaviorQueue.getCurrentManeuver();
 		nextManeuver = behaviorQueue.getNextManeuver();
 		msToCompletion = behaviorQueue.getMSToManeuverCompletion();
-
-		//printf("RaptorRemoteSession:: Sending feedback message\n");
-		//printf("RaptorRemoteSession:: Current Maneuver complete in %d MS:\n", msToCompletion);
-		//printManeuver(curManeuver);
-		//printManeuver(nextManeuver);
 		
 
 		bzero(feedbackSendBuffer, sizeof(FeedbackPacket));
@@ -174,6 +169,11 @@ int RaptorRemoteSession::feedbackThreadRoutine() {
 		thisPacket->nextSpeed = htonl((int)(nextManeuver->speed * FLOAT_SCALE_FACTOR));	
 		thisPacket->nextDistance = htonl((int)(nextManeuver->distance * FLOAT_SCALE_FACTOR));
 		thisPacket->nextRadius = htonl((int)(nextManeuver->radius * FLOAT_SCALE_FACTOR));
+
+		printf("RaptorRemoteSession:: Sending feedback message\n");
+		printf("RaptorRemoteSession:: Current Maneuver complete in %d MS:\n", msToCompletion);
+		printManeuver(curManeuver);
+		printManeuver(nextManeuver);
 
 		write(this->feedbackSocketFD, this->feedbackSendBuffer, sizeof(FeedbackPacket));
 	}

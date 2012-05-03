@@ -1,0 +1,7 @@
+1 --- Initializing
+Thu May  3 08:42:18 2012
+ --- Begin Move Forward at 1 m/s
+Thu May  3 08:43:50 2012
+ --- Begin Arc Turn Forward Left 0 degrees  in radius 0
+Thu May  3 08:44:10 2012
+ --- Begin Arc Turn Forward Left 29 degrees  in radius 3

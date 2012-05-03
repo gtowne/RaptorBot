@@ -1,0 +1,11 @@
+1 --- Initializing
+Thu May  3 09:04:13 2012
+ --- Begin Move Forward 35 Meters at 5 m/s
+Thu May  3 09:04:33 2012
+ --- Begin Move Forward 78 Meters at 5 m/s
+Thu May  3 09:04:55 2012
+ --- Begin Move Forward 78 Meters at 5 m/s
+Thu May  3 09:05:15 2012
+ --- Begin Move Forward 51 Meters at 5 m/s
+Thu May  3 09:05:35 2012
+ --- Begin Pivot Turn Left 30 degrees

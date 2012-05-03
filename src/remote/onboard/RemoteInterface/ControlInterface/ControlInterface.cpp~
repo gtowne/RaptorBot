@@ -11,7 +11,9 @@ char* getCurTimeString() {
 }
 
 ControlInterface::ControlInterface() {
-	time(&timeLastManeuverStart);
+	//time(&timeLastManeuverStart);
+
+	justStarting = true;
 
 	char filenamebuff[256];
 	sprintf(filenamebuff, "ControlLog-%s.txt", getCurTimeString());
@@ -205,17 +207,21 @@ int ControlInterface::ArcTurn(char direction) {
 }
 
 int ControlInterface::GetMSToManeuverCompletion() {
+	if (justStarting) {
+		return 0;
+	}
+
 	time_t curTime;
 
 	time(&curTime);	
 
 	double secsSinceLast = difftime(curTime, timeLastManeuverStart);
 
-	if (secsSinceLast > 5) {
+	if (secsSinceLast > 20) {
 		return 0;
 	}
 
-	double secsToComplete = 5 - secsSinceLast;
+	double secsToComplete = 20 - secsSinceLast;
 
 	int msToComplete = (int)(secsToComplete * 1000);
 

@@ -60,7 +60,7 @@ int BehaviorQueue::busyLoopProcedure() {
 			maneuverQueue.pop();
 		}
 		pthread_mutex_unlock(&queueMutex);
-		//printf("Unocked 1\n");
+		////printf("Unocked 1\n");
 	}
 
 	printf("BehaviorQueue:: Busy loop thread exited\n");
@@ -98,7 +98,7 @@ int BehaviorQueue::enqueue(Maneuver* _maneuver) {
 	//printf("Locked 2\n");
 	int returnVal = _enqueue(_maneuver);
 	pthread_mutex_unlock(&queueMutex);
-	printf("Unocked 2\n");
+	//printf("Unocked 2\n");
 	return returnVal;
 }
 
@@ -140,14 +140,16 @@ int BehaviorQueue::setNextManeuver(Maneuver* _maneuver) {
 	//printf("Locked 3\n");
 		
 	if (maneuverQueue.empty()) {
+		printf("BehaviorQueue:: In Set Next, queue empty, enqueueing new\n");
 		maneuverQueue.push(maneuver);
 	} else {
+		printf("BehaviorQueue:: In Set Next, queue not empty, replacing head\n");
 		Maneuver* curFront = maneuverQueue.front();
 		memcpy(curFront, maneuver, sizeof(Maneuver));
 	}
 	
 	pthread_mutex_unlock(&queueMutex);
-	printf("Unocked 3\n");
+	//printf("Unocked 3\n");
 	
 	return 0;
 }
@@ -340,7 +342,7 @@ int BehaviorQueue::loadFromScriptText(char* scriptText, int len) {
 		printManeuver(maneuverVec[i]);
 	}
 	pthread_mutex_unlock(&queueMutex);
-	printf("Unocked 4\n");
+	//printf("Unocked 4\n");
 
 	return 0;
 }
@@ -373,7 +375,7 @@ int BehaviorQueue::loadFromScriptFile(char* filename) {
 		this->_enqueue(maneuverVec[i]);
 	}
 	pthread_mutex_unlock(&queueMutex);
-	printf("Unocked 5\n");
+	//printf("Unocked 5\n");
 
 
 	return 0;
@@ -449,7 +451,7 @@ Maneuver* BehaviorQueue::getNextManeuver() {
 
 	memcpy(maneuver, maneuverQueue.front(), sizeof(Maneuver));
 	pthread_mutex_unlock(&queueMutex);
-	printf("Unocked 6\n");
+	//printf("Unocked 6\n");
 
 	return maneuver;
 }

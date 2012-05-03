@@ -1,0 +1,7 @@
+1 --- Initializing
+Thu May  3 09:31:19 2012
+ --- Begin Move Forward at 1 m/s
+Thu May  3 09:31:39 2012
+ --- Begin Move Forward at 1 m/s
+Thu May  3 09:31:59 2012
+ --- Begin Move Backward 24 Meters at 1 m/s

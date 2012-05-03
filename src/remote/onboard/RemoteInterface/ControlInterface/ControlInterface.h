@@ -145,6 +145,8 @@ class ControlInterface
   private:
 	Maneuver curManeuver;
 
+	bool justStarting;
+
 	ofstream outfile;
 
 	time_t timeLastManeuverStart;
