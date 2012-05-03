@@ -154,20 +154,20 @@ void* busyLoop (void* arg) {
     char* sendBuff = (char*)malloc(sendBuffLen);
     char* vidDataBuff = (char*)malloc(sendBuffLen);
     cv::Size frameSize;
-    cv::Size scaledSize(320,240);
+    cv::Size scaledSize(200,150);
     
     vector<uchar> jpgBuffer;
     //int _args[] = {CV_IMWRITE_PNG_COMPRESSION, 8};
     //vector<int> args(_args, _args + sizeof(_args);
     
     
-    time_t frameGrabTime, loopEndTime;
+    clock_t frameGrabTime, loopEndTime;
 
 	_this->keepStreaming = true;
     
     int i = 0;
     while(_this->keepStreaming) {
-        frameGrabTime = time(NULL);
+		frameGrabTime = clock();
         cap >> frame;
 
 		resize(frame, scaledFrame, scaledSize, 0, 0, cv::INTER_NEAREST);
@@ -189,15 +189,19 @@ void* busyLoop (void* arg) {
         sendBigPacket(socketFD, sendBuff, bytesWritten, 1400, i);
         
         bzero(sendBuff, sendBuffLen);
-        loopEndTime = time(NULL);
+        
+		loopEndTime = clock();
         
         double targetDelaySeconds = 1.0 / _this->targetFPS;
-        double secsForLoop = difftime(loopEndTime, frameGrabTime);
+        double secsForLoop = ((loopEndTime - frameGrabTime)) * 1.0 / CLOCKS_PER_SEC;
+
+		//printf("Secs for loop %f\n", secsForLoop);
+
         double secsToWait = targetDelaySeconds - secsForLoop;
         
         if (secsToWait > 0) {
             int msToWait = (int)(secsToWait * 1000);
-            //printf("Sleeping for %d MS\n", msToWait);
+            printf("Sleeping for %d MS\n", msToWait);
             usleep(msToWait);
         }
         i++;

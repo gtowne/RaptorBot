@@ -1,0 +1,17 @@
+1 --- Initializing
+Thu May  3 09:41:33 2012
+ --- Begin Move Forward at 1 m/s
+Thu May  3 09:41:53 2012
+ --- Begin Move Forward 25 Meters at 1 m/s
+Thu May  3 09:42:13 2012
+ --- Begin Move Backward 82 Meters at 1 m/s
+Thu May  3 09:42:33 2012
+ --- Begin Pivot Turn Right 64 degrees
+Thu May  3 09:42:53 2012
+ --- Begin Arc Turn Backward Left 17 degrees  in radius 0
+Thu May  3 09:43:13 2012
+ --- Begin Move Backward 82 Meters at 9 m/s
+Thu May  3 09:43:33 2012
+ --- Begin Move Backward 82 Meters at 9 m/s
+Thu May  3 09:43:53 2012
+ --- Begin Move Backward 22 Meters at 9 m/s

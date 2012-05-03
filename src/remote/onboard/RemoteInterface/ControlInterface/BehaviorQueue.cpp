@@ -25,7 +25,7 @@ int BehaviorQueue::busyLoopProcedure() {
 	printf("BehaviorQueue:: Busy loop thread started\n");
 
 	while(this->isRunning) {
-		usleep(1000);
+		usleep(100000);
 
 		// if there's not a maneuver currently running and we have
 		// a next maneuver enqueued, pop the next one off the queue and
@@ -60,7 +60,7 @@ int BehaviorQueue::busyLoopProcedure() {
 			maneuverQueue.pop();
 		}
 		pthread_mutex_unlock(&queueMutex);
-		//printf("Unocked 1\n");
+		////printf("Unocked 1\n");
 	}
 
 	printf("BehaviorQueue:: Busy loop thread exited\n");
@@ -95,10 +95,10 @@ int mystrncmpi(char* str1, char* str2, int n) {
 
 int BehaviorQueue::enqueue(Maneuver* _maneuver) {
 	pthread_mutex_lock(&queueMutex);
-	printf("Locked 2\n");
+	//printf("Locked 2\n");
 	int returnVal = _enqueue(_maneuver);
 	pthread_mutex_unlock(&queueMutex);
-	printf("Unocked 2\n");
+	//printf("Unocked 2\n");
 	return returnVal;
 }
 
@@ -137,17 +137,19 @@ int BehaviorQueue::setNextManeuver(Maneuver* _maneuver) {
 	printManeuver(maneuver);
 	
 	pthread_mutex_lock(&queueMutex);
-	printf("Locked 3\n");
+	//printf("Locked 3\n");
 		
 	if (maneuverQueue.empty()) {
+		printf("BehaviorQueue:: In Set Next, queue empty, enqueueing new\n");
 		maneuverQueue.push(maneuver);
 	} else {
+		printf("BehaviorQueue:: In Set Next, queue not empty, replacing head\n");
 		Maneuver* curFront = maneuverQueue.front();
 		memcpy(curFront, maneuver, sizeof(Maneuver));
 	}
 	
 	pthread_mutex_unlock(&queueMutex);
-	printf("Unocked 3\n");
+	//printf("Unocked 3\n");
 	
 	return 0;
 }
@@ -333,14 +335,14 @@ int BehaviorQueue::loadFromScriptText(char* scriptText, int len) {
 	} 
 
 	pthread_mutex_lock(&queueMutex);
-	printf("Locked 4\n");
+	//printf("Locked 4\n");
 	for (int i = 0; i < maneuverVec.size(); i++) {
 		//this->_enqueue(maneuverVec[i]);
 		printf("Here***\n");
 		printManeuver(maneuverVec[i]);
 	}
 	pthread_mutex_unlock(&queueMutex);
-	printf("Unocked 4\n");
+	//printf("Unocked 4\n");
 
 	return 0;
 }
@@ -368,12 +370,12 @@ int BehaviorQueue::loadFromScriptFile(char* filename) {
 	} 
 
 	pthread_mutex_lock(&queueMutex);
-	printf("Locked 5\n");
+	//printf("Locked 5\n");
 	for (int i = 0; i < maneuverVec.size(); i++) {
 		this->_enqueue(maneuverVec[i]);
 	}
 	pthread_mutex_unlock(&queueMutex);
-	printf("Unocked 5\n");
+	//printf("Unocked 5\n");
 
 
 	return 0;
@@ -439,7 +441,7 @@ Maneuver* BehaviorQueue::getCurrentManeuver() {
 
 Maneuver* BehaviorQueue::getNextManeuver() {
 	pthread_mutex_lock(&queueMutex);
-	printf("Locked 6\n");
+	//printf("Locked 6\n");
 	Maneuver* maneuver = (Maneuver*) malloc(sizeof(Maneuver));	
 	if (maneuverQueue.empty()) {
 		maneuver->maneuverType = BEHAVIOR_NONE;
@@ -449,7 +451,7 @@ Maneuver* BehaviorQueue::getNextManeuver() {
 
 	memcpy(maneuver, maneuverQueue.front(), sizeof(Maneuver));
 	pthread_mutex_unlock(&queueMutex);
-	printf("Unocked 6\n");
+	//printf("Unocked 6\n");
 
 	return maneuver;
 }

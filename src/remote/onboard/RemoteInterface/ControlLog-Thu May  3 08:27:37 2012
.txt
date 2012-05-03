@@ -1,0 +1,15 @@
+1 --- Initializing
+Thu May  3 08:27:49 2012
+ --- Begin Pivot Turn Left 36 degrees
+Thu May  3 08:27:59 2012
+ --- Begin Pivot Turn Left 70 degrees
+Thu May  3 08:28:09 2012
+ --- Begin Pivot Turn Left 64 degrees
+Thu May  3 08:28:19 2012
+ --- Begin Pivot Turn Right 47 degrees
+Thu May  3 08:28:29 2012
+ --- Begin Pivot Turn Right 64 degrees
+Thu May  3 08:29:01 2012
+ --- Begin Move Forward at 9 m/s
+Thu May  3 08:29:11 2012
+ --- Begin Move Forward at 9 m/s

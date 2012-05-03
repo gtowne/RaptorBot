@@ -11,7 +11,9 @@ char* getCurTimeString() {
 }
 
 ControlInterface::ControlInterface() {
-	time(&timeLastManeuverStart);
+	//time(&timeLastManeuverStart);
+
+	justStarting = true;
 
 	char filenamebuff[256];
 	sprintf(filenamebuff, "ControlLog-%s.txt", getCurTimeString());
@@ -42,6 +44,7 @@ int ControlInterface::Move(char direction, float distance, float speed) {
 
 	outfile << getCurTimeString() << " --- Begin Move ";
 	time(&timeLastManeuverStart);
+	justStarting = false;
 
 	this->curManeuver.maneuverType = BEHAVIOR_MOVE;
 	this->curManeuver.direction = direction;
@@ -104,6 +107,7 @@ int ControlInterface::PivotTurn(char direction, float degrees) {
 
 	outfile << getCurTimeString() << " --- Begin Pivot Turn ";
 	time(&timeLastManeuverStart);
+	justStarting = false;
 
 	this->curManeuver.maneuverType = BEHAVIOR_PIVOT;
 	this->curManeuver.direction = direction;
@@ -149,6 +153,7 @@ int ControlInterface::ArcTurn(char direction, float degrees, float radius) {
 
 	outfile << getCurTimeString() << " --- Begin Arc Turn ";
 	time(&timeLastManeuverStart);
+	justStarting = false;
 
 	this->curManeuver.maneuverType = BEHAVIOR_ARC;
 	this->curManeuver.direction = direction;
@@ -205,17 +210,21 @@ int ControlInterface::ArcTurn(char direction) {
 }
 
 int ControlInterface::GetMSToManeuverCompletion() {
+	if (justStarting) {
+		return 0;
+	}
+
 	time_t curTime;
 
 	time(&curTime);	
 
 	double secsSinceLast = difftime(curTime, timeLastManeuverStart);
 
-	if (secsSinceLast > 10) {
+	if (secsSinceLast > 20) {
 		return 0;
 	}
 
-	double secsToComplete = 10 - secsSinceLast;
+	double secsToComplete = 20 - secsSinceLast;
 
 	int msToComplete = (int)(secsToComplete * 1000);
 

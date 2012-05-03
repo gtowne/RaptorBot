@@ -1,0 +1,19 @@
+1 --- Initializing
+Thu May  3 08:34:28 2012
+ --- Begin Move Forward 37 Meters at 9 m/s
+Thu May  3 08:34:38 2012
+ --- Begin Move Forward 65 Meters at 9 m/s
+Thu May  3 08:34:48 2012
+ --- Begin Move Forward 19 Meters at 9 m/s
+Thu May  3 08:34:58 2012
+ --- Begin Move Forward 19 Meters at 9 m/s
+Thu May  3 08:35:08 2012
+ --- Begin Move Forward 19 Meters at 9 m/s
+Thu May  3 08:35:18 2012
+ --- Begin Move Forward 19 Meters at 9 m/s
+Thu May  3 08:35:28 2012
+ --- Begin Move Forward 19 Meters at 9 m/s
+Thu May  3 08:35:38 2012
+ --- Begin Move Forward 19 Meters at 9 m/s
+Thu May  3 08:35:48 2012
+ --- Begin Move Forward 19 Meters at 9 m/s

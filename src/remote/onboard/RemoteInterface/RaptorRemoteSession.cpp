@@ -67,11 +67,6 @@ int RaptorRemoteSession::feedbackThreadRoutine() {
 		curManeuver = behaviorQueue.getCurrentManeuver();
 		nextManeuver = behaviorQueue.getNextManeuver();
 		msToCompletion = behaviorQueue.getMSToManeuverCompletion();
-
-		//printf("RaptorRemoteSession:: Sending feedback message\n");
-		//printf("RaptorRemoteSession:: Current Maneuver complete in %d MS:\n", msToCompletion);
-		//printManeuver(curManeuver);
-		//printManeuver(nextManeuver);
 		
 
 		bzero(feedbackSendBuffer, sizeof(FeedbackPacket));
@@ -145,25 +140,25 @@ int RaptorRemoteSession::feedbackThreadRoutine() {
 
 		switch(nextManeuver->direction) {
 		case FORWARDS:
-			thisPacket->nextManeuver = htonl(DIR_FORWARD);
+			thisPacket->nextDirection = htonl(DIR_FORWARD);
 			break;
 		case BACKWARDS:
-			thisPacket->nextManeuver = htonl(DIR_BACKWARD);
+			thisPacket->nextDirection = htonl(DIR_BACKWARD);
 			break;
 		case LEFT:
-			thisPacket->nextManeuver = htonl(DIR_LEFT);
+			thisPacket->nextDirection = htonl(DIR_LEFT);
 			break;
 		case RIGHT:
-			thisPacket->nextManeuver = htonl(DIR_RIGHT);
+			thisPacket->nextDirection = htonl(DIR_RIGHT);
 			break;
 		case FORWARDS_LEFT:
-			thisPacket->nextManeuver = htonl(DIR_FORWARD_LEFT);
+			thisPacket->nextDirection = htonl(DIR_FORWARD_LEFT);
 			break;
 		case FORWARDS_RIGHT:
-			thisPacket->nextManeuver = htonl(DIR_FORWARD_RIGHT);			
+			thisPacket->nextDirection = htonl(DIR_FORWARD_RIGHT);			
 			break;
 		case BACKWARDS_LEFT:
-			thisPacket->nextManeuver = htonl(DIR_BACKWARD_LEFT);
+			thisPacket->nextDirection = htonl(DIR_BACKWARD_LEFT);
 			break;
 		case BACKWARDS_RIGHT:
 			thisPacket->nextManeuver = htonl(DIR_BACKWARD_RIGHT);
@@ -174,6 +169,11 @@ int RaptorRemoteSession::feedbackThreadRoutine() {
 		thisPacket->nextSpeed = htonl((int)(nextManeuver->speed * FLOAT_SCALE_FACTOR));	
 		thisPacket->nextDistance = htonl((int)(nextManeuver->distance * FLOAT_SCALE_FACTOR));
 		thisPacket->nextRadius = htonl((int)(nextManeuver->radius * FLOAT_SCALE_FACTOR));
+
+		printf("RaptorRemoteSession:: Sending feedback message\n");
+		printf("RaptorRemoteSession:: Current Maneuver complete in %d MS:\n", msToCompletion);
+		printManeuver(curManeuver);
+		printManeuver(nextManeuver);
 
 		write(this->feedbackSocketFD, this->feedbackSendBuffer, sizeof(FeedbackPacket));
 	}

@@ -11,3 +11,4 @@ ControlInterface.o: ControlInterface.cpp ControlInterface.h
 
 clean:
 	rm -f *.o
+	rm BehaviorTest
