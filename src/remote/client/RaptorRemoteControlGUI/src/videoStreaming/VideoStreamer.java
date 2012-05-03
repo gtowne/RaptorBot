@@ -26,7 +26,7 @@ public class VideoStreamer extends Thread {
 	
 	public static final int LOCAL_PORT_NO = 7777;
 	public static final int RECEIVE_BUFFER_SIZE = 1024 * 768 * 4;
-	public static final int TARGET_NUM_BUFFERED_FRAMES = 5;
+	public static final int TARGET_NUM_BUFFERED_FRAMES = 3;
 	
 	private DatagramSocket socket;
 	private DatagramPacket receivePacket;

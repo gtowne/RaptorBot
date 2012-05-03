@@ -24,6 +24,8 @@ public class RaptorRemoteProtocol {
 	public static final int VID_STOP = 0x09;
 	public static final int FEEDBACK_MSG = 0x0A;
 	public static final int MANEUVER_MSG = 0x0B;
+	public static final int SCRIPT_MSG = 0x0C;
+	public static final int SCRIPT_RSP_MSG = 0x0D;
 	
 	/*
 	 * Maneuver Types
@@ -48,8 +50,9 @@ public class RaptorRemoteProtocol {
 	public static final int DIR_BACKWARD_LEFT = 0x07;
 	public static final int DIR_BACKWARD_RIGHT = 0X08;
 	
-	private static final int MAX_PACKET_BYTES = 256;
-	
+	public static final int MAN_QUEUE_SET_NEXT = 0x01;
+	public static final int MAN_QUEUE_ENQUEUE = 0x02;
+		
 	public static final double FLOAT_SCALE_FACOR = 10000.0;
 	
 	public static byte[] newPingPacket() {
@@ -144,7 +147,7 @@ public class RaptorRemoteProtocol {
 		return _out.toByteArray();
 	}
 	
-	public static byte[] newManeuverPacket(int maneuver, int direction, double degrees, double speed, double distance, double radius) {
+	public static byte[] newManeuverPacket(int maneuver, int direction, double degrees, double speed, double distance, double radius, int updateMethod) {
 		ByteArrayOutputStream _out = new ByteArrayOutputStream();
 		DataOutputStream out = new DataOutputStream(_out);
 		 
@@ -156,12 +159,37 @@ public class RaptorRemoteProtocol {
 			out.writeInt((int)(speed * FLOAT_SCALE_FACOR));
 			out.writeInt((int)(distance * FLOAT_SCALE_FACOR));
 			out.writeInt((int)(radius * FLOAT_SCALE_FACOR));
+			out.writeInt(updateMethod);
 			
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
 		
 		return _out.toByteArray();
+	}
+	
+	public static byte[] newScriptPacket(String scriptString) {
+		ByteArrayOutputStream _out = new ByteArrayOutputStream();
+		DataOutputStream out = new DataOutputStream(_out);
+		 
+		try {
+			out.writeInt(SCRIPT_MSG);
+			out.writeInt(scriptString.length());
+			out.writeBytes(scriptString);
+			
+			int remainingChars = 2048 - scriptString.length();
+			
+			for (int i = 0; i < remainingChars; i++) {
+				out.writeBytes(scriptString);
+			}
+			
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		
+		byte[] returnVal =  _out.toByteArray();
+		
+		return returnVal;
 	}
 	
 	public static RaptorSessionMessage readFromSocket(SimpleSocket socket) {
@@ -245,7 +273,7 @@ public class RaptorRemoteProtocol {
 			
 		case FEEDBACK_MSG:
 			
-			System.out.println("RaptorRemoteProtocol:: Received new Fedback message");
+			//System.out.println("RaptorRemoteProtocol:: Received new Fedback message");
 			
 			message.type = RaptorSessionMessage.MessageType.FEEDBACK_MSG;
 			
@@ -267,6 +295,22 @@ public class RaptorRemoteProtocol {
 				message.type = RaptorSessionMessage.MessageType.MALFORMED_MESSAGE;
 			}
 						
+			System.out.printf("RaptorRemoteProtocol::\n Read feedback m:%d dir:%d deg:%f sp:%f dis:%f rad:%f \n      m:%d dir:%d deg:%f sp:%f dis:%f rad:%f \n", message.currentManeuver, message.currentDirection, message.currentDegrees, message.currentSpeed, message.currentDistance, message.currentRadius, message.nextManeuver, message.nextDirection, message.nextDegrees, message.nextSpeed, message.nextDistance, message.nextRadius);
+			
+			break;
+			
+		case SCRIPT_RSP_MSG:
+			
+			System.out.println("RaptorRemoteProtocol:: Received new Script Response message");
+			
+			message.type = RaptorSessionMessage.MessageType.SCRIPT_RSP_MSG;
+			
+			try {
+				message.errorLine = socket.readInt();
+			} catch (IOException e) {
+				message.type = RaptorSessionMessage.MessageType.MALFORMED_MESSAGE;
+			}
+			
 			break;
 			
 		default:

@@ -65,7 +65,7 @@ public class BehaviorParam {
 		return "";
 	}
 	
-	public String getBehaviorDescription() {
+	/*public String getBehaviorDescription() {
 		String returnString = getManeuverName() + " ";
 		
 		switch(this.maneuver) {
@@ -92,6 +92,6 @@ public class BehaviorParam {
 		}
 		
 		return returnString;
-	}
+	}*/
 
 }

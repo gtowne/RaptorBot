@@ -13,15 +13,15 @@ import videoStreaming.VideoStreamer;
 
 
 public class RaptorRemoteSession {
-	private SimpleSocket controlSocket;
-	private SimpleSocket feedbackSocket;
+	protected SimpleSocket controlSocket;
+	protected SimpleSocket feedbackSocket;
 	
-	private Semaphore controlSocketMutex;
+	protected Semaphore controlSocketMutex;
 	
-	private FeedbackListingThread feedbackListeningThread;
+	protected FeedbackListingThread feedbackListeningThread;
 		
-	private boolean sessionIsActive;
-	private RaptorRemoteUserInterface thisUI;
+	protected boolean sessionIsActive;
+	protected RaptorRemoteUserInterface thisUI;
 	
 	public RaptorRemoteSession(RaptorRemoteUserInterface thisUI, SimpleSocket controlSocket, SimpleSocket feedbackSocket) {
 		System.out.println("RaptorRemoteSession:: Initializing new session");
@@ -37,7 +37,7 @@ public class RaptorRemoteSession {
 		
 	}
 	
-	public void sendMoveCommand(BehaviorParam.MoveDirection direction, double speed, double distance) {
+	public void sendMoveCommand(BehaviorParam.MoveDirection direction, double speed, double distance, boolean setNext) {
 		try {
 			controlSocketMutex.acquire();
 		} catch (InterruptedException e) {
@@ -54,9 +54,13 @@ public class RaptorRemoteSession {
 			_direction = RaptorRemoteProtocol.DIR_BACKWARD;
 		}
 		
+		int updateMethod = RaptorRemoteProtocol.MAN_QUEUE_ENQUEUE;
+		if (setNext) {
+			updateMethod = RaptorRemoteProtocol.MAN_QUEUE_SET_NEXT;
+		}
 		
 		try {
-			controlSocket.writeBytes(RaptorRemoteProtocol.newManeuverPacket(maneuver, _direction, 0, speed, distance, 0));
+			controlSocket.writeBytes(RaptorRemoteProtocol.newManeuverPacket(maneuver, _direction, 0, speed, distance, 0, updateMethod));
 		} catch (IOException e) {
 			System.out.println("RaptorRemoteSession:: Error, could not send maneuver packet");
 			return;
@@ -66,7 +70,7 @@ public class RaptorRemoteSession {
 		controlSocketMutex.release();
 	}
 	
-	public void sendArcCommand(BehaviorParam.ArcDirection direction, double speed, double degrees, double radius) {
+	public void sendArcCommand(BehaviorParam.ArcDirection direction, double speed, double degrees, double radius, boolean setNext) {
 		try {
 			controlSocketMutex.acquire();
 		} catch (InterruptedException e) {
@@ -96,8 +100,13 @@ public class RaptorRemoteSession {
 		}
 		
 		
+		int updateMethod = RaptorRemoteProtocol.MAN_QUEUE_ENQUEUE;
+		if (setNext) {
+			updateMethod = RaptorRemoteProtocol.MAN_QUEUE_SET_NEXT;
+		}
+		
 		try {
-			controlSocket.writeBytes(RaptorRemoteProtocol.newManeuverPacket(maneuver, _direction, degrees, speed, 0, radius));
+			controlSocket.writeBytes(RaptorRemoteProtocol.newManeuverPacket(maneuver, _direction, degrees, speed, 0, radius, updateMethod));
 		} catch (IOException e) {
 			System.out.println("RaptorRemoteSession:: Error, could not send maneuver packet");
 			return;
@@ -107,7 +116,7 @@ public class RaptorRemoteSession {
 		controlSocketMutex.release();
 	}
 	
-	public void sendPivotCommand(BehaviorParam.PivotDirection pivotDir, double degrees) {
+	public void sendPivotCommand(BehaviorParam.PivotDirection pivotDir, double degrees, boolean setNext) {
 		try {
 			controlSocketMutex.acquire();
 		} catch (InterruptedException e) {
@@ -128,9 +137,14 @@ public class RaptorRemoteSession {
 			break;
 		}
 		
+		int updateMethod = RaptorRemoteProtocol.MAN_QUEUE_ENQUEUE;
+		if (setNext) {
+			updateMethod = RaptorRemoteProtocol.MAN_QUEUE_SET_NEXT;
+		}
+		
 		
 		try {
-			controlSocket.writeBytes(RaptorRemoteProtocol.newManeuverPacket(maneuver, _direction, degrees, 0, 0, 0));
+			controlSocket.writeBytes(RaptorRemoteProtocol.newManeuverPacket(maneuver, _direction, degrees, 0, 0, 0, updateMethod));
 		} catch (IOException e) {
 			System.out.println("RaptorRemoteSession:: Error, could not send maneuver packet");
 			return;
@@ -155,7 +169,15 @@ public class RaptorRemoteSession {
 				if (socket != null && socket.isConnected()) {
 					RaptorSessionMessage newMessage = RaptorRemoteProtocol.readFromSocket(socket);
 				
-					//System.out.println("RaptorRemoteSession::Received new feedback message");
+					if (newMessage.type == RaptorSessionMessage.MessageType.FEEDBACK_MSG) {
+						RaptorRemoteSession.this.thisUI.behaviorControlPanel.updateTimeToCompletion(newMessage.msToNext);
+												
+						String curStr = maneuverParamsToString(newMessage.currentManeuver, newMessage.currentDirection, newMessage.currentDegrees, newMessage.currentSpeed, newMessage.currentRadius, newMessage.currentDistance);
+						String nextStr = maneuverParamsToString(newMessage.nextManeuver, newMessage.nextDirection, newMessage.nextDegrees, newMessage.nextSpeed, newMessage.nextRadius, newMessage.nextDistance);
+						
+						RaptorRemoteSession.this.thisUI.behaviorControlPanel.updateCurrentManeuverString(curStr);
+						RaptorRemoteSession.this.thisUI.behaviorControlPanel.updateNextManeuverString(nextStr);
+					}
 				}
 			}
 			
@@ -164,8 +186,7 @@ public class RaptorRemoteSession {
 			try {
 				feedbackSocket.flush();
 				feedbackSocket.close();
-			} catch (IOException e) {
-				e.printStackTrace();
+			} catch (Exception e) {
 			}
 		}
 	}
@@ -240,6 +261,92 @@ public class RaptorRemoteSession {
 		
 		return true;
 	}
+	
+	public int sendScript(String scriptString) {
+		try {
+			controlSocket.writeBytes(RaptorRemoteProtocol.newScriptPacket(scriptString));
+			
+			RaptorSessionMessage reply = RaptorRemoteProtocol.readFromSocket(controlSocket);
+			
+			if (reply.type == RaptorSessionMessage.MessageType.SCRIPT_RSP_MSG) {
+				return reply.errorLine;
+			}
+		} catch (IOException e) {
+			return 1;
+		}
+		
+		return 1;
+	}
 
+	private String maneuverParamsToString(int maneuverType, int direction, double degrees, double speed, double radius, double distance) {
+		String manStr = "";
+		
+		switch(maneuverType) {
+		case RaptorRemoteProtocol.MAN_NONE:
+			manStr += "None ";
+			break;
+		case RaptorRemoteProtocol.MAN_MOVE:
+			manStr += "Move ";
+			
+			if (direction == RaptorRemoteProtocol.DIR_FORWARD) {
+				manStr += "forward ";
+			} else if (direction == RaptorRemoteProtocol.DIR_BACKWARD) {
+				manStr += "backward ";
+			}
+			
+			if (speed > 0) {
+				manStr += "at " + speed + " meters/s ";
+			}
+			
+			if (distance > 0) {
+				manStr += " for " + distance + " meters";
+			}
+			
+			break;
+		case RaptorRemoteProtocol.MAN_ARC:
+			manStr += "Arc turn ";
+			
+			switch(direction) {
+			case RaptorRemoteProtocol.DIR_FORWARD_LEFT:
+				manStr += "forward-left ";
+				break;
+			case RaptorRemoteProtocol.DIR_FORWARD_RIGHT:
+				manStr += "forward-right ";
+				break;
+			case RaptorRemoteProtocol.DIR_BACKWARD_LEFT:
+				manStr += "backward-left ";
+				break;
+			case RaptorRemoteProtocol.DIR_BACKWARD_RIGHT:
+				manStr += "backward-right ";
+				break;
+			}
+			
+			if (degrees > 0) {
+				manStr += degrees + " degrees ";
+			}
+			
+			if (radius > 0) {
+				manStr += "with radius " + radius + " meters";
+			}
+			
+			break;
+		case RaptorRemoteProtocol.MAN_PIVOT:
+			manStr += "Pivot turn ";
+			
+			if (direction == RaptorRemoteProtocol.DIR_LEFT) {
+				manStr += "left ";
+			} else if (direction == RaptorRemoteProtocol.DIR_RIGHT) {
+				manStr += "right ";
+			}
+			
+			if (degrees > 0) {
+				manStr += degrees + " degrees ";
+			}
+			
+			break;
+		}
+		
+		return manStr;
+	}
 	
 }

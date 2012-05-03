@@ -1,4 +1,5 @@
 package userInterface;
+import java.awt.BorderLayout;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.event.ActionEvent;
@@ -19,6 +20,9 @@ import behaviorControl.BehaviorParam;
 
 public class BehaviorControlPanel extends UIPanel {
 
+	protected JPanel infoPanel;
+	protected JPanel editPanel;
+	
 	protected JLabel speedLabel;
 	protected JSlider speedSlider;
 
@@ -35,6 +39,7 @@ public class BehaviorControlPanel extends UIPanel {
 	protected JComboBox newManeuverComboBox;
 
 	protected JButton updateManeuverButton;
+	protected JButton enqueueManeuverButton;
 
 	protected JLabel maneuverParametersLabel;
 
@@ -44,15 +49,25 @@ public class BehaviorControlPanel extends UIPanel {
 	protected DefaultComboBoxModel pivotDirectionComboBoxModel;
 	protected DefaultComboBoxModel arcDirectionComboBoxModel;
 
+	private JLabel distanceLabel;
+	private JSlider distanceSlider;
+	
 	private JLabel degreesLabel;
 	private JSlider degreesSlider;
 	
 	private JLabel radiusLabel;
 	private JSlider radiusSlider;
 
+
 	public BehaviorControlPanel(RaptorRemoteUserInterface parentUI) {
-		super(parentUI);
-		this.setLayout(new GridBagLayout());
+		super(parentUI);		
+		this.setLayout(new BorderLayout());
+		
+		infoPanel = new JPanel(new GridBagLayout());
+		editPanel = new JPanel(new GridBagLayout());
+		
+		this.add(infoPanel, BorderLayout.PAGE_START);
+		this.add(editPanel, BorderLayout.CENTER);
 
 		GridBagConstraints labelConstraints = new GridBagConstraints();
 		labelConstraints.weightx = .1;
@@ -70,6 +85,46 @@ public class BehaviorControlPanel extends UIPanel {
 		centerControlConstraints.ipadx = 5;
 		centerControlConstraints.ipady = 5;
 
+		currentManeuverLabel = new JLabel("Current Maneuver:");
+		labelConstraints.gridy++;
+		infoPanel.add(currentManeuverLabel, labelConstraints);
+
+		currentManeuverValueLabel = new JLabel("None");
+		centerControlConstraints.gridy++;
+		infoPanel.add(currentManeuverValueLabel, centerControlConstraints);
+
+		timeToCompletionLabel = new JLabel("Time to Completion:");
+		labelConstraints.gridy++;
+		infoPanel.add(timeToCompletionLabel, labelConstraints);
+
+		timeToCompletionValueLabel = new JLabel(getTimeString(0,0));
+		centerControlConstraints.gridy++;
+		infoPanel.add(timeToCompletionValueLabel, centerControlConstraints);
+		
+		nextManeuverLabel = new JLabel("Next Queued Maneuver:");
+		labelConstraints.gridy++;
+		infoPanel.add(nextManeuverLabel, labelConstraints);
+		
+		nextManeuverValueLabel = new JLabel("None");
+		centerControlConstraints.gridy++;
+		infoPanel.add(nextManeuverValueLabel, centerControlConstraints);
+		
+		labelConstraints = new GridBagConstraints();
+		labelConstraints.weightx = .1;
+		labelConstraints.anchor = GridBagConstraints.EAST;
+		labelConstraints.gridx = 0;
+		labelConstraints.gridy = 0;
+		labelConstraints.ipadx = 5;
+		labelConstraints.ipady = 5;
+
+		centerControlConstraints = new GridBagConstraints();
+		centerControlConstraints.weightx = .8;
+		centerControlConstraints.anchor = GridBagConstraints.WEST;
+		centerControlConstraints.gridx = 1;
+		centerControlConstraints.gridy = 0;
+		centerControlConstraints.ipadx = 5;
+		centerControlConstraints.ipady = 5;
+
 		GridBagConstraints rightControlConstraints = new GridBagConstraints();
 		rightControlConstraints.weightx = .8;
 		rightControlConstraints.anchor = GridBagConstraints.WEST;
@@ -77,48 +132,26 @@ public class BehaviorControlPanel extends UIPanel {
 		rightControlConstraints.gridy = 0;
 		rightControlConstraints.ipadx = 5;
 		rightControlConstraints.ipady = 5;
-
+		
 		speedLabel = new JLabel("Speed (m/s):");
-		this.add(speedLabel, labelConstraints);
+		labelConstraints.gridy++;
+		editPanel.add(speedLabel, labelConstraints);
 
 		speedSlider = new JSlider(JSlider.HORIZONTAL, BehaviorParam.MIN_SPEED, BehaviorParam.MAX_SPEED, 0);
 		speedSlider.setPaintTicks(true);
 		speedSlider.setMajorTickSpacing((BehaviorParam.MAX_SPEED - BehaviorParam.MIN_SPEED) / 5);
 		speedSlider.setMinorTickSpacing(1);
 		speedSlider.setPaintLabels(true);
-		this.add(speedSlider, centerControlConstraints);
-
-		currentManeuverLabel = new JLabel("Current Maneuver:");
-		labelConstraints.gridy++;
-		this.add(currentManeuverLabel, labelConstraints);
-
-		currentManeuverValueLabel = new JLabel("None");
 		centerControlConstraints.gridy++;
-		this.add(currentManeuverValueLabel, centerControlConstraints);
-
-		timeToCompletionLabel = new JLabel("Time to Completion:");
-		labelConstraints.gridy++;
-		this.add(timeToCompletionLabel, labelConstraints);
-
-		timeToCompletionValueLabel = new JLabel(getTimeString(0,0));
-		centerControlConstraints.gridy++;
-		this.add(timeToCompletionValueLabel, centerControlConstraints);
-		
-		nextManeuverLabel = new JLabel("Next Queued Maneuver:");
-		labelConstraints.gridy++;
-		this.add(nextManeuverLabel, labelConstraints);
-		
-		nextManeuverValueLabel = new JLabel("None");
-		centerControlConstraints.gridy++;
-		this.add(nextManeuverValueLabel, centerControlConstraints);
+		editPanel.add(speedSlider, centerControlConstraints);
 
 		newManeuverLabel = new JLabel("Edit Maneuver:");
 		labelConstraints.gridy++;
-		this.add(newManeuverLabel, labelConstraints);
+		editPanel.add(newManeuverLabel, labelConstraints);
 
 		newManeuverComboBox = new JComboBox(BehaviorParam.BEHAVIOR_NAMES);
 		centerControlConstraints.gridy++;
-		this.add(newManeuverComboBox, centerControlConstraints);
+		editPanel.add(newManeuverComboBox, centerControlConstraints);
 		newManeuverComboBox.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				BehaviorControlPanel.this.update();
@@ -129,14 +162,14 @@ public class BehaviorControlPanel extends UIPanel {
 
 		maneuverParametersLabel = new JLabel("Maneuver Parameters:");
 		centerControlConstraints.gridy++;
-		this.add(maneuverParametersLabel, centerControlConstraints);
+		editPanel.add(maneuverParametersLabel, centerControlConstraints);
 		
 		int maneuverParametersLabelY = centerControlConstraints.gridy;
 
 		directionLabel = new JLabel("Direction:");
 		centerControlConstraints.anchor = GridBagConstraints.EAST;
 		centerControlConstraints.gridy = maneuverParametersLabelY + 1;
-		this.add(directionLabel, centerControlConstraints);
+		editPanel.add(directionLabel, centerControlConstraints);
 
 		moveDirectionComboBoxModel = new DefaultComboBoxModel(BehaviorParam.MOVE_DIRECTION_NAMES);
 		pivotDirectionComboBoxModel = new DefaultComboBoxModel(BehaviorParam.PIVOT_DIRECTION_NAMES);
@@ -145,16 +178,33 @@ public class BehaviorControlPanel extends UIPanel {
 		directionComboBox = new JComboBox();
 		rightControlConstraints.gridy = maneuverParametersLabelY + 1;
 		directionComboBox.setVerifyInputWhenFocusTarget(false);
-		this.add(directionComboBox, rightControlConstraints);
+		editPanel.add(directionComboBox, rightControlConstraints);
 		directionComboBox.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				BehaviorControlPanel.this.update();
+			}
+		});
+		
+		distanceLabel = new JLabel("Distance (m)");
+		centerControlConstraints.gridy++;
+		editPanel.add(distanceLabel, centerControlConstraints);
+		
+		distanceSlider = new JSlider(JSlider.HORIZONTAL, 0, 100, 0);
+		distanceSlider.setMajorTickSpacing(10);
+		distanceSlider.setMinorTickSpacing(2);
+		distanceSlider.setPaintTicks(true);
+		distanceSlider.setPaintLabels(true);
+		rightControlConstraints.gridy++;
+		editPanel.add(distanceSlider, rightControlConstraints);
+		distanceSlider.addChangeListener(new ChangeListener() {
+			public void stateChanged(ChangeEvent e) {
 				BehaviorControlPanel.this.update();
 			}
 		});
 
 		degreesLabel = new JLabel("Degrees");
 		centerControlConstraints.gridy++;
-		this.add(degreesLabel, centerControlConstraints);
+		editPanel.add(degreesLabel, centerControlConstraints);
 
 		degreesSlider = new JSlider(JSlider.HORIZONTAL, 0, 90, 0);
 		degreesSlider.setMajorTickSpacing(10);
@@ -162,16 +212,16 @@ public class BehaviorControlPanel extends UIPanel {
 		degreesSlider.setPaintTicks(true);
 		degreesSlider.setPaintLabels(true);
 		rightControlConstraints.gridy++;
-		this.add(degreesSlider, rightControlConstraints);
+		editPanel.add(degreesSlider, rightControlConstraints);
 		degreesSlider.addChangeListener(new ChangeListener() {
 			public void stateChanged(ChangeEvent e) {
 				BehaviorControlPanel.this.update();
 			}
 		});
 		
-		radiusLabel = new JLabel("Radius");
+		radiusLabel = new JLabel("Radius (m)");
 		centerControlConstraints.gridy++;
-		this.add(radiusLabel, centerControlConstraints);
+		editPanel.add(radiusLabel, centerControlConstraints);
 		
 		radiusSlider = new JSlider(JSlider.HORIZONTAL, 0, 20, 0);
 		radiusSlider.setMajorTickSpacing(5);
@@ -179,51 +229,25 @@ public class BehaviorControlPanel extends UIPanel {
 		radiusSlider.setPaintTicks(true);
 		radiusSlider.setPaintLabels(true);
 		rightControlConstraints.gridy++;
-		this.add(radiusSlider, rightControlConstraints);
+		editPanel.add(radiusSlider, rightControlConstraints);
 		
 		updateManeuverButton = new JButton("Update Next");
 		centerControlConstraints.gridy = Math.max(rightControlConstraints.gridy, centerControlConstraints.gridy) + 1;
 		centerControlConstraints.anchor = GridBagConstraints.CENTER;
-		this.add(updateManeuverButton, centerControlConstraints);
+		editPanel.add(updateManeuverButton, centerControlConstraints);
 		updateManeuverButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				if (BehaviorControlPanel.this.parentUI.remoteSession == null || !BehaviorControlPanel.this.parentUI.remoteSession.isActive()) {
-					JOptionPane.showMessageDialog(null, "No session is currently active to update maneuver.", "Error", JOptionPane.WARNING_MESSAGE);
-					return;
-				}
-				
-				BehaviorParam.Maneuver selectedManeuver =  getManeuverByIndex(BehaviorControlPanel.this.newManeuverComboBox.getSelectedIndex());
-
-				int speedSetting = BehaviorControlPanel.this.speedSlider.getValue();
-				int degreesSetting = BehaviorControlPanel.this.degreesSlider.getValue();
-				int radiusSetting = -1;
-				int distanceSetting = -1;
-
-				switch (selectedManeuver) {
-				case MOVE:
-
-					BehaviorParam.MoveDirection moveDir = getMoveDirectionByIndex(BehaviorControlPanel.this.directionComboBox.getSelectedIndex());
-
-					BehaviorControlPanel.this.parentUI.remoteSession.sendMoveCommand(moveDir, speedSetting, distanceSetting);
-
-					break;
-
-				case ARC_TURN:
-
-					BehaviorParam.ArcDirection arcDir = getArcDirectionByIndex(BehaviorControlPanel.this.directionComboBox.getSelectedIndex());
-
-					BehaviorControlPanel.this.parentUI.remoteSession.sendArcCommand(arcDir, speedSetting, degreesSetting, radiusSetting);
-					break;
-
-				case PIVOT_TURN:
-
-					BehaviorParam.PivotDirection pivotDir = getPivotDirectionByIndex(BehaviorControlPanel.this.directionComboBox.getSelectedIndex());
-
-					BehaviorControlPanel.this.parentUI.remoteSession.sendPivotCommand(pivotDir, degreesSetting);
-					break;
-				}
-
-				BehaviorControlPanel.this.update();
+				BehaviorControlPanel.this.handleSendManeuver(true);
+			}
+		});
+		
+		enqueueManeuverButton = new JButton("Enqueue");
+		rightControlConstraints.gridy = centerControlConstraints.gridy;
+		rightControlConstraints.anchor = GridBagConstraints.CENTER;
+		editPanel.add(enqueueManeuverButton, rightControlConstraints);
+		enqueueManeuverButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				BehaviorControlPanel.this.handleSendManeuver(false);
 			}
 		});
 
@@ -231,6 +255,49 @@ public class BehaviorControlPanel extends UIPanel {
 
 	}
 
+	// if parameter setNext is true, then this maneuver will replace the next
+	// maneuver currently at the head of the queue, else it will be considered
+	// and enqueue message and will go to the back of the queue
+	protected void handleSendManeuver(boolean setNext) {
+		if (this.parentUI.remoteSession == null || !this.parentUI.remoteSession.isActive()) {
+			JOptionPane.showMessageDialog(null, "No session is currently active to update maneuver.", "Error", JOptionPane.WARNING_MESSAGE);
+			return;
+		}
+		
+		BehaviorParam.Maneuver selectedManeuver =  getManeuverByIndex(this.newManeuverComboBox.getSelectedIndex());
+
+		int speedSetting = this.speedSlider.getValue();
+		int degreesSetting = this.degreesSlider.getValue();
+		int radiusSetting = this.radiusSlider.getValue();
+		int distanceSetting = this.distanceSlider.getValue();
+
+		switch (selectedManeuver) {
+		case MOVE:
+
+			BehaviorParam.MoveDirection moveDir = getMoveDirectionByIndex(this.directionComboBox.getSelectedIndex());
+
+			this.parentUI.remoteSession.sendMoveCommand(moveDir, speedSetting, distanceSetting, setNext);
+
+			break;
+
+		case ARC_TURN:
+
+			BehaviorParam.ArcDirection arcDir = getArcDirectionByIndex(this.directionComboBox.getSelectedIndex());
+
+			this.parentUI.remoteSession.sendArcCommand(arcDir, speedSetting, degreesSetting, radiusSetting, setNext);
+			break;
+
+		case PIVOT_TURN:
+
+			BehaviorParam.PivotDirection pivotDir = getPivotDirectionByIndex(this.directionComboBox.getSelectedIndex());
+
+			this.parentUI.remoteSession.sendPivotCommand(pivotDir, degreesSetting, setNext);
+			break;
+		}
+
+		this.update();
+	}
+	
 	private void setViewForSelectedManeuver(BehaviorParam.Maneuver maneuver) {
 		directionLabel.setEnabled(false);
 		directionComboBox.setEnabled(false);
@@ -238,12 +305,16 @@ public class BehaviorControlPanel extends UIPanel {
 		degreesSlider.setEnabled(false);
 		radiusLabel.setEnabled(false);
 		radiusSlider.setEnabled(false);
+		distanceLabel.setEnabled(false);
+		distanceSlider.setEnabled(false);
 
 		switch (maneuver) {
 		case MOVE:
 			directionComboBox.setModel(moveDirectionComboBoxModel);
 			directionLabel.setEnabled(true);
 			directionComboBox.setEnabled(true);
+			distanceLabel.setEnabled(true);
+			distanceSlider.setEnabled(true);
 			break;
 			
 		case ARC_TURN:
@@ -267,6 +338,48 @@ public class BehaviorControlPanel extends UIPanel {
 			degreesSlider.setEnabled(true);
 			break;
 		}
+	}
+	
+	public void updateCurrentManeuverString(String currentManeuver) {
+		if (currentManeuver != null) {
+			this.currentManeuverValueLabel.setText(currentManeuver);
+		}
+	}
+	
+	public void updateNextManeuverString(String nextManeuver) {
+		if (nextManeuver != null) {
+			this.nextManeuverValueLabel.setText(nextManeuver);
+		}
+	}
+	
+	public void updateTimeToCompletion(int _ms) {
+		int secs = _ms / 1000;
+		int ms = _ms - (secs * 1000);
+		int mins = secs / 60;
+		secs = secs - (mins * 60);
+		
+		String timeStr = "";
+		
+		if (mins <= 0) {
+			timeStr += "00 : ";
+		} else if (mins < 10) {
+			timeStr += "0" + mins + " : ";
+		} else if (mins >= 10) {
+			timeStr += mins + " : ";
+		}
+		
+		if (secs <= 0) {
+			timeStr += "00 . ";
+		} else if (secs < 10) {
+			timeStr += "0" + secs + " . ";
+		} else if (secs >= 10) {
+			timeStr += secs + " . ";
+		}
+		
+		timeStr += ms;
+		
+		this.timeToCompletionValueLabel.setText(timeStr);
+		
 	}
 
 	private void update() {

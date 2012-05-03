@@ -129,7 +129,7 @@ public class RaptorRemoteClient {
 			
 			for (int i = firstToTry; i < upTo; i++) {
 				resultsArr[i] = null;
-				if (i != myExtension) {
+				//if (i != myExtension) {
 										
 					try {
 						socket = new SimpleSocket();
@@ -155,7 +155,7 @@ public class RaptorRemoteClient {
 					}
 						
 					try{socket.close();} catch (Exception _e) {continue;}
-				}
+				//}
 			}
 		}
 	}
